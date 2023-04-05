@@ -1,0 +1,6 @@
+//install dependencies
+npm install
+
+https://balajidharma.medium.com/how-to-migrating-from-laravel-mix-to-vite-fbb912237844
+
+npm install --save-dev vite laravel-vite-plugin
