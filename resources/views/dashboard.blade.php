@@ -17,6 +17,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
         />
+        {{--  --}}
         <title>Home | BookingBuddy</title>
     </head>
     <body class="text-gray-800 antialiased">
