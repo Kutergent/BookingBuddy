@@ -1,722 +1,1065 @@
 <x-app-layout>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <link rel="shortcut icon" href="./assets/img/favicon.ico" />
-        <link
-        rel="apple-touch-icon"
-        sizes="76x76"
-        href="./assets/img/apple-icon.png"
-        />
-        <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        />
-        <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
-        />
-        {{--  --}}
-        <title>Home | BookingBuddy</title>
-    </head>
-    <body class="text-gray-800 antialiased">
-        <main>
-        <div
-            class="relative pt-16 pb-32 flex content-center items-center justify-center"
-            style="min-height: 75vh;"
-        >
-            <div
-            class="absolute top-0 w-full h-full bg-center bg-cover"
-            style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'
-            >
-            <span
-                id="blackOverlay"
-                class="w-full h-full absolute opacity-75 bg-black"
-            ></span>
-            </div>
-            <div class="container relative mx-auto">
-            <div class="items-center flex flex-wrap">
-                <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                <div class="pr-12">
-                    <h1 class="text-white font-semibold text-5xl">
-                    Your story starts with us
-                    </h1>
-                    <p class="mt-4 text-lg text-gray-300">
-                    <b>BookingBuddy</b>
-                    is a web-based reservation application designed to help businesses manage reservations and bookings efficiently. With <b>BookingBuddy</b>, customers can easily search for available reservations and make bookings online, while businesses can manage bookings, set custom rules and restrictions, and track performance using the platform's analytics and reporting tools.
-                    </p>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div
-            class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-            style="height: 70px;"
-            >
-            <svg
-                class="absolute bottom-0 overflow-hidden"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-            >
-                <polygon
-                class="text-gray-300 fill-current"
-                points="2560 0 2560 100 0 100"
-                ></polygon>
-            </svg>
-            </div>
-        </div>
-        <section class="pb-20 bg-gray-300 -mt-24">
-            <div class="container mx-auto px-4">
-            <div class="flex flex-wrap">
-                <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-                >
-                    <div class="px-4 py-5 flex-auto">
-                    <div
-                        class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400"
-                    >
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h6 class="text-xl font-semibold">Awarded Agency</h6>
-                    <p class="mt-2 mb-4 text-gray-600">
-                        Divide details about your product or agency work into parts.
-                        A paragraph describing a feature will be enough.
-                    </p>
-                    </div>
-                </div>
-                </div>
-                <div class="w-full md:w-4/12 px-4 text-center">
-                <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-                >
-                    <div class="px-4 py-5 flex-auto">
-                    <div
-                        class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400"
-                    >
-                        <i class="fas fa-retweet"></i>
-                    </div>
-                    <h6 class="text-xl font-semibold">Sync All Your Booking Portals</h6>
-                    <p class="mt-2 mb-4 text-gray-600">
-                        BookingBuddy ensures that all your bookings are automatically synced across all your booking portals.
-                    </p>
-                    </div>
-                </div>
-                </div>
-                <div class="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"
-                >
-                    <div class="px-4 py-5 flex-auto">
-                    <div
-                        class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400"
-                    >
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h6 class="text-xl font-semibold">One Central Place</h6>
-                    <p class="mt-2 mb-4 text-gray-600">
-                        Your cockpit provides you with all relevant informationat a glance. View all bookings in one centralised view. 
-                    </p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="flex flex-wrap items-center mt-32">
-                <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
-                <div
-                    class="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100"
-                >
-                    <i class="fas fa-user-friends text-xl"></i>
-                </div>
-                <h3 class="text-3xl mb-2 font-semibold leading-normal">
-                    Features
-                </h3>
-                <p
-                    class="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700"
-                >
-                    BookingBuddy includes the following features:
-                </p>
-                <ul  class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
-                    <li>User registration and authentication</li>
-                    <li>Real-time availability updates</li>
-                    <li>Integration with payment gateways for secure payment processing</li>
-                    <li>Automated confirmation emails and/or SMS notifications</li>
-                    <li>Waitlist management to handle overbooking situations</li>
-                    <li>Ability to manage multiple locations and/or services</li>
-                    <li>Customizable booking rules and restrictions</li>
-                    <li>Reporting and analytics to track usage and performance</li>
-                    <li>Integration with calendar apps or social media platforms for sharing and promotion</li>
-                </ul>
 
-                <a
-                    href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-                    class="font-bold text-gray-800 mt-8"
-                    >Check BookingBudy!</a
-                >
-                
-                </div>
-                <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">
-                <div
-                    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600"
-                >
-                    <img
-                    alt="..."
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1051&amp;q=80"
-                    class="w-full align-middle rounded-t-lg"
-                    />
-                    <blockquote class="relative p-8 mb-4">
-                    <svg
-                        preserveAspectRatio="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 583 95"
-                        class="absolute left-0 w-full block"
-                        style="height: 95px; top: -94px;"
-                    >
-                        <polygon
-                        points="-30,95 583,95 583,65"
-                        class="text-pink-600 fill-current"
-                        ></polygon>
-                    </svg>
-                    <h4 class="text-xl font-bold text-white">
-                        Top Notch Services
-                    </h4>
-                    <p class="text-md font-light mt-2 text-white">
-                        The Arctic Ocean freezes every winter and much of the
-                        sea-ice then thaws every summer, and that process will
-                        continue whatever happens.
-                    </p>
-                    </blockquote>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        <section class="relative py-20">
-            <div
-            class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-            style="height: 80px;"
-            >
-            <svg
-                class="absolute bottom-0 overflow-hidden"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-            >
-                <polygon
-                class="text-white fill-current"
-                points="2560 0 2560 100 0 100"
-                ></polygon>
-            </svg>
-            </div>
-            <div class="container mx-auto px-4">
-            <div class="items-center flex flex-wrap">
-                <div class="w-full md:w-4/12 ml-auto mr-auto px-4">
-                <img
-                    alt="..."
-                    class="max-w-full rounded-lg shadow-lg"
-                    src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80"
-                />
-                </div>
-                <div class="w-full md:w-5/12 ml-auto mr-auto px-4">
-                <div class="md:pr-12">
-                    <div
-                    class="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300"
-                    >
-                    <i class="fas fa-rocket text-xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-semibold">Getting Started</h3>
-                    <p class="mt-4 text-lg leading-relaxed text-gray-600">
-                    To use BookingBuddy, simply create an account and follow the steps to set up your business profile and booking options. Customers can then search for available reservations and make bookings directly from the platform.
-                    </p>
-                    <ul class="list-none mt-6">
-                    <li class="py-2">
-                        <div class="flex items-center">
-                        <div>
-                            <span
-                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3"
-                            ><i class="fas fa-fingerprint"></i
-                            ></span>
-                        </div>
-                        <div>
-                            <h4 class="text-gray-600">
-                            Carefully developed components
-                            </h4>
-                        </div>
-                        </div>
-                    </li>
-                    <li class="py-2">
-                        <div class="flex items-center">
-                        <div>
-                            <span
-                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3"
-                            ><i class="fab fa-html5"></i
-                            ></span>
-                        </div>
-                        <div>
-                            <h4 class="text-gray-600">Amazing UI examples</h4>
-                        </div>
-                        </div>
-                    </li>
-                    <li class="py-2">
-                        <div class="flex items-center">
-                        <div>
-                            <span
-                            class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3"
-                            ><i class="far fa-paper-plane"></i
-                            ></span>
-                        </div>
-                        <div>
-                            <h4 class="text-gray-600">Dynamic components</h4>
-                        </div>
-                        </div>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        <section class="pt-20 pb-48">
-            <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center text-center mb-24">
-                <div class="w-full lg:w-6/12 px-4">
-                <h2 class="text-4xl font-semibold">Requirements</h2>
-                <p class="text-lg leading-relaxed m-4 text-gray-600">
-                     BookingBuddy is a web-based application that can be accessed from any modern web browser. Businesses will need to have an internet connection and a device that can connect to the internet in order to use the application.
-                </p>
-                </div>
-            </div>
-            <div class="flex flex-wrap">
-                <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                <div class="px-6">
-                    <img
-                    alt="..."
-                    src="./assets/img/team-1-800x800.jpg"
-                    class="shadow-lg rounded-full max-w-full mx-auto"
-                    style="max-width: 120px;"
-                    />
-                    <div class="pt-6 text-center">
-                    <h5 class="text-xl font-bold">Raihansyah Ibrahim</h5>
-                    <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                        Senior Web Developer, UI/UX Designer, & Project Supervisor
-                    <div class="mt-6">
-                        <button
-                        class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-twitter"></i></button
-                        ><button
-                        class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-facebook-f"></i></button
-                        ><button
-                        class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-dribbble"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                <div class="px-6">
-                    <img
-                    alt="..."
-                    src="./assets/img/team-2-800x800.jpg"
-                    class="shadow-lg rounded-full max-w-full mx-auto"
-                    style="max-width: 120px;"
-                    />
-                    <div class="pt-6 text-center">
-                    <h5 class="text-xl font-bold">Arya Dharmapala</h5>
-                    <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                        Marketing Specialist & Lead System Analyst
-                    </p>
-                    <div class="mt-6">
-                        <button
-                        class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-google"></i></button
-                        ><button
-                        class="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-facebook-f"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                <div class="px-6">
-                    <img
-                    alt="..."
-                    src="./assets/img/team-3-800x800.jpg"
-                    class="shadow-lg rounded-full max-w-full mx-auto"
-                    style="max-width: 120px;"
-                    />
-                    <div class="pt-6 text-center">
-                    <h5 class="text-xl font-bold">Aurandi Emran</h5>
-                    <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                        WEB DEVELOPER & UI/UX Designer
-                    </p>
-                    <div class="mt-6">
-                        <button
-                        class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-google"></i></button
-                        ><button
-                        class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-twitter"></i></button
-                        ><button
-                        class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-instagram"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                <div class="px-6">
-                    <img
-                    alt="..."
-                    src="./assets/img/team-4-470x470.png"
-                    class="shadow-lg rounded-full max-w-full mx-auto"
-                    style="max-width: 120px;"
-                    />
-                    <div class="pt-6 text-center">
-                    <h5 class="text-xl font-bold">Reinert Yosua Rumagit</h5>
-                    <p class="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                        Founder and CEO
-                    </p>
-                    <div class="mt-6">
-                        <button
-                        class="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-dribbble"></i></button
-                        ><button
-                        class="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-google"></i></button
-                        ><button
-                        class="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-twitter"></i></button
-                        ><button
-                        class="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        >
-                        <i class="fab fa-instagram"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        <section class="pb-20 relative block bg-gray-900">
-            <div
-            class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-            style="height: 80px;"
-            >
-            <svg
-                class="absolute bottom-0 overflow-hidden"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-                version="1.1"
-                viewBox="0 0 2560 100"
-                x="0"
-                y="0"
-            >
-                <polygon
-                class="text-gray-900 fill-current"
-                points="2560 0 2560 100 0 100"
-                ></polygon>
-            </svg>
-            </div>
-            <div class="container mx-auto px-4 lg:pt-24 lg:pb-64">
-            <div class="flex flex-wrap text-center justify-center">
-                <div class="w-full lg:w-6/12 px-4">
-                <h2 class="text-4xl font-semibold text-white">Support</h2>
-                <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-                    If you have any questions or issues with BookingBuddy, please contact our support team at support@bookingbuddy.com.
-                </p>
-                </div>
-            </div>
-            <div class="flex flex-wrap mt-12 justify-center">
-                <div class="w-full lg:w-3/12 px-4 text-center">
-                <div
-                    class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-                >
-                    <i class="fas fa-medal text-xl"></i>
-                </div>
-                <h6 class="text-xl mt-5 font-semibold text-white">
-                    Excelent Services
-                </h6>
-                <p class="mt-2 mb-4 text-gray-500">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                </p>
-                </div>
-                <div class="w-full lg:w-3/12 px-4 text-center">
-                <div
-                    class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-                >
-                    <i class="fas fa-poll text-xl"></i>
-                </div>
-                <h5 class="text-xl mt-5 font-semibold text-white">
-                    Grow your market
-                </h5>
-                <p class="mt-2 mb-4 text-gray-500">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                </p>
-                </div>
-                <div class="w-full lg:w-3/12 px-4 text-center">
-                <div
-                    class="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
-                >
-                    <i class="fas fa-lightbulb text-xl"></i>
-                </div>
-                <h5 class="text-xl mt-5 font-semibold text-white">Launch time</h5>
-                <p class="mt-2 mb-4 text-gray-500">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                </p>
-                </div>
-            </div>
-            </div>
-        </section>
-        <section class="relative block py-24 lg:pt-0 bg-gray-900">
-            <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-                <div class="w-full lg:w-6/12 px-4">
-                <div
-                    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300"
-                >
-                    <div class="flex-auto p-5 lg:p-10">
-                    <h4 class="text-2xl font-semibold">Want to work with us?</h4>
-                    <p class="leading-relaxed mt-1 mb-4 text-gray-600">
-                        Complete this form and we will get back to you in 24 hours.
-                    </p>
-                    <div class="relative w-full mb-3 mt-8">
-                        <label
-                        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                        for="full-name"
-                        >Full Name</label
-                        ><input
-                        type="text"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Full Name"
-                        style="transition: all 0.15s ease 0s;"
-                        />
-                    </div>
-                    <div class="relative w-full mb-3">
-                        <label
-                        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                        for="email"
-                        >Email</label
-                        ><input
-                        type="email"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Email"
-                        style="transition: all 0.15s ease 0s;"
-                        />
-                    </div>
-                    <div class="relative w-full mb-3">
-                        <label
-                        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                        for="message"
-                        >Message</label
-                        ><textarea
-                        rows="4"
-                        cols="80"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Type a message..."
-                        ></textarea>
-                    </div>
-                    <div class="text-center mt-6">
-                        <button
-                        class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                        style="transition: all 0.15s ease 0s;"
-                        >
-                        Send Message
-                        </button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        </main>
-        <footer class="relative bg-gray-300 pt-8 pb-6">
+<noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <!-- <nav
+        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
         <div
-            class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-            style="height: 80px;"
+          class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
         >
-            <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-            >
-            <polygon
-                class="text-gray-300 fill-current"
-                points="2560 0 2560 100 0 100"
-            ></polygon>
-            </svg>
-        </div>
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap">
-            <div class="w-full lg:w-6/12 px-4">
-                <h4 class="text-3xl font-semibold">Let's keep in touch!</h4>
-                <h5 class="text-lg mt-0 mb-2 text-gray-700">
-                Find us on any of these platforms, we respond 1-2 business days.
-                </h5>
-                <div class="mt-6">
-                <button
-                    class="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
-                    type="button"
-                >
-                    <i class="flex fab fa-twitter"></i></button
-                ><button
-                    class="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
-                    type="button"
-                >
-                    <i class="flex fab fa-facebook-square"></i></button
-                ><button
-                    class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
-                    type="button"
-                >
-                    <i class="flex fab fa-dribbble"></i></button
-                ><button
-                    class="bg-white text-gray-900 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 p-3"
-                    type="button"
-                >
-                    <i class="flex fab fa-github"></i>
-                </button>
-                </div>
-            </div>
-            <div class="w-full lg:w-6/12 px-4">
-                <div class="flex flex-wrap items-top mb-6">
-                <div class="w-full lg:w-4/12 px-4 ml-auto">
-                    <span
-                    class="block uppercase text-gray-600 text-sm font-semibold mb-2"
-                    >Useful Links</span
-                    >
-                    <ul class="list-unstyled">
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/presentation"
-                        >About Us</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://blog.creative-tim.com"
-                        >Blog</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://www.github.com/creativetimofficial"
-                        >Github</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/bootstrap-themes/free"
-                        >Free Products</a
-                        >
-                    </li>
-                    </ul>
-                </div>
-                <div class="w-full lg:w-4/12 px-4">
-                    <span
-                    class="block uppercase text-gray-600 text-sm font-semibold mb-2"
-                    >Other Resources</span
-                    >
-                    <ul class="list-unstyled">
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
-                        >MIT License</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/terms"
-                        >Terms &amp; Conditions</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/privacy"
-                        >Privacy Policy</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                        class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/contact-us"
-                        >Contact Us</a
-                        >
-                    </li>
-                    </ul>
-                </div>
-                </div>
-            </div>
-            </div>
-            <hr class="my-6 border-gray-400" />
-            <div
-            class="flex flex-wrap items-center md:justify-between justify-center"
-            >
-            <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-                <div class="text-sm text-gray-600 font-semibold py-1">
-                Copyright © 2023 BookingBuddy by
+          <button
+            class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+            type="button"
+            onclick="toggleNavbar('example-collapse-sidebar')"
+          >
+            <i class="fas fa-bars"></i></button
+          >
+          <a
+            class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+            href="javascript:void(0)"
+          >
+            Tailwind Starter Kit
+          </a>
+          <ul class="md:hidden items-center flex flex-wrap list-none">
+            <li class="inline-block relative">
+              <a
+                class="text-blueGray-500 block py-1 px-3"
+                href="#pablo"
+                onclick="openDropdown(event,'notification-dropdown')"
+                ><i class="fas fa-bell"></i
+              ></a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="notification-dropdown"
+              >
                 <a
-                    href="https://www.creative-tim.com"
-                    class="text-gray-600 hover:text-gray-900"
-                    >Gamboet</a
-                >.
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
+              </div>
+            </li>
+            <li class="inline-block relative">
+              <a
+                class="text-blueGray-500 block"
+                href="#pablo"
+                onclick="openDropdown(event,'user-responsive-dropdown')"
+                ><div class="items-center flex">
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="./assets/img/team-1-800x800.jpg"
+                  /></span></div
+              ></a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-responsive-dropdown"
+              >
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
+              </div>
+            </li>
+          </ul>
+          <div
+            class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden"
+            id="example-collapse-sidebar"
+          >
+            <div
+              class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200"
+            >
+              <div class="flex flex-wrap">
+                <div class="w-6/12">
+                  <a
+                    class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                    href="javascript:void(0)"
+                  >
+                    Tailwind Starter Kit
+                  </a>
                 </div>
+                <div class="w-6/12 flex justify-end">
+                  <button
+                    type="button"
+                    class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
+                    onclick="toggleNavbar('example-collapse-sidebar')"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-            </div>
+            <form class="mt-6 mb-4 md:hidden">
+              <div class="mb-3 pt-0">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                />
+              </div>
+            </form>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+              <li class="items-center">
+                <a
+                  class="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                  href="#/dashboard"
+                  ><i class="fas fa-tv opacity-75 mr-2 text-sm"></i>
+                  Dashboard</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="#/landing"
+                  ><i class="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>
+                  Landing Page</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="#/profile"
+                  ><i class="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>
+                  Profile Page</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="#/login"
+                  ><i class="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>
+                  Login</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  href="#pablo"
+                  ><i
+                    class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"
+                  ></i>
+                  Register (soon)</a
+                >
+              </li>
+              <li class="items-center">
+                <a
+                  class="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                  href="#pablo"
+                  ><i class="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>
+                  Settings (soon)</a
+                >
+              </li>
+            </ul>
+            <hr class="my-4 md:min-w-full" />
+            <h6
+              class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+            >
+              Documentation
+            </h6>
+            <ul
+              class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4"
+            >
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/styles"
+                  ><i
+                    class="fas fa-paint-brush mr-2 text-blueGray-400 text-base"
+                  ></i>
+                  Styles</a
+                >
+              </li>
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/alerts"
+                  ><i class="fab fa-css3-alt mr-2 text-blueGray-400 text-base"></i>
+                  CSS Components</a
+                >
+              </li>
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/vue/alerts"
+                  ><i class="fab fa-vuejs mr-2 text-blueGray-400 text-base"></i>
+                  VueJS</a
+                >
+              </li>
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500  text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/react/alerts"
+                  ><i class="fab fa-react mr-2 text-blueGray-400 text-base"></i>
+                  React</a
+                >
+              </li>
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500  text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/angular/alerts"
+                  ><i class="fab fa-angular mr-2 text-blueGray-400 text-base"></i>
+                  Angular</a
+                >
+              </li>
+              <li class="inline-flex">
+                <a
+                  class="text-blueGray-700 hover:text-blueGray-500  text-sm block mb-4 no-underline font-semibold"
+                  href="#/documentation/javascript/alerts"
+                  ><i class="fab fa-js-square mr-2 text-blueGray-400 text-base"></i>
+                  Javascript</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-        </footer>
-    </body>
+      </nav> -->
+      <div class="relative md:ml-128 bg-blueGray-50">
+        <!-- <nav
+          class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+        >
+          <div
+            class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+          >
+            <a
+              class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+              href="./index.html"
+              >Dashboard</a
+            >
+            <form
+              class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
+            >
+              <div class="relative flex w-full flex-wrap items-stretch">
+                <span
+                  class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"
+                  ><i class="fas fa-search"></i
+                ></span>
+                <input
+                  type="text"
+                  placeholder="Search here..."
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
+                />
+              </div>
+            </form>
+            <ul
+              class="flex-col md:flex-row list-none items-center hidden md:flex"
+            >
+              <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+                <div class="items-center flex">
+                  <span
+                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
+                    ><img
+                      alt="..."
+                      class="w-full rounded-full align-middle border-none shadow-lg"
+                      src="./assets/img/team-1-800x800.jpg"
+                  /></span>
+                </div>
+              </a>
+              <div
+                class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+                style="min-width: 12rem;"
+                id="user-dropdown"
+              >
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Another action</a
+                ><a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Something else here</a
+                >
+                <div class="h-0 my-2 border border-solid border-blueGray-100"></div>
+                <a
+                  href="#pablo"
+                  class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+                  >Seprated link</a
+                >
+              </div>
+            </ul>
+          </div>
+        </nav> -->
+        <!-- Header -->
+        <div class="relative bg-black bg-opacity-80 md:pt-32 pb-32 pt-12">
+          <div class="px-4 md:px-10 mx-auto w-full">
+            <div>
+              <!-- Card stats -->
+              <div class="flex flex-wrap">
+                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                    <div class="flex-auto p-4">
+                      <div class="flex flex-wrap">
+                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                            Total Reservation
+                          </h5>
+                          <span class="font-semibold text-xl text-blueGray-700">
+                            897
+                          </span>
+                        </div>
+                        <div class="relative w-auto pl-4 flex-initial">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
+                            <i class="far fa-chart-bar"></i>
+                          </div>
+                        </div>
+                      </div>
+                        <p class="text-sm text-blueGray-400 mt-4">
+                        <span class="text-emerald-500 mr-2">
+                          <i class="fas fa-arrow-up"></i> 3.48%
+                        </span>
+                        <span class="whitespace-nowrap">
+                          Since last month
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                    <div class="flex-auto p-4">
+                      <div class="flex flex-wrap">
+                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                            New users
+                          </h5>
+                          <span class="font-semibold text-xl text-blueGray-700">
+                            2,356
+                          </span>
+                        </div>
+                        <div class="relative w-auto pl-4 flex-initial">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
+                            <i class="fas fa-chart-pie"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="text-sm text-blueGray-400 mt-4">
+                        <span class="text-red-500 mr-2">
+                          <i class="fas fa-arrow-down"></i> 3.48%
+                        </span>
+                        <span class="whitespace-nowrap">
+                          Since last week
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                    <div class="flex-auto p-4">
+                      <div class="flex flex-wrap">
+                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                            Sales
+                          </h5>
+                          <span class="font-semibold text-xl text-blueGray-700">
+                            924
+                          </span>
+                        </div>
+                        <div class="relative w-auto pl-4 flex-initial">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-pink-500">
+                            <i class="fas fa-users"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="text-sm text-blueGray-400 mt-4">
+                        <span class="text-orange-500 mr-2">
+                          <i class="fas fa-arrow-down"></i> 1.10%
+                        </span>
+                        <span class="whitespace-nowrap">
+                          Since yesterday
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                    <div class="flex-auto p-4">
+                      <div class="flex flex-wrap">
+                        <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                          <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+                            Performance
+                          </h5>
+                          <span class="font-semibold text-xl text-blueGray-700">
+                            49,65%
+                          </span>
+                        </div>
+                        <div class="relative w-auto pl-4 flex-initial">
+                          <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-cyan-300">
+                            <i class="fas fa-percent"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="text-sm text-blueGray-400 mt-4">
+                        <span class="text-emerald-500 mr-2">
+                          <i class="fas fa-arrow-up"></i> 12%
+                        </span>
+                        <span class="whitespace-nowrap">
+                          Since last month
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-4 md:px-10 mx-auto w-full -m-24">
+          <div class="flex flex-wrap">
+            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+              <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-800"
+              >
+                <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                  <div class="flex flex-wrap items-center">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                      <h6
+                        class="uppercase text-white mb-1 text-xs font-semibold"
+                      >
+                        Overview
+                      </h6>
+                      <h2 class="text-white text-xl font-semibold">
+                        Sales value
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 flex-auto">
+                  <!-- Chart -->
+                  <div class="relative" style="height:350px">
+                    <canvas id="line-chart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full xl:w-4/12 px-4">
+              <div
+                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+              >
+                <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
+                  <div class="flex flex-wrap items-center">
+                    <div class="relative w-full max-w-full flex-grow flex-1">
+                      <h6
+                        class="uppercase text-blueGray-400 mb-1 text-xs font-semibold"
+                      >
+                        Performance
+                      </h6>
+                      <h2 class="text-blueGray-700 text-xl font-semibold">
+                        Total orders
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 flex-auto">
+                  <!-- Chart -->
+                  <div class="relative" style="height:350px">
+                    <canvas id="bar-chart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap mt-4">
+            <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                <div class="rounded-t mb-0 px-4 py-3 border-0">
+                  <div class="flex flex-wrap items-center">
+                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                      <h3 class="font-semibold text-base text-blueGray-700">
+                        Page visits
+                      </h3>
+                    </div>
+                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                      <button
+                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                        style="transition:all .15s ease"
+                      >
+                        See all
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="block w-full overflow-x-auto">
+                  <!-- Projects table -->
+                  <table class="items-center w-full bg-transparent border-collapse">
+                    <thead>
+                      <tr>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Page name
+                        </th>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Visitors
+                        </th>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Unique users
+                        </th>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Bounce rate
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          /argon/
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          4,569
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          340
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                          46,53%
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          /argon/index.html
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          3,985
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          319
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                          46,53%
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          /argon/charts.html
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          3,513
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          294
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                          36,49%
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          /argon/tables.html
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          2,050
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          147
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                          50,87%
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          /argon/profile.html
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          1,795
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          190
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <i class="fas fa-arrow-down text-red-500 mr-4"></i>
+                          46,53%
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="w-full xl:w-4/12 px-4">
+              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                <div class="rounded-t mb-0 px-4 py-3 border-0">
+                  <div class="flex flex-wrap items-center">
+                    <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+                      <h3 class="font-semibold text-base text-blueGray-700">
+                        Social traffic
+                      </h3>
+                    </div>
+                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                      <button
+                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                        style="transition:all .15s ease"
+                      >
+                        See all
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="block w-full overflow-x-auto">
+                  <!-- Projects table -->
+                  <table class="items-center w-full bg-transparent border-collapse">
+                    <thead class="thead-light">
+                      <tr>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Referral
+                        </th>
+                        <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                          Visitors
+                        </th>
+                        <th
+                          class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                          style="min-width:140px"
+                        ></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          Facebook
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          1,480
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <div class="flex items-center">
+                            <span class="mr-2">60%</span>
+                            <div class="relative w-full">
+                              <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                                <div
+                                  style="width:60%"
+                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          Facebook
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          5,480
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <div class="flex items-center">
+                            <span class="mr-2">70%</span>
+                            <div class="relative w-full">
+                              <div class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
+                                <div
+                                  style="width:70%"
+                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          Google
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          4,807
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <div class="flex items-center">
+                            <span class="mr-2">80%</span>
+                            <div class="relative w-full">
+                              <div class="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
+                                <div
+                                  style="width:80%"
+                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          Instagram
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          3,678
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <div class="flex items-center">
+                            <span class="mr-2">75%</span>
+                            <div class="relative w-full">
+                              <div class="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200">
+                                <div
+                                  style="width:75%"
+                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          twitter
+                        </th>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          2,645
+                        </td>
+                        <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                          <div class="flex items-center">
+                            <span class="mr-2">30%</span>
+                            <div class="relative w-full">
+                              <div class="overflow-hidden h-2 text-xs flex rounded bg-orange-200">
+                                <div
+                                  style="width:30%"
+                                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="block py-4">
+            <div class="container mx-auto px-4">
+              <hr class="mb-4 border-b-1 border-blueGray-200" />
+              <div class="flex flex-wrap items-center md:justify-between justify-center">
+                <div class="w-full md:w-4/12 px-4">
+                  <div class="text-sm text-blueGray-500 font-semibold py-1">
+                    Copyright © <span id="javascript-date"></span>
+                    <a
+                      href="https://www.creative-tim.com"
+                      class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
+                    >
+                      Creative Tim
+                    </a>
+                  </div>
+                </div>
+                <div class="w-full md:w-8/12 px-4">
+                  <ul class="flex flex-wrap list-none md:justify-end  justify-center">
+                    <li>
+                      <a
+                        href="https://www.creative-tim.com"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        Creative Tim
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.creative-tim.com/presentation"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        About Us
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="http://blog.creative-tim.com"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/LICENSE.md"
+                        class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
+                      >
+                        MIT License
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      charset="utf-8"
+    ></script>
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      /* Sidebar - Side navigation menu on mobile/responsive mode */
+      function toggleNavbar(collapseID) {
+        document.getElementById(collapseID).classList.toggle("hidden");
+        document.getElementById(collapseID).classList.toggle("bg-white");
+        document.getElementById(collapseID).classList.toggle("m-2");
+        document.getElementById(collapseID).classList.toggle("py-3");
+        document.getElementById(collapseID).classList.toggle("px-6");
+      }
+      /* Function for dropdowns */
+      function openDropdown(event, dropdownID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+          element = element.parentNode;
+        }
+        var popper = Popper.createPopper(element, document.getElementById(dropdownID), {
+          placement: "bottom-end"
+        });
+        document.getElementById(dropdownID).classList.toggle("hidden");
+        document.getElementById(dropdownID).classList.toggle("block");
+      }
+
+
+      (function() {
+        /* Add current date to the footer */
+        document.getElementById("javascript-date").innerHTML = new Date().getFullYear();
+        /* Chart initialisations */
+        /* Line Chart */
+        var config = {
+          type: "line",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ],
+            datasets: [
+              {
+                label: new Date().getFullYear(),
+                backgroundColor: "#4c51bf",
+                borderColor: "#4c51bf",
+                data: [65, 78, 66, 44, 56, 67, 75],
+                fill: false
+              },
+              {
+                label: new Date().getFullYear() - 1,
+                fill: false,
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: [40, 68, 86, 74, 56, 60, 87]
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: false,
+              text: "Sales Charts",
+              fontColor: "white"
+            },
+            legend: {
+              labels: {
+                fontColor: "white"
+              },
+              align: "end",
+              position: "bottom"
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true
+            },
+            scales: {
+              xAxes: [
+                {
+                  ticks: {
+                    fontColor: "rgba(255,255,255,.7)"
+                  },
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Month",
+                    fontColor: "white"
+                  },
+                  gridLines: {
+                    display: false,
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.3)",
+                    zeroLineColor: "rgba(0, 0, 0, 0)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ],
+              yAxes: [
+                {
+                  ticks: {
+                    fontColor: "rgba(255,255,255,.7)"
+                  },
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Value",
+                    fontColor: "white"
+                  },
+                  gridLines: {
+                    borderDash: [3],
+                    borderDashOffset: [3],
+                    drawBorder: false,
+                    color: "rgba(255, 255, 255, 0.15)",
+                    zeroLineColor: "rgba(33, 37, 41, 0)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ]
+            }
+          }
+        };
+        var ctx = document.getElementById("line-chart").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+
+        /* Bar Chart */
+        config = {
+          type: "bar",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ],
+            datasets: [
+              {
+                label: new Date().getFullYear(),
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: [30, 78, 56, 34, 100, 45, 13],
+                fill: false,
+                barThickness: 8
+              },
+              {
+                label: new Date().getFullYear() - 1,
+                fill: false,
+                backgroundColor: "#4c51bf",
+                borderColor: "#4c51bf",
+                data: [27, 68, 86, 74, 10, 4, 87],
+                barThickness: 8
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            title: {
+              display: false,
+              text: "Orders Chart"
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true
+            },
+            legend: {
+              labels: {
+                fontColor: "rgba(0,0,0,.4)"
+              },
+              align: "end",
+              position: "bottom"
+            },
+            scales: {
+              xAxes: [
+                {
+                  display: false,
+                  scaleLabel: {
+                    display: true,
+                    labelString: "Month"
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.3)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ],
+              yAxes: [
+                {
+                  display: true,
+                  scaleLabel: {
+                    display: false,
+                    labelString: "Value"
+                  },
+                  gridLines: {
+                    borderDash: [2],
+                    drawBorder: false,
+                    borderDashOffset: [2],
+                    color: "rgba(33, 37, 41, 0.2)",
+                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
+                    zeroLineBorderDash: [2],
+                    zeroLineBorderDashOffset: [2]
+                  }
+                }
+              ]
+            }
+          }
+        };
+        ctx = document.getElementById("bar-chart").getContext("2d");
+        window.myBar = new Chart(ctx, config);
+      })();
+    </script>
 
 </x-app-layout>
+
+
 
 
