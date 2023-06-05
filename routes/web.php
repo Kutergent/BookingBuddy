@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,19 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//archive
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/aboutus', function(){
+//     return view('aboutus');
+// })->middleware(['auth', 'verified'])->name('aboutus');
+
+
 
 //Home
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
+    Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
+    Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
 
-//List need for client customers
+//List need for client customers / guest
 // Register / Reserve Page
 
 // About Us
-Route::get('/aboutus', function(){
-    return view('aboutus');
-})->middleware(['auth', 'verified'])->name('aboutus');
+
 
 //
 

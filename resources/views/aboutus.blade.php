@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
 
         <div
             class="relative pt-16 pb-32 flex content-center items-center justify-center"
@@ -694,6 +694,6 @@
         </div>
         </footer>
 
-</x-app-layout>
+</x-guest-layout>
 
 
