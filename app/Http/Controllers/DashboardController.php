@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,10 @@ class DashboardController extends Controller
     }
 
     public function edit(){
-        return view('editform');
+        $data = DB::table('forms')->first();
+
+
+        // dd($data);
+        return view('editform', ['data' => $data]);
     }
 }

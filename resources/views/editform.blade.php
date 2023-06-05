@@ -16,27 +16,59 @@
 
           <div class="lg:col-span-2">
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-              <div class="md:col-span-5">
+              <div class="md:col-span-1">
                 <label for="full_name">Full Name</label>
-                <input type="text" name="full_name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
               </div>
 
-              <div class="md:col-span-5">
+              <div class="md:col-span-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="true" class="sr-only peer" @if ($data->name) checked @endif >
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
+                </label>
+              </div>
+
+              <div class="md:col-span-1">
                 <label for="email">Email Address</label>
-                <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="email@domain.com" />
               </div>
 
-              <div class="md:col-span-3">
+              <div class="md:col-span-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                @if ($data->email) 
+                <input id="isMail"  type="checkbox" value="1" class="sr-only peer" checked>
+                @endif
+
+                
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300" id="mailtxt" >{{ __('Enabled') }}</span>
+                </label>
+              </div>
+
+              <div class="md:col-span-1">
                 <label for="address">Address / Street</label>
-                <input type="text" name="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
               </div>
 
-              <div class="md:col-span-2">
+              <div class="md:col-span-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
+                </label>
+              </div>
+
+              <div class="md:col-span-1">
                 <label for="city">City</label>
-                <input type="text" name="city" id="city" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
               </div>
 
-              <div class="md:col-span-2">
+              <div class="md:col-span-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
+                </label>
+              </div>
+
+              <!-- <div class="md:col-span-2">
                 <label for="country">Country / region</label>
                 <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
                   <input name="country" id="country" placeholder="Country" class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
@@ -101,17 +133,13 @@
                 <div class="inline-flex items-end">
                   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
                 </div>
-              </div>
+              </div> -->
 
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <a href="https://www.buymeacoffee.com/dgauderman" target="_blank" class="md:absolute bottom-0 right-0 p-4 float-right">
-      <img src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-3.svg" alt="Buy Me A Coffee" class="transition-all rounded-full w-14 -rotate-45 hover:shadow-sm shadow-lg ring hover:ring-4 ring-white">
-    </a>
   </div>
 </div>
 

@@ -10,7 +10,7 @@
           <div class="mb-5">
             <label
               for="fName"
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 lock font-medium text-sm text-gray-700"
             >
               First Name
             </label>
@@ -27,7 +27,7 @@
           <div class="mb-5">
             <label
               for="lName"
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 lock font-medium text-sm text-gray-700"
             >
               Last Name
             </label>
@@ -44,7 +44,7 @@
       <div class="mb-5">
         <label
           for="guest"
-          class="mb-3 block text-base font-medium text-[#07074D]"
+          class="mb-3 lock font-medium text-sm text-gray-700"
         >
           How many guest are you bringing?
         </label>
@@ -63,7 +63,7 @@
           <div class="mb-5">
             <label
               for="date"
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 lock font-medium text-sm text-gray-700"
             >
               Date
             </label>
@@ -79,7 +79,7 @@
           <div class="mb-5">
             <label
               for="time"
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 lock font-medium text-sm text-gray-700"
             >
               Time
             </label>
@@ -94,7 +94,7 @@
       </div>
 
       <div class="mb-5">
-        <label class="mb-3 block text-base font-medium text-[#07074D]">
+        <label class="mb-3 lock font-medium text-sm text-gray-700">
           Are you coming to the event?
         </label>
         <div class="flex items-center space-x-6">
@@ -107,7 +107,7 @@
             />
             <label
               for="radioButton1"
-              class="pl-3 text-base font-medium text-[#07074D]"
+              class="pl-3 lock font-medium text-sm text-gray-700"
             >
               Yes
             </label>
@@ -121,7 +121,7 @@
             />
             <label
               for="radioButton2"
-              class="pl-3 text-base font-medium text-[#07074D]"
+              class="pl-3 lock font-medium text-sm text-gray-700"
             >
               No
             </label>
