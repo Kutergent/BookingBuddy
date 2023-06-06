@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use App\Models\Reservations;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function report(){
+    public function report(Request $r){
+
+        if ($r->start != null) {
+            $fromDate = Carbon::parse($r->start);
+            $toDate = Carbon::parse($r->end);
+
+            $data = Reservations::whereBetween('reserve_date', [$fromDate, $toDate])->paginate(5);
+
+
+            return view('report', ['report' => $data]);
+        }
+
         $data = Reservations::paginate(5);
 
         return view('report', ['report' => $data]);
