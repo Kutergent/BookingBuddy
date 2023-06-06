@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Form;
+use App\Models\Reservations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function report(){
-        return view('report');
+        $data = Reservations::paginate(5);
+
+        return view('report', ['report' => $data]);
     }
 
     public function calendar(){
@@ -37,4 +40,5 @@ class DashboardController extends Controller
         return redirect('edit');
 
     }
+
 }
