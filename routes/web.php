@@ -57,7 +57,9 @@ Route::middleware('auth')->group(function () {
 // Registration Edit form
 Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
+    Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
 });
+
 
 //Profile edit
 Route::middleware('auth')->group(function () {
