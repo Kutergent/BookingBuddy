@@ -32,7 +32,7 @@ class DashboardController extends Controller
     }
 
     public function edit(){
-        $data = DB::table('forms')->first();
+        $data = Form::first();
 
 
         // dd($data);

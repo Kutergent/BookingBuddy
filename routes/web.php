@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
     Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
     Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
-
+    Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
 //List need for client customers / guest
 // Register / Reserve Page
 
