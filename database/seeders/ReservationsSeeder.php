@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Field;
 use App\Models\Reservations;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,6 +26,7 @@ class ReservationsSeeder extends Seeder
             'reserve_duration' => 3
         ]);
 
+
         Reservations::create([
             'name' => "Jane Smith",
             'email' => 'janesmith@example.com',
@@ -33,7 +35,8 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-06-08'),
             'reserve_duration' => 2
         ]);
-        
+
+
         Reservations::create([
             'name' => "David Johnson",
             'email' => 'davidjohnson@gmail.com',
@@ -42,7 +45,8 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-06-12'),
             'reserve_duration' => 4
         ]);
-        
+
+
         Reservations::create([
             'name' => "Sarah Davis",
             'email' => 'sarahdavis@hotmail.com',
@@ -52,6 +56,7 @@ class ReservationsSeeder extends Seeder
             'reserve_duration' => 1
         ]);
 
+
         Reservations::create([
             'name' => "Michael Brown",
             'email' => 'mbrown@example.com',
@@ -60,7 +65,8 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-06-18'),
             'reserve_duration' => 2
         ]);
-        
+
+
         Reservations::create([
             'name' => "Emily Wilson",
             'email' => 'ewilson@gmail.com',
@@ -69,7 +75,8 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-06-20'),
             'reserve_duration' => 3
         ]);
-        
+
+
         Reservations::create([
             'name' => "Alexandra Lee",
             'email' => 'alexlee@example.com',
@@ -79,6 +86,7 @@ class ReservationsSeeder extends Seeder
             'reserve_duration' => 1
         ]);
 
+
         Reservations::create([
             'name' => "Robert Johnson",
             'email' => 'robertjohnson@example.com',
@@ -87,7 +95,8 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-06-28'),
             'reserve_duration' => 2
         ]);
-        
+
+
         Reservations::create([
             'name' => "Emma Thompson",
             'email' => 'ethompson@gmail.com',
@@ -96,7 +105,7 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-07-01'),
             'reserve_duration' => 3
         ]);
-        
+
         Reservations::create([
             'name' => "Oliver Martinez",
             'email' => 'omartinez@example.com',
@@ -105,6 +114,7 @@ class ReservationsSeeder extends Seeder
             'reserve_date' => Carbon::parse('2023-07-05'),
             'reserve_duration' => 1
         ]);
-        
+
+
     }
 }

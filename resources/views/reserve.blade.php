@@ -19,7 +19,7 @@
           </div>
         </div>
         @endif
-        
+
         @if ($data->email == 1)
         <div class="w-full px-3">
           <div class="mt-4">
@@ -29,7 +29,7 @@
           </div>
         </div>
         @endif
-        
+
         @if ($data->phone_number == 1)
         <div class="w-full px-3">
           <div class="mt-4">
@@ -39,17 +39,17 @@
           </div>
         </div>
         @endif
-        
+
         @if ($data->dob == 1)
         <div class="w-full px-3">
-          <div class="mt-4">             
+          <div class="mt-4">
               <x-input-label for="dob" :value="__('Date of birth')"/>
               <x-text-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" required/>
               <x-input-error :messages="$errors->get('email')" class="mt-2" />
           </div>
         </div>
         @endif
-      
+
 
         <div class="w-full px-3">
           <div class="mt-4">
@@ -66,6 +66,14 @@
               <x-text-input id="reserve_duration" class="block mt-1 w-full" type="text" name="reserve_duration" :value="old('reserve_duration')" required />
               <x-input-error :messages="$errors->get('email')" class="mt-2" />
           </div>
+        </div>
+
+        <div class="w-full px-3">
+            <div class="mt-4">
+                <x-input-label for="textbox" :value="__('Additional (Optional)')" />
+                <x-text-input id="textbox" class="block mt-1 w-full" type="text" name="textbox" :value="old('textbox')" required autofocus autocomplete="textbox" />
+                <x-input-error :messages="$errors->get('textbox')" class="mt-2" />
+            </div>
         </div>
 
         <script>

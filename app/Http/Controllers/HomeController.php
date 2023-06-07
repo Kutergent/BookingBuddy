@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Field;
 use App\Models\Form;
+use App\Models\FormExtra;
 use App\Models\Reservations;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -37,6 +39,7 @@ class HomeController extends Controller
 
         $data = new Reservations();
 
+
         $data->name = $r->name;
         $data->email = $r->email;
         $data->phone_number = $r->phone_number;
@@ -46,6 +49,16 @@ class HomeController extends Controller
 
         $data->save();
 
-        return redirect('welcome');
+        $formExt = FormExtra::first();
+
+        $dataAdd = new Field();
+
+        $dataAdd->reservations_id = $data->id;
+        $dataAdd->formextra_id = $formExt->id;
+        $dataAdd->textbox = $r->textbox;
+
+        $dataAdd->save();
+
+        return redirect()->route('welcome');
     }
 }
