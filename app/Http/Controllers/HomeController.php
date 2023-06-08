@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReservedMail;
 use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
 use App\Models\Reservations;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -58,7 +60,7 @@ class HomeController extends Controller
         $dataAdd->textbox = $r->textbox;
 
         $dataAdd->save();
-
+        Mail::to($data->email)->send(new ReservedMail($data));
         return redirect()->route('welcome');
     }
 }
