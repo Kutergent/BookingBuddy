@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
     Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
     Route::post('/addField', [DashboardController::class, 'addField'])->name('addField');
-
+    Route::post('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
 });
 
 

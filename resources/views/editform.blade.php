@@ -127,11 +127,11 @@
                 </label>
             </div>
 
-            <div class="md:col-span-1">
+            {{-- <div class="md:col-span-1">
                 <x-primary-button class="ml-2">
                     {{ __('Remove') }}
                 </x-primary-button>
-            </div>
+            </div> --}}
 
 
         @endforeach
@@ -155,14 +155,35 @@
 
         </form>
 
-            <form action="{{ route('addField') }}" method="post">
+        {{-- Delete Field --}}
+        @foreach ($dataAdd as $da)
+
+        <form action="/BookingBuddy/public/deleteField/{{$da->id}}" method="post">
             @csrf
-                <div class="md:col-span-4">
-                    <x-primary-button class="ml-2">
-                        {{ __('Add new Field') }}
-                    </x-primary-button>
-                </div>
-            </form>
+
+        <div class="md:col-span-2">
+
+        </div>
+
+        <div class="md:col-span-3">
+            <x-primary-button class="ml-2">
+                {{ __('Remove')}} Field No: {{ $da->id }}
+            </x-primary-button>
+        </div>
+
+        </form>
+        @endforeach
+
+
+        {{-- Add Field --}}
+        <form action="{{ route('addField') }}" method="post">
+        @csrf
+            <div class="md:col-span-4">
+                <x-primary-button class="ml-2">
+                    {{ __('Add new Field') }}
+                </x-primary-button>
+            </div>
+        </form>
 
 
         </div>
