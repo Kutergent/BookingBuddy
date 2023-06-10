@@ -29,7 +29,9 @@ class DashboardController extends Controller
     }
 
     public function calendar(){
-        return view('calendar');
+        $reservations = Reservations::all();
+
+        return view('calendar', compact('reservations'));
     }
 
     public function edit(){

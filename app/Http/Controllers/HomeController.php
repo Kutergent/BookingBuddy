@@ -48,6 +48,7 @@ class HomeController extends Controller
         $data->dob = $r->dob;
         $data->reserve_date = $r->reserve_date;
         $data->reserve_duration = $r->reserve_duration;
+        $data->status = 'pending';
 
         $data->save();
 

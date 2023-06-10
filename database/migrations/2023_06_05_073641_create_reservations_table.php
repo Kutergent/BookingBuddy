@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->date('reserve_date');
             $table->integer('reserve_duration');
+            $table->string('status');
 
             $table->timestamps();
         });
