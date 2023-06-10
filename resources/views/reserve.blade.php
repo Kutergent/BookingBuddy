@@ -68,13 +68,24 @@
           </div>
         </div>
 
+
+
+
+
+
+        @foreach ($dataAdd as $da)
+        @if ($da->enabled == 1)
         <div class="w-full px-3">
             <div class="mt-4">
-                <x-input-label for="textbox" :value="__('Additional (Optional)')" />
-                <x-text-input id="textbox" class="block mt-1 w-full" type="text" name="textbox" :value="old('textbox')" required autofocus autocomplete="textbox" />
+                <x-input-label for="{{ $da->id }}" :value="$da->name" />
+                <x-text-input id="{{ $da->id }}" class="block mt-1 w-full" type="text" name="{{ $da->id }}" :value="old('textbox')" required autofocus autocomplete="textbox" />
                 <x-input-error :messages="$errors->get('textbox')" class="mt-2" />
             </div>
         </div>
+        @endif
+        @endforeach
+
+
 
         <script>
             document.getElementById(dob).setAttribute('max', new Date().toLocaleDateString('id'))

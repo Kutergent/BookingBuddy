@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('aboutus');
 // })->middleware(['auth', 'verified'])->name('aboutus');
 
-
+//TEST AREA
+Route::get('/testarea', [DashboardController::class, 'testarea']);
+//TEST AREA END
 
 //Home
     Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
@@ -58,6 +60,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
     Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
+    Route::post('/addField', [DashboardController::class, 'addField'])->name('addField');
+    Route::post('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
 });
 
 
