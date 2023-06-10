@@ -76,12 +76,6 @@ class HomeController extends Controller
 
         }
 
-
-        // $dataAdd->reservations_id = $data->id;
-        // $dataAdd->formextra_id = $formExt->id;
-        // $dataAdd->textbox = $r->textbox;
-
-        // $dataAdd->save();
         // Mail::to($data->email)->send(new ReservedMail($data));
         return redirect()->route('welcome');
     }

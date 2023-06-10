@@ -7,10 +7,12 @@
       {{-- <h2 class="font-semibold text-xl text-gray-600">Responsive Form</h2>
       <p class="text-gray-500 mb-6">Form is mobile responsive. Give it a try.</p> --}}
 
-      <form action="{{ route('editUpdate') }}" method="post">
-      @csrf
+
 
       <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+        <form action="{{ route('editUpdate') }}" method="post">
+            @csrf
+
         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
 
 
@@ -102,45 +104,68 @@
 
             <hr class="my-4">
             <div class="grid gap-4 gap-y-2 text-sm grid-cols-4 md:grid-cols-5">
-    @foreach ($dataAdd as $da)
-    <div class="md:col-span-2">
-        <x-text-input id="{{ $da->id }}_input" class="block mt-1 w-full" type="text" name="{{ $da->id }}_in" :value="$da->name" />
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-    </div>
-    <div class="col-span-1"></div>
-    <div class="md:col-span-2">
-        <label class="relative inline-flex items-center cursor-pointer">
-            <input name="{{ $da->id }}" type="hidden" value="0" class="sr-only peer">
-            <input name="{{ $da->id }}" type="checkbox" value="1" class="sr-only peer" @if ($da->enabled) checked @endif>
-            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                @if ($da->enabled)
-                    {{ __('Enabled') }}
-                @else
-                    {{ __('Disabled') }}
-                @endif
-            </span>
-        </label>
-    </div>
-    @endforeach
 
-    <div class="md:col-span-4">
-    </div>
+        @foreach ($dataAdd as $da)
 
-    <div class="md:col-span-1">
-        <x-primary-button class="ml-2">
-            {{ __('Save') }}
-        </x-primary-button>
-    </div>
-</div>
+            <div class="md:col-span-2">
+                <x-text-input id="{{ $da->id }}_input" class="block mt-1 w-full" type="text" name="{{ $da->id }}_in" :value="$da->name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+            {{-- <div class="col-span-1"></div> --}}
+            <div class="md:col-span-2">
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input name="{{ $da->id }}" type="hidden" value="0" class="sr-only peer">
+                    <input name="{{ $da->id }}" type="checkbox" value="1" class="sr-only peer" @if ($da->enabled) checked @endif>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        @if ($da->enabled)
+                            {{ __('Enabled') }}
+                        @else
+                            {{ __('Disabled') }}
+                        @endif
+                    </span>
+                </label>
+            </div>
+
+            <div class="md:col-span-1">
+                <x-primary-button class="ml-2">
+                    {{ __('Remove') }}
+                </x-primary-button>
+            </div>
+
+
+        @endforeach
+
+
+
+        <div class="md:col-span-4">
+        </div>
+
+        <div class="md:col-span-3">
+            <x-primary-button class="ml-2">
+                {{ __('Save') }}
+            </x-primary-button>
+        </div>
+        </div>
+
+
+            </div>
+
+            </div>
+
+        </form>
+
+            <form action="{{ route('addField') }}" method="post">
+            @csrf
+                <div class="md:col-span-4">
+                    <x-primary-button class="ml-2">
+                        {{ __('Add new Field') }}
+                    </x-primary-button>
+                </div>
+            </form>
 
 
         </div>
-
-        </div>
-      </div>
-
-      </form>
 
 
   </div>

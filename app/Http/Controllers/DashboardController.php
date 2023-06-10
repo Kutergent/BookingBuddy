@@ -82,4 +82,26 @@ class DashboardController extends Controller
 
     }
 
+    public function addField(){
+        $data = Form::first();
+        $dataAdd = new FormExtra();
+
+        $dataAdd->forms_id = $data->id;
+        $dataAdd->name = 'Enter name here';
+        $dataAdd->textbox = 'placeholder';
+        $dataAdd->enabled = false;
+
+        $dataAdd->save();
+
+        return redirect('edit');
+    }
+
+    public function deleteField($id){
+        $dataAdd = FormExtra::find($id);
+
+        $dataAdd->delete();
+
+        return redirect('edit');
+    }
+
 }
