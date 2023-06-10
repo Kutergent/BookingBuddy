@@ -22,8 +22,12 @@ class HomeController extends Controller
 
     public function reserve(){
         $data = Form::first();
+        $dataAdd = FormExtra::all();
 
-        return view('reserve', ['data' => $data]);
+        return view('reserve', [
+            'data' => $data,
+            'dataAdd' => $dataAdd
+        ]);
     }
 
     public function postReserve(Request $r){
@@ -51,16 +55,34 @@ class HomeController extends Controller
 
         $data->save();
 
-        $formExt = FormExtra::first();
+        $dataAdd = FormExtra::all();
 
-        $dataAdd = new Field();
 
-        $dataAdd->reservations_id = $data->id;
-        $dataAdd->formextra_id = $formExt->id;
-        $dataAdd->textbox = $r->textbox;
+        $temp = $data->id;
 
-        $dataAdd->save();
-        Mail::to($data->email)->send(new ReservedMail($data));
+        foreach ($dataAdd as $da) {
+            if ($da->enabled == 1) {
+
+                $field = new Field();
+
+                $field->reservations_id = $temp;
+                $field->formextra_id = $da->id;
+                $field->textbox = $r->input($da->id);
+
+                // dd($r->input($da->id));
+
+                $field->save();
+            }
+
+        }
+
+
+        // $dataAdd->reservations_id = $data->id;
+        // $dataAdd->formextra_id = $formExt->id;
+        // $dataAdd->textbox = $r->textbox;
+
+        // $dataAdd->save();
+        // Mail::to($data->email)->send(new ReservedMail($data));
         return redirect()->route('welcome');
     }
 }

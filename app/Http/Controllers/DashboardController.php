@@ -4,13 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Field;
 use App\Models\Form;
+use App\Models\FormExtra;
 use App\Models\Reservations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public function testarea(){
+        $arr = array();
+        $data = FormExtra::all();
+
+        foreach ($data as $d) {
+            array_push($arr, $d->name);
+        };
+
+        dd($arr);
+
+      return;
+    }
+
     public function report(Request $r){
 
         if ($r->start != null) {
@@ -34,10 +49,14 @@ class DashboardController extends Controller
 
     public function edit(){
         $data = Form::first();
+        $dataAdd = FormExtra::all();
 
 
         // dd($data);
-        return view('editform', ['data' => $data]);
+        return view('editform', [
+            'data' => $data,
+            'dataAdd' => $dataAdd
+        ]);
     }
 
     public function editUpdate(Request $r){
@@ -49,6 +68,15 @@ class DashboardController extends Controller
         $data->dob = $r->dob;
 
         $data->save();
+
+        $dataAdd = FormExtra::all();
+
+        foreach ($dataAdd as $da) {
+            $da->enabled = $r->input($da->id);
+            $da->name = $r->input($da->id.'_in');
+            $da->save();
+        }
+
 
         return redirect('edit');
 

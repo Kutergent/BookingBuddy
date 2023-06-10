@@ -3,8 +3,8 @@
 
 	<div class="container p-2 mx-auto sm:p-4 text-gray-900">
 		<h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Report</h2>
-		
-		
+
+		<hr class="my-4">
 		<!-- Datepicker -->
 		<form action="{{ route('report') }}" method="GET">
 		<div date-rangepicker class="flex items-center mb-2 item">
@@ -30,7 +30,7 @@
 
 		</div>
 		</form>
-		
+
 
 
 
@@ -87,11 +87,11 @@
 					</tr>
 					@endforeach
 
-					
+
 
 				</tbody>
 			</table>
-			
+
 			<!-- pagination -->
 			<!-- {{ $report->appends(request()->query())->links() }} -->
 			{{ $report->links() }}

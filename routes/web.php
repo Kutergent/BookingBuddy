@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('aboutus');
 // })->middleware(['auth', 'verified'])->name('aboutus');
 
-
+//TEST AREA
+Route::get('/testarea', [DashboardController::class, 'testarea']);
+//TEST AREA END
 
 //Home
     Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
