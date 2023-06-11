@@ -13,19 +13,16 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
 
-                <!-- Navigation Links -->
+                <!-- User management -->
+                @if ( Auth::user()->role == 'User Manager')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('usermanage')" :active="request()->routeIs('usermanage')">
                         {{ __('User Management') }}
                     </x-nav-link>
                 </div>
+                @endif
+                
 
 
                 <!-- Calendar Links -->

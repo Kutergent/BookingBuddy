@@ -1,6 +1,6 @@
 <x-app-layout>
 
-  <div class="container p-2 mx-auto sm:p-4 text-gray-900">
+  <div class="container p-2 mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
 
       <!-- Title -->
     <h2 class="mb-4 text-2xl font-semibold leading-tight">Manage All Users</h2>
@@ -63,9 +63,17 @@
               </td>
 
                 <td class="p-3 font-medium text-sm text-right">
+                  @if (Auth::id() == $us->id)
+                  <a href="{{ route('deleteUser', ['id' => $us->id]) }}" class="ml-2 bg-gray-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 pointer-events-none">
+                    {{ __('Remove')}}
+                  </a>
+
+                  @else
                   <a href="{{ route('deleteUser', ['id' => $us->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     {{ __('Remove')}}
                   </a>
+                  @endif
+                  
                 </td>
               
 					  </tr>
