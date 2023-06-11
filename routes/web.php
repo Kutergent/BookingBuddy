@@ -48,6 +48,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/usermanage', [DashboardController::class, 'usermanage'])->name('usermanage');
+    Route::post('/addUser', [DashboardController::class, 'addUser'])->name('addUser');
+    Route::get('/deleteUser/{id}', [DashboardController::class, 'deleteUser'])->name('deleteUser');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
 });
 
@@ -60,8 +66,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
     Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
-    Route::post('/addField', [DashboardController::class, 'addField'])->name('addField');
-    Route::post('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
+    Route::get('/addField', [DashboardController::class, 'addField'])->name('addField');
+    Route::get('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
 });
 
 
