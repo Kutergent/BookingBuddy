@@ -33,6 +33,7 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
     Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
     Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
     Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
+    Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
 //List need for client customers / guest
 // Register / Reserve Page
 

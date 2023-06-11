@@ -78,6 +78,13 @@ class HomeController extends Controller
         }
 
         // Mail::to($data->email)->send(new ReservedMail($data));
-        return redirect()->route('welcome');
+        return redirect()->route('reserveComplete')->with('email', $data->email);
     }
+
+    public function reserveComplete(Request $r){
+        $email = $r->session()->get('email');
+
+        return view('reserveComplete' , compact('email'));
+    }
+
 }
