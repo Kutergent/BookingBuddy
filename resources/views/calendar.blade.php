@@ -1,10 +1,67 @@
 <x-app-layout>
-    <div id="calendar" class="mx-auto w-2/3 mt-4"></div>
+
+    <div class="mx-auto w-2/3 mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+        <div class="flex">
+            <div class="w-1/3 bg-gray-200 mr-4 rounded text-center">Canceled
+                <ul>
+                @foreach ($reservations as $res)
+                    @if ($res->status === 'canceled')
+                    <li>
+                        {{$res->name}}
+                    </li>  
+                    @endif
+                @endforeach
+
+                </ul>
+            </div>
+            <div class="w-1/3 bg-gray-300 rounded text-center">Pending
+                <ul>
+                @foreach ($reservations as $res)
+                    @if ($res->status === 'pending')
+                    <li>
+                        {{$res->name}}
+                    </li>  
+                    @endif
+                @endforeach
+
+                </ul>
+            </div>
+
+            <div class="w-1/3 bg-gray-400 ml-4 rounded text-center">Upcoming
+            <ul>
+                @foreach ($reservations as $res)
+                    @if ($res->status === 'confirmed')
+                    <li>
+                        {{$res->name}}
+                    </li>  
+                    @endif
+                @endforeach
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div id="calendar" class="mx-auto w-2/3 mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6"></div>
+    <div id="confirmationModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="bg-white p-4 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Confirmation</h2>
+            <p>Are you sure you want to confirm this reservation?</p>
+            <div class="mt-4 flex justify-end">
+                <button id="confirmButton" class="px-4 py-2 bg-green-500 text-white rounded-md">Confirm</button>
+                <button id="cancelButton" class="px-4 py-2 bg-red-500 text-white rounded-md ml-4">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <x-slot name="scripts">
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
+                var confirmationModal = document.getElementById('confirmationModal');
+                var confirmButton = document.getElementById('confirmButton');
+                var cancelButton = document.getElementById('cancelButton');
+
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
@@ -22,30 +79,32 @@
                                 @elseif ($reservation->status === 'canceled')
                                     classNames: 'bg-red-500 border-red-500 text-white whitespace-normal',
                                 @endif
+                                extendedProps: {
+                                    name: '{{ $reservation->name }}',
+                                    email: '{{ $reservation->email }}',
+                                    phone: '{{ $reservation->phone_number }}',
+                                    status: '{{ $reservation->status }}',
+                                },
                             },
                         @endforeach
                     ],
-                    eventDidMount: function(info) {
-                        // Wrap the text of the event title
-                        var eventTitleEl = info.el.querySelector('.fc-event-title');
-                        eventTitleEl.classList.add('whitespace-normal');
-                    },
                     eventClick: function(info) {
-                        // Show the popup with reservation details
-                        var reservation = info.event.extendedProps;
-                        var popupContent = `
-                            <div class="p-4">
-                                <h2 class="text-lg font-bold mb-2">${reservation.name}</h2>
-                                <p class="mb-1"><strong>Email:</strong> ${reservation.email}</p>
-                                <p class="mb-1"><strong>Phone:</strong> ${reservation.phone}</p>
-                                <p class="mb-1"><strong>Status:</strong> ${reservation.status}</p>
-                            </div>
-                        `;
-                        Swal.fire({
-                            title: 'Reservation Details',
-                            html: popupContent,
-                            showCancelButton: false,
-                            showConfirmButton: false,
+                        // Show confirmation modal
+                        confirmationModal.classList.remove('hidden');
+
+                        // Handle confirm button click
+                        confirmButton.addEventListener('click', function() {
+                            // Perform confirmation action (you can make an API request or any other action)
+                            // You can access the reservation ID using `info.event.id` and handle the confirmation accordingly
+
+                            // Close the modal
+                            confirmationModal.classList.add('hidden');
+                        });
+
+                        // Handle cancel button click
+                        cancelButton.addEventListener('click', function() {
+                            // Close the modal
+                            confirmationModal.classList.add('hidden');
                         });
                     },
                 });

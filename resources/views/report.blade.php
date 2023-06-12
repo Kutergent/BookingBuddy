@@ -1,7 +1,7 @@
 <x-app-layout>
 
 
-	<div class="container p-2 mx-auto sm:p-4 text-gray-900">
+	<div class="container mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
 		<h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Report</h2>
 
 		<hr class="my-4">
@@ -80,9 +80,19 @@
 							<p>{{ $r->reserve_duration }}</p>
 						</td>
 						<td class="p-3 font-medium text-sm text-right">
-							<span class="px-3 py-1 font-semibold rounded-md bg-teal-400 text-gray-900">
-								<span>Pending</span>
+							@if ($r->status == 'confirmed')
+							<span class="px-3 py-1 font-semibold rounded-md bg-green-500 text-gray-900">
+								<span>{{ $r->status }}</span>
 							</span>
+							@elseif ($r->status == 'pending')
+							<span class="px-3 py-1 font-semibold rounded-md bg-yellow-500 text-gray-900">
+								<span>{{ $r->status }}</span>
+							</span>
+							@else
+							<span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-gray-900">
+								<span>{{ $r->status }}</span>
+							</span>
+							@endif						
 						</td>
 					</tr>
 					@endforeach

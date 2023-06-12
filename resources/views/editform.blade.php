@@ -106,7 +106,7 @@
                 <x-text-input id="{{ $da->id }}_input" class="block mt-1 w-full" type="text" name="{{ $da->id }}_in" :value="$da->name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-            {{-- <div class="col-span-1"></div> --}}
+            <!-- {{-- <div class="col-span-1"></div> --}} -->
             <div class="md:col-span-2">
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input name="{{ $da->id }}" type="hidden" value="0" class="sr-only peer">
@@ -122,18 +122,24 @@
                 </label>
             </div>
 
-            {{-- <div class="md:col-span-1">
-                <x-primary-button class="ml-2">
+            <div class="md:col-span-1">
+                <!-- <x-primary-button class="ml-2">
                     {{ __('Remove') }}
-                </x-primary-button>
-            </div> --}}
+                </x-primary-button> -->
+                <a href="{{ route('deleteField', ['id' => $da->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                {{ __('Remove') }}
+                </a>
+            </div> 
 
 
         @endforeach
 
+        <div class="md:col-span-2"></div>
 
-
-        <div class="md:col-span-4">
+        <div class="md:col-span-2">
+            <a href="{{ route('addField') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                {{ __('Add new Field') }}
+            </a>
         </div>
 
         <div class="md:col-span-3">
@@ -150,27 +156,8 @@
 
         </form>
 
-        {{-- Delete Field --}}
-        @foreach ($dataAdd as $da)
 
-        <form action="/BookingBuddy/public/deleteField/{{$da->id}}" method="post">
-            @csrf
-
-        <div class="md:col-span-2">
-
-        </div>
-
-        <div class="md:col-span-3">
-            <x-primary-button class="ml-2">
-                {{ __('Remove')}} Field No: {{ $da->id }}
-            </x-primary-button>
-        </div>
-
-        </form>
-        @endforeach
-
-
-        {{-- Add Field --}}
+        <!-- {{-- Add Field --}}
         <form action="{{ route('addField') }}" method="post">
         @csrf
             <div class="md:col-span-4">
@@ -178,7 +165,7 @@
                     {{ __('Add new Field') }}
                 </x-primary-button>
             </div>
-        </form>
+        </form> -->
 
 
         </div>

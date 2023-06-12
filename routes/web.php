@@ -33,6 +33,7 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
     Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
     Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
     Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
+    Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
 //List need for client customers / guest
 // Register / Reserve Page
 
@@ -48,6 +49,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/usermanage', [DashboardController::class, 'usermanage'])->name('usermanage');
+    Route::post('/addUser', [DashboardController::class, 'addUser'])->name('addUser');
+    Route::get('/deleteUser/{id}', [DashboardController::class, 'deleteUser'])->name('deleteUser');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
 });
 
@@ -60,8 +67,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
     Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
-    Route::post('/addField', [DashboardController::class, 'addField'])->name('addField');
-    Route::post('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
+    Route::get('/addField', [DashboardController::class, 'addField'])->name('addField');
+    Route::get('/deleteField/{id}', [DashboardController::class, 'deleteField'])->name('deleteField');
 });
 
 

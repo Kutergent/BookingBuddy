@@ -6,10 +6,14 @@ use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
 use App\Models\Reservations;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
@@ -104,6 +108,45 @@ class DashboardController extends Controller
         $dataAdd->delete();
 
         return redirect('edit');
+    }
+
+    public function usermanage(){
+        $user = User::paginate(5);
+
+
+        return view('usermanage', [
+            'usermanage' => $user
+        ]);
+    }
+
+    public function addUser(Request $r){
+        $validation = Validator::make($r->all() ,[
+            'name' => ['required', 'string', 'max:60'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required'],
+            'role' => ['required','string']
+        ]);
+
+        $validation->validate();
+
+        $user = new User();
+
+        $user->name = $r->name;
+        $user->email = $r->email;
+        $user->password = Hash::make($r->password);
+        $user->role = $r->role;
+
+        $user->save();
+
+        return redirect('usermanage');
+    }
+
+    public function deleteUser($id){
+        $deleteUser = User::find($id);
+
+        $deleteUser->delete();
+
+        return redirect('usermanage');
     }
 
 }
