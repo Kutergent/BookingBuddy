@@ -36,6 +36,11 @@ module.exports = {
             violet: colors.violet,
             yellow: colors.amber,
             white: colors.white,
+            amaranth: '#e11d48ff',
+            sunset: '#f8cf98ff',
+            'cadet-gray': '#76949fff',
+            gunmetal: '#202828ff',
+            blackink: '#040507ff',
         },
         extend: {
             fontFamily: {

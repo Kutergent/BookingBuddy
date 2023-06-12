@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="mx-auto w-2/3 mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+    <div class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div class="flex">
             <div class="w-1/3 bg-gray-200 mr-4 rounded text-center">Canceled
                 <ul>
@@ -8,7 +8,7 @@
                     @if ($res->status === 'canceled')
                     <li>
                         {{$res->name}}
-                    </li>  
+                    </li>
                     @endif
                 @endforeach
 
@@ -20,7 +20,7 @@
                     @if ($res->status === 'pending')
                     <li>
                         {{$res->name}}
-                    </li>  
+                    </li>
                     @endif
                 @endforeach
 
@@ -33,7 +33,7 @@
                     @if ($res->status === 'confirmed')
                     <li>
                         {{$res->name}}
-                    </li>  
+                    </li>
                     @endif
                 @endforeach
 
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div id="calendar" class="mx-auto w-2/3 mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6"></div>
+    <div id="calendar" class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6"></div>
     <div id="confirmationModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="bg-white p-4 rounded-lg">
             <h2 class="text-xl font-bold mb-4">Confirmation</h2>

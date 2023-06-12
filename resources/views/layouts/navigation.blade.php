@@ -1,144 +1,94 @@
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gunmetal shadow-lg flex flex-col justify-between rounded-r-lg shadow-lg">
+        <div class="p-4">
+
+            {{-- Profileman --}}
+            <div class="py-4 px-4">
+                @if (Auth::check())
+                <div class="flex items-center text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-left flex-grow" viewBox="0 -960 960 960" width="48"><path style="fill: white" d="M222-255q63-44 125-67.5T480-346q71 0 133.5 23.5T739-255q44-54 62.5-109T820-480q0-145-97.5-242.5T480-820q-145 0-242.5 97.5T140-480q0 61 19 116t63 109Zm257.814-195Q422-450 382.5-489.686q-39.5-39.686-39.5-97.5t39.686-97.314q39.686-39.5 97.5-39.5t97.314 39.686q39.5 39.686 39.5 97.5T577.314-489.5q-39.686 39.5-97.5 39.5Zm.654 370Q398-80 325-111.5q-73-31.5-127.5-86t-86-127.266Q80-397.532 80-480.266T111.5-635.5q31.5-72.5 86-127t127.266-86q72.766-31.5 155.5-31.5T635.5-848.5q72.5 31.5 127 86t86 127.032q31.5 72.532 31.5 155T848.5-325q-31.5 73-86 127.5t-127.032 86q-72.532 31.5-155 31.5ZM480-140q55 0 107.5-16T691-212q-51-36-104-55t-107-19q-54 0-107 19t-104 55q51 40 103.5 56T480-140Zm0-370q34 0 55.5-21.5T557-587q0-34-21.5-55.5T480-664q-34 0-55.5 21.5T403-587q0 34 21.5 55.5T480-510Zm0-77Zm0 374Z"/></svg>
+
+                    <x-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                            <button type="button" class="text-sm font-medium text-white">
 
 
+                            </button>
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('profile.edit')">Profile</x-dropdown-link>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-
-
-                <!-- User management -->
-                @if ( Auth::user()->role == 'User Manager')
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('usermanage')" :active="request()->routeIs('usermanage')">
-                        {{ __('User Management') }}
-                    </x-nav-link>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    Log Out
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
                 </div>
                 @endif
-                
-
-
-                <!-- Calendar Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('calendar')" :active="request()->routeIs('calendar')">
-                            {{ __('Calendar') }}
-                        </x-nav-link>
-                    </div>
-                
-                
-                <!-- Customer Report Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('report')" :active="request()->routeIs('report')">
-                        {{ __('Customer Report') }}
-                    </x-nav-link>
-                </div>
-
-                <!-- Form Edit Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('edit')" :active="request()->routeIs('edit')">
-                        {{ __('Edit Registration Form') }}
-                    </x-nav-link>
-                </div>
-
             </div>
 
-            @if (Auth::check())
-                <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+            <nav class="mt-6 overflow-y-auto flex-1">
+                <ul class="space-y-1">
+                    @if (Auth::user()->role == 'User Manager')
+                    <li class="pl-4">
+                        <x-side-link :href="route('usermanage')" :active="request()->routeIs('usermanage')">
+                            <span class="hover:text-blackink">User Management</span>
+                        </x-side-link>
+                    </li>
+                    @endif
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+                    <li class="pl-4">
+                        <x-side-link :href="route('calendar')" :active="request()->routeIs('calendar')">
+                            <span class="hover:text-blackink">Calendar</span>
+                        </x-side-link>
+                    </li>
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                    <li class="pl-4">
+                        <x-side-link :href="route('report')" :active="request()->routeIs('report')">
+                            <span class="hover:text-blackink">Customer Report</span>
+                        </x-side-link>
+                    </li>
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-            @endif
-
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+                    <li class="pl-4">
+                        <x-side-link :href="route('edit')" :active="request()->routeIs('edit')">
+                            <span class="hover:text-blackink">Edit Registration Form</span>
+                        </x-side-link>
+                    </li>
+                </ul>
+            </nav>
         </div>
+        <div class="flex items-center">
+
+            {{-- Logoman --}}
+            <a href="{{ route('dashboard') }}">
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+            </a>
+            <span class="ml-2 text-gray-300">Booking Buddy</span>
+        </div>
+
+
+    </aside>
+
+    <!-- Content -->
+    <div class="flex-1 flex flex-col">
+        {{-- <header class="bg-white border-b border-gray-100 py-2 px-4">
+        <h1 class="text-2xl text-gray-800">BRUH MOMENT</h1>
+      </header> --}}
+
+        <main class="flex-1 p-4 overflow-y-auto">
+            <!-- Page content goes here -->
+            {{ $slot }}
+        </main>
+
+        {{-- <footer class="bg-gainsboro">
+        <div class="p-4">
+          <h2 class="text-xl text-black">Footer</h2>
+        </div>
+      </footer> --}}
     </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('calendar')" :active="request()->routeIs('calendar')">
-                {{ __('Calendar') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('report')" :active="request()->routeIs('report')">
-                {{ __('Customer Report') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('edit')" :active="request()->routeIs('edit')">
-                {{ __('Edit Registration Form') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        @if (Auth::check())
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
-        @endif
-    </div>
-</nav>
+</div>

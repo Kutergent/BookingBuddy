@@ -73,9 +73,9 @@
                     {{ __('Remove')}}
                   </a>
                   @endif
-                  
+
                 </td>
-              
+
 					  </tr>
 					@endforeach
 				</tbody>
@@ -109,7 +109,7 @@
                         <option value="Admin" selected>Admin</option>
                     </select>
                 </div>
-          
+
                 <div class="mt-4 flex justify-end">
                     <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Submit</button>
                     <h2 id="cancelButton" class="px-4 py-2 bg-red-500 text-white rounded-md ml-4">Cancel</h2>
@@ -124,11 +124,11 @@
               var addUserButton = document.getElementById('addUser');
               var createUserModal = document.getElementById('createUserModal');
               var cancelButton = document.getElementById('cancelButton');
-          
+
               addUserButton.addEventListener('click', function() {
                   createUserModal.classList.remove('hidden');
               });
-          
+
               cancelButton.addEventListener('click', function() {
                   createUserModal.classList.add('hidden');
               });
@@ -137,7 +137,7 @@
         </script>
     </x-slot>
 
-    
+
 </x-app-layout>
 
 
