@@ -36,13 +36,13 @@ class DashboardController extends Controller
             $fromDate = Carbon::parse($r->start);
             $toDate = Carbon::parse($r->end);
 
-            $data = Reservations::whereBetween('reserve_date', [$fromDate, $toDate])->paginate(5);
+            $data = Reservations::whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
 
 
             return view('report', ['report' => $data]);
         }
 
-        $data = Reservations::paginate(5);
+        $data = Reservations::paginate(10);
 
         return view('report', ['report' => $data]);
     }
@@ -111,7 +111,7 @@ class DashboardController extends Controller
     }
 
     public function usermanage(){
-        $user = User::paginate(5);
+        $user = User::paginate(10);
 
 
         return view('usermanage', [

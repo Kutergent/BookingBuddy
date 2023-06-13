@@ -69,30 +69,30 @@
 							<p>{{ $r->phone_number }}</p>
 						</td>
 						<td class="p-3 font-medium text-sm">
-							<p>{{ $r->dob }}</p>
+							<p>{{ \Carbon\Carbon::parse($r->dob)->format('d F Y')}}</p>
 						</td>
 							<td class="p-3 font-medium text-sm text-right">
-							<p>{{ $r->reserve_date }}</p>
-							<p class="text-gray-400">Tuesday</p>
+							<p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
+							<p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
 						</td>
 						</td>
 							<td class="p-3 font-medium text-sm text-right">
-							<p>{{ $r->reserve_duration }}</p>
+							<p>{{ $r->reserve_duration }} Hour(s)</p>
 						</td>
 						<td class="p-3 font-medium text-sm text-right">
 							@if ($r->status == 'confirmed')
-							<span class="px-3 py-1 font-semibold rounded-md bg-green-500 text-gray-900">
-								<span>{{ $r->status }}</span>
+							<span class="px-3 py-1 font-semibold rounded-md bg-indigo-600 text-gray-100">
+								<span>{{ ucfirst($r->status)  }}</span>
 							</span>
 							@elseif ($r->status == 'pending')
-							<span class="px-3 py-1 font-semibold rounded-md bg-yellow-500 text-gray-900">
-								<span>{{ $r->status }}</span>
+							<span class="px-3 py-1 font-semibold rounded-md bg-yellow-600 text-gray-100">
+								<span>{{ ucfirst($r->status)  }}</span>
 							</span>
 							@else
-							<span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-gray-900">
-								<span>{{ $r->status }}</span>
+							<span class="px-3 py-1 font-semibold rounded-md bg-red-800 text-gray-100">
+								<span>{{ ucfirst($r->status) }}</span>
 							</span>
-							@endif						
+							@endif
 						</td>
 					</tr>
 					@endforeach

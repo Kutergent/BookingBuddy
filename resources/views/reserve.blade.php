@@ -87,12 +87,6 @@
 
 
 
-        <script>
-            document.getElementById(dob).setAttribute('max', new Date().toLocaleDateString('id'))
-        </script>
-
-
-
 
       </div>
       <div class="container flex flex-wrap">
