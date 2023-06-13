@@ -1,6 +1,6 @@
 <x-app-layout>
 
-  <div class="container p-2 mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
+  <div class="container mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
 
       <!-- Title -->
     <h2 class="mb-4 text-2xl font-semibold leading-tight">Manage All Users</h2>
@@ -69,7 +69,7 @@
                   </a>
 
                   @else
-                  <a href="{{ route('deleteUser', ['id' => $us->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                  <a href="{{ route('deleteUser', ['id' => $us->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     {{ __('Remove')}}
                   </a>
                   @endif
@@ -84,8 +84,8 @@
 		</div>
 	</div>
 
-  <div id="createUserModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-        <div class="bg-white p-4 rounded-lg">
+    <div id="createUserModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="bg-white p-4 rounded-lg w-1/2">
             <h2 class="text-xl font-bold mb-4">Create User</h2>
             <!-- todo form action -->
             <form action="{{ route('addUser') }}" method="POST">
@@ -111,8 +111,8 @@
                 </div>
 
                 <div class="mt-4 flex justify-end">
-                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Submit</button>
-                    <h2 id="cancelButton" class="px-4 py-2 bg-red-500 text-white rounded-md ml-4">Cancel</h2>
+                    <button type="submit" class="mr-2 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto">Submit</button>
+                    <h2 id="cancelButton" class="ml-2 inline-flex items-center px-4 py-2 bg-red-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto">Cancel</h2>
                 </div>
             </form>
         </div>
