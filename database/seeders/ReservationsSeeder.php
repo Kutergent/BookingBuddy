@@ -23,6 +23,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '08596498545',
             'dob' => Carbon::parse('2001-09-03'),
             'reserve_date' => Carbon::parse('2023-06-06'),
+            'reserve_time' => '12:00:00',
             'reserve_duration' => 3,
             'status' => 'pending'
         ]);
@@ -34,6 +35,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '0987654321',
             'dob' => Carbon::parse('1995-12-15'),
             'reserve_date' => Carbon::parse('2023-06-08'),
+            'reserve_time' => '09:00:00',
             'reserve_duration' => 2,
             'status' => 'pending'
         ]);
@@ -45,6 +47,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '123-456-7890',
             'dob' => Carbon::parse('1988-07-20'),
             'reserve_date' => Carbon::parse('2023-06-12'),
+            'reserve_time' => '13:00:00',
             'reserve_duration' => 4,
             'status' => 'pending'
         ]);
@@ -56,6 +59,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '9876543210',
             'dob' => Carbon::parse('1992-03-10'),
             'reserve_date' => Carbon::parse('2023-06-15'),
+            'reserve_time' => '18:00:00',
             'reserve_duration' => 1,
             'status' => 'pending'
         ]);
@@ -67,6 +71,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '987654321',
             'dob' => Carbon::parse('1990-05-25'),
             'reserve_date' => Carbon::parse('2023-06-18'),
+            'reserve_time' => '10:00:00',
             'reserve_duration' => 2,
             'status' => 'pending'
         ]);
@@ -78,6 +83,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '123-456-7890',
             'dob' => Carbon::parse('1998-11-12'),
             'reserve_date' => Carbon::parse('2023-06-20'),
+            'reserve_time' => '09:00:00',
             'reserve_duration' => 3,
             'status' => 'canceled'
         ]);
@@ -89,6 +95,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '876543210',
             'dob' => Carbon::parse('1985-09-08'),
             'reserve_date' => Carbon::parse('2023-06-25'),
+            'reserve_time' => '15:00:00',
             'reserve_duration' => 1,
             'status' => 'confirmed'
         ]);
@@ -100,6 +107,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '987654321',
             'dob' => Carbon::parse('1982-08-15'),
             'reserve_date' => Carbon::parse('2023-06-28'),
+            'reserve_time' => '14:00:00',
             'reserve_duration' => 2,
             'status' => 'confirmed'
         ]);
@@ -111,6 +119,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '123-456-7890',
             'dob' => Carbon::parse('1996-03-22'),
             'reserve_date' => Carbon::parse('2023-07-01'),
+            'reserve_time' => '10:00:00',
             'reserve_duration' => 3,
             'status' => 'confirmed'
         ]);
@@ -121,6 +130,7 @@ class ReservationsSeeder extends Seeder
             'phone_number' => '876543210',
             'dob' => Carbon::parse('1979-11-02'),
             'reserve_date' => Carbon::parse('2023-07-05'),
+            'reserve_time' => '12:00:00',
             'reserve_duration' => 1,
             'status' => 'canceled'
         ]);

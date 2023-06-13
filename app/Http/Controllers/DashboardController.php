@@ -79,7 +79,7 @@ class DashboardController extends Controller
 
         foreach ($dataAdd as $da) {
             $da->enabled = $r->input($da->id);
-            $da->name = $r->input($da->id.'_in');
+            // $da->name = $r->input($da->id.'_in');
             $da->save();
         }
 
@@ -88,13 +88,12 @@ class DashboardController extends Controller
 
     }
 
-    public function addField(){
+    public function addField(Request $r){
         $data = Form::first();
         $dataAdd = new FormExtra();
 
         $dataAdd->forms_id = $data->id;
-        $dataAdd->name = 'Enter name here';
-        $dataAdd->textbox = 'placeholder';
+        $dataAdd->name = $r->fieldName;
         $dataAdd->enabled = false;
 
         $dataAdd->save();

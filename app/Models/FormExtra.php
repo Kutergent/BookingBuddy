@@ -9,5 +9,5 @@ class FormExtra extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['forms_id', 'name', 'textbox', 'enabled'];
+    protected $fillable = ['forms_id', 'name', 'enabled'];
 }

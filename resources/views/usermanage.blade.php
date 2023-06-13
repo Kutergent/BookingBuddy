@@ -13,7 +13,7 @@
           <!-- <x-primary-button class="ml-2" id="adduser">
               {{ __('Add New User') }}
           </x-primary-button> -->
-          <h2 class="ml-2  inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" id="addUser">Add New User</h2>
+          <button type="button" class="ml-2  inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" id="addUser">Add New User</button>
         </span>
       </div>
     </form>
@@ -29,13 +29,13 @@
           <col>
           <col class="w-26">
         </colgroup>
-        <thead class="bg-gray-200">
+        <thead class="bg-gray-200 ">
           <tr class="text-left">
             <th class="p-3 font-medium text-base">ID No</th>
             <th class="p-3 font-medium text-base">Name</th>
             <th class="p-3 font-medium text-base">Email</th>
-            <th class="p-3 font-medium text-base text-right">Status</th>
-            <th class="p-3 font-medium text-base text-right">Delete</th>
+            <th class="p-3 font-medium text-base text-center">Status</th>
+            <th class="p-3 font-medium text-base text-right"> </th>
           </tr>
         </thead>
 				<tbody>
@@ -50,7 +50,7 @@
               <td class="p-3 font-medium text-sm">
                 <p>{{ $us->email }}</p>
               </td>
-              <td class="p-3 font-medium text-sm text-right">
+              <td class="p-3 font-medium text-sm text-center">
                 @if ($us->role == 'User Manager')
                 <span class="px-3 py-1 font-semibold rounded-md bg-blue-300 text-gray-900">
                   <span>{{ $us->role }}</span>
@@ -62,7 +62,7 @@
                 @endif
               </td>
 
-                <td class="p-3 font-medium text-sm text-right">
+                <td class="p-3 font-medium text-sm text-center">
                   @if (Auth::id() == $us->id)
                   <a href="{{ route('deleteUser', ['id' => $us->id]) }}" class="ml-2 bg-gray-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 pointer-events-none">
                     {{ __('Remove')}}
@@ -112,7 +112,7 @@
 
                 <div class="mt-4 flex justify-end">
                     <button type="submit" class="mr-2 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto">Submit</button>
-                    <h2 id="cancelButton" class="ml-2 inline-flex items-center px-4 py-2 bg-red-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto">Cancel</h2>
+                    <button type="button" id="cancelButton" class="ml-2 inline-flex items-center px-4 py-2 bg-red-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto">Cancel</button>
                 </div>
             </form>
         </div>

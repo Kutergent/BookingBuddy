@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <!-- component -->
-    <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+    <div class="min-h-screen p-6 flex items-center justify-center">
       <div class="container max-w-screen-lg mx-auto">
 
           <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
@@ -129,7 +129,7 @@
                     <!-- <x-primary-button class="ml-2">
                         {{ __('Remove') }}
                     </x-primary-button> -->
-                    <a href="{{ route('deleteField', ['id' => $da->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    <a href="{{ route('deleteField', ['id' => $da->id]) }}" class="ml-2 bg-red-800 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     {{ __('Remove') }}
                     </a>
                 </div>
@@ -140,9 +140,9 @@
             <div class="md:col-span-2"></div>
 
             <div class="md:col-span-2">
-                <h2 id="addField" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <button type="button" id="addField" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     {{ __('Add new Field') }}
-            </h2>
+            </button>
             </div>
 
             <div class="md:col-span-3">
@@ -162,13 +162,14 @@
             <div id="addFieldModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="bg-white p-4 rounded-lg w-1/2">
             <h2 class="text-xl font-bold mb-4">Add New Field</h2>
-            <form>
+            <form action="{{ route('addField') }}" method="post">
+                @csrf
                 <div class="mt-4">
                     <label for="fieldName" class="block text-sm font-medium text-gray-700">New Field Name</label>
                     <input id="fieldName" type="text" name="fieldName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class="mt-4 flex justify-end">
-                    <button type="button" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add</button>
+                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add</button>
                     <a href="#" id="cancelButton" class="ml-2 inline-flex items-center px-4 py-2 bg-red-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Cancel</a>
                     <!-- {{ route('addField') }} -->
                 </div>
