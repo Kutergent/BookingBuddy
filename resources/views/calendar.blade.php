@@ -29,16 +29,16 @@
                                         <span class="text-sm text-gray-500">{{\Carbon\Carbon::parse($res->reserve_date)->format('d F Y')}}</span>
                                     </div>
                                     <div class="flex justify-center">
-                                        <a href="#" class="mr-2 bg-gray-800 border border-transparent font-semibold text-xs text-white py-2 px-4 rounded tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <button type="button" class="mr-2 bg-gray-800 border border-transparent font-semibold text-xs text-white py-2 px-4 rounded tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                             <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                 <path d="M0 11l2-2 5 5L20 3l2 2L7 20z" />
                                             </svg>
-                                        </a>
-                                        <a href="#" class="bg-red-800 border border-transparent font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto py-2 px-4 rounded">
+                                        </button>
+                                        <button type="button" class="bg-red-800 border border-transparent font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto py-2 px-4 rounded">
                                             <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                                             </svg>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>
