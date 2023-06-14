@@ -148,4 +148,18 @@ class DashboardController extends Controller
         return redirect('usermanage');
     }
 
+    public function getID(Request $request, $id)
+    {
+        // Process the API request
+        // You can access the request data using $request->input()
+
+        // Example code to update a reservation in the database
+        $reservation = Reservations::find($id);
+        $reservation->status = 'confirmed';
+        $reservation->save();
+
+        // Return a response
+        return response()->json(['message' => 'Reservation confirmed'], 200);
+    }
+
 }
