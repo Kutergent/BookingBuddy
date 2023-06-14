@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\APIController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -56,7 +57,13 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
+
 });
+
+//API For confirmation
+Route::get('/confirmation/{id}', [APIController::class, 'confirmStatus'])->name('ConfirmStatus');
+Route::get('/cancelation/{id}', [APIController::class, 'cancelStatus'])->name('CancelStatus');
+Route::get('/reservation/{id}', [APIController::class, 'getReserveData'])->name('getReserveData');
 
 // Customer Report
 Route::middleware('auth')->group(function () {

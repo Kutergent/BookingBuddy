@@ -1,10 +1,14 @@
 <x-app-layout>
 
+@php
+    $calendarRoute = route('calendar');
+@endphp
+
     <div class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div class="flex">
             <div class="w-1/3 bg-gray-200 mr-4 rounded text-center">
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Canceled</h3>
-                <ul>
+                <ul class="max-h-64 overflow-y-auto">
                     @foreach ($reservations as $res)
                         @if ($res->status === 'canceled')
                             <li>
@@ -19,7 +23,7 @@
             </div>
             <div class="w-1/3 bg-gray-300 rounded text-center">
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Pending</h3>
-                <ul>
+                <ul class="max-h-64 overflow-y-auto">
                     @foreach ($reservations as $res)
                         @if ($res->status === 'pending')
                             <li>
@@ -37,7 +41,7 @@
                             <path d="M0 11l2-2 5 5L20 3l2 2L7 20z" />
                         </svg>
                     </button>
-                    <button type="button" id="cancel-button pendingCancelButton" class="bg-red-800 border border-transparent font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto py-2 px-4 rounded"
+                    <button type="button" id="cancel-button pendingCancelButton" class="cancel-button bg-red-800 border border-transparent font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 w-auto py-2 px-4 rounded"
                             data-reservation-id="{{$res->id}}"
                             data-reservation-name="{{$res->name}}"
                             data-reservation-date="{{\Carbon\Carbon::parse($res->reserve_date)->format('d F Y')}}">
@@ -57,7 +61,7 @@
 
             <div class="w-1/3 bg-gray-400 ml-4 rounded text-center">
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Upcoming</h3>
-                <ul>
+                <ul class="max-h-64 overflow-y-auto">
                     @foreach ($reservations as $res)
                         @if ($res->status === 'confirmed' && \Carbon\Carbon::parse($res->reserve_date)->isFuture())
                             <li>
@@ -93,6 +97,18 @@
 
     <x-slot name="scripts">
         <script>
+            function convertTo12HourFormat(time) {
+                var parts = time.split(':');
+                var hours = parseInt(parts[0]);
+                var minutes = parseInt(parts[1]);
+                var seconds = parseInt(parts[2]);
+
+                var meridiem = hours >= 12 ? 'PM' : 'AM';
+                var twelveHourFormatHours = hours % 12 || 12;
+
+                return twelveHourFormatHours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + meridiem;
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
                 var confirmationModal = document.getElementById('confirmationModal');
@@ -100,120 +116,138 @@
                 var cancelButton = document.getElementById('cancelButton');
                 var confirmButtons = document.querySelectorAll('.confirm-button');
                 var cancelButtons = document.querySelectorAll('.cancel-button');
+                var calendarRoute = "{{ $calendarRoute }}";
 
                 confirmButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-        console.log('Confirm button clicked');
-        var reservationId = button.getAttribute('data-reservation-id');
-        var reservationName = button.getAttribute('data-reservation-name');
-        var reservationDate = button.getAttribute('data-reservation-date');
+                    button.addEventListener('click', function() {
+                        var reservationId = button.getAttribute('data-reservation-id');
+                        fetch('http://localhost/BookingBuddy/public/reservation/' + reservationId)
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json();
+                                }
+                                throw new Error('API request failed');
+                            })
+                            .then(data => {
+                                var date = new Date(data.reserve_date);
+                                var options = { day: '2-digit', month: 'long', year: 'numeric' };
+                                var reservationDate = date.toLocaleDateString('en-GB', options);
 
-        // Update the content of the confirmation modal
-        modalTitle.textContent = 'Confirmation';
-        modalMessage.textContent = 'Are you sure you want to confirm the reservation for ' + reservationName + ' on ' + reservationDate + '?';
+                                modalTitle.textContent = 'Confirmation';
+                                modalMessage.textContent = 'Are you sure you want to confirm the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
 
-        // Display the confirmation modal
-        var confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.remove('hidden');
+                        confirmationModal.classList.remove('hidden');
 
-        confirmButton.addEventListener('click', function(){
-            fetch('https://api.example.com/reservations/' + reservationId, {
-    method: 'POST', // or 'GET', 'PUT', 'DELETE', etc. depending on your API
-    headers: {
-      'Content-Type': 'application/json',
-      // Include any required headers for your API
-    },
-    // Include any request body or additional options as needed
-  })
-  .then(function(response) {
-    // Handle the API response
-    if (response.ok) {
-      // API call was successful
-      return response.json(); // or response.text() or other response format
-    } else {
-      // API call failed
-      throw new Error('API request failed');
-    }
-  })
-  .then(function(data) {
-    // Handle the API response data
-    console.log(data);
-    // Perform any desired actions with the response data
-  })
-  .catch(function(error) {
-    // Handle any errors that occurred during the API call
-    console.error(error);
-  });
-        })
-    });
-});
+                        confirmButton.addEventListener('click', function() {
+                            fetch('http://localhost/BookingBuddy/public/confirmation/' + reservationId, {
+                                method: 'GET',
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        window.location.href = calendarRoute;
+                                        return response.json();
+                                    }
+                                    throw new Error('API request failed');
+                                })
+                                .then(data => {
+                                    //make alert or something
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        });
 
-cancelButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-        console.log('Confirm button clicked');
-        var reservationId = button.getAttribute('data-reservation-id');
-        var reservationName = button.getAttribute('data-reservation-name');
-        var reservationDate = button.getAttribute('data-reservation-date');
+                        cancelButton.addEventListener('click', function() {
+                            confirmationModal.classList.add('hidden');
+                        });
+                    });
+                });
 
-        // Update the content of the confirmation modal
-        modalTitle.textContent = 'Cancellation';
-        modalMessage.textContent = 'Are you sure you want to cancel the reservation for ' + reservationName + ' on ' + reservationDate + '?';
+                cancelButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var reservationId = button.getAttribute('data-reservation-id');
+                        fetch('http://localhost/BookingBuddy/public/reservation/' + reservationId)
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json();
+                                }
+                                throw new Error('API request failed');
+                            })
+                            .then(data => {
+                                var date = new Date(data.reserve_date);
+                                var options = { day: '2-digit', month: 'long', year: 'numeric' };
+                                var reservationDate = date.toLocaleDateString('en-GB', options);
 
-        // Display the confirmation modal
-        var confirmationModal = document.getElementById('confirmationModal');
-        confirmationModal.classList.remove('hidden');
-    });
-});
+                                modalTitle.textContent = 'Cancellation';
+                                modalMessage.textContent = 'Are you sure you want to cancel the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
 
+                        confirmationModal.classList.remove('hidden');
+
+                        confirmButton.addEventListener('click', function() {
+                            fetch('http://localhost/BookingBuddy/public/cancelation/' + reservationId, {
+                                method: 'GET',
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        window.location.href = calendarRoute;
+                                        return response.json();
+                                    }
+                                    throw new Error('API request failed');
+                                })
+                                .then(data => {
+                                    //make alert or something
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        });
+
+                        cancelButton.addEventListener('click', function() {
+                            confirmationModal.classList.add('hidden');
+                        });
+
+                    });
+                });
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
                     themeSystem: 'bootstrap5',
                     events: [
                         @foreach($reservations as $reservation)
-                            {
-                                title: '{{ ucfirst($reservation->name) }} - {{ ucfirst($reservation->status) }}',
-                                start: '{{ $reservation->reserve_date }}',
-                                end: '{{ $reservation->reserve_date }}',
-                                @if ($reservation->status === 'confirmed')
-                                    classNames: 'bg-indigo-600 bg-indigo-600 text-white whitespace-normal',
-                                @elseif ($reservation->status === 'pending')
-                                    classNames: 'bg-yellow-600 border-yellow-600 text-black whitespace-normal',
-                                @elseif ($reservation->status === 'canceled')
-                                    classNames: 'bg-red-800 border-red-800 text-white whitespace-normal',
-                                @endif
-                                extendedProps: {
-                                    name: '{{ $reservation->name }}',
-                                    email: '{{ $reservation->email }}',
-                                    phone: '{{ $reservation->phone_number }}',
-                                    status: '{{ $reservation->status }}',
-                                },
+                        {
+                            title: '{{ ucfirst($reservation->name) }} - {{ ucfirst($reservation->status) }}',
+                            start: '{{ $reservation->reserve_date }}',
+                            end: '{{ $reservation->reserve_date }}',
+                            @if ($reservation->status === 'confirmed')
+                            classNames: 'bg-indigo-600 bg-indigo-600 text-white whitespace-normal',
+                            @elseif ($reservation->status === 'pending')
+                            classNames: 'bg-yellow-600 border-yellow-600 text-black whitespace-normal',
+                            @elseif ($reservation->status === 'canceled')
+                            classNames: 'bg-red-800 border-red-800 text-white whitespace-normal',
+                            @endif
+                            extendedProps: {
+                                name: '{{ $reservation->name }}',
+                                email: '{{ $reservation->email }}',
+                                phone: '{{ $reservation->phone_number }}',
+                                status: '{{ $reservation->status }}',
                             },
+                        },
                         @endforeach
                     ],
-                    // eventClick: function(info) {
-                    //     // Show confirmation modal
-                    //     confirmationModal.classList.remove('hidden');
-
-                    //     // Handle confirm button click
-                    //     confirmButton.addEventListener('click', function() {
-                    //         // Perform confirmation action (you can make an API request or any other action)
-                    //         // You can access the reservation ID using `info.event.id` and handle the confirmation accordingly
-
-                    //         // Close the modal
-                    //         confirmationModal.classList.add('hidden');
-                    //     });
-
-                    //     // Handle cancel button click
-                    //     cancelButton.addEventListener('click', function() {
-                    //         // Close the modal
-                    //         confirmationModal.classList.add('hidden');
-                    //     });
-                    // },
                 });
 
                 calendar.render();
             });
         </script>
+
     </x-slot>
+
 </x-app-layout>
