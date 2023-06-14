@@ -1,9 +1,8 @@
 <x-guest-layout>
-<!-- component -->
-<div class="flex items-center justify-center p-12">
-  <!-- Author: FormBold Team -->
-  <!-- Learn More: https://formbold.com -->
-  <div class="mx-auto w-full max-w-[550px]">
+
+
+<div class="flex items-center justify-center p-12" style="background-image: url('{{ asset('images/bgNav.jpg') }}'); background-size: cover; background-position: center center;">
+  <div class="p-4 rounded-lg mx-auto w-full max-w-[550px] shadow-xl" style="background-image: url('{{ asset('images/bgReserve2.jpg') }}'); background-size: cover; background-position: center center; box-shadow: rgba(0, 0, 0, 5) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
     <form action="{{ route('postReserve')  }}" method="POST">
       @csrf
 

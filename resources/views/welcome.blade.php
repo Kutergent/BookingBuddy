@@ -7,7 +7,8 @@
 -->
 
 <section
-  class="relative bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat"
+  class="relative bg-[url(https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)] bg-cover bg-center bg-no-repeat"
+  style="background-size: cover; background-position: center center;"
 >
   <div
     class="absolute inset-0 bg-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
@@ -16,31 +17,31 @@
   <div
     class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
   >
-    <div class="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-      <h1 class="text-3xl font-extrabold sm:text-5xl">
-        Let us find your
-
-        <strong class="block font-extrabold text-rose-700">
-          Forever Home.
+    <div class="max-w-xl text-left ltr:sm:text-left rtl:sm:text-right">
+      <h1 class="text-3xl font-extrabold sm:text-5xl text-white">
+        <strong class="block font-extrabold text-gunmetal text-6xl">
+          SoundQuake
         </strong>
+        Experience the majestic sound of Music
       </h1>
 
       <p class="mt-4 max-w-lg sm:text-xl/relaxed">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo
-        tenetur fuga ducimus numquam ea!
+        <h5>
+          
+        </h5> 
       </p>
 
       <div class="mt-8 flex flex-wrap gap-4 text-center">
         <a
-          href="#"
-          class="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
+          href="{{ route('reserve') }}"
+          class="block w-full rounded bg-gunmetal px-12 py-3 text-sm font-medium text-white shadow hover:bg-gray-500 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
         >
-          Get Started
+          Reserve Now
         </a>
 
         <a
-          href="#"
-          class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
+          href="{{ route('aboutus') }}"
+          class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-gunmetal shadow hover:text-gray-500 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
         >
           Learn More
         </a>
