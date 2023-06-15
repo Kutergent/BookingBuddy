@@ -57,13 +57,21 @@
                     </colgroup>
                     <thead class="bg-gray-200">
                         <tr class="text-left">
-                            <th class="p-3 font-medium text-base">Name</th>
+                            {{-- <th class="p-3 font-medium text-base">Name</th>
                             <th class="p-3 font-medium text-base">Email</th>
+                            
+                           
+                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
+                            
+                            <th class="p-3 font-medium text-base text-center">Status</th> --}}
+
+                            <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
+                            <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base">Date of Birth</th>
-                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
+                            <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
-                            <th class="p-3 font-medium text-base text-center">Status</th>
+                            <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,7 +117,8 @@
                 </table>
             </div>
             <!-- pagination -->
-            {{ $report->links() }}
+            {{-- {{ $report->links() }} --}}
+            {!! $report->appends(Request::except('page'))->render() !!}
         </div>
     </div>
 
