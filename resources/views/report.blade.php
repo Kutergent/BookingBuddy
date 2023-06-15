@@ -62,7 +62,7 @@
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base">Date of Birth</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Date</th>
-                            <th class="p-3 font-medium text-base text-right">Duration</th>
+                            <th class="p-3 font-medium text-base text-right">Reserve Time</th>
                             <th class="p-3 font-medium text-base text-center">Status</th>
                         </tr>
                     </thead>
@@ -86,7 +86,7 @@
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
-                                    <p>{{ $r->reserve_duration }} Hour(s)</p>
+                                    <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
                                     @if ($r->status == 'confirmed')
