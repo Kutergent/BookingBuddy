@@ -53,7 +53,7 @@
         <div class="w-full px-3">
           <div class="mt-4">
               <x-input-label for="reserve_date" :value="__('Reservation Date')" />
-              <x-text-input id="reserve_date" class="block mt-1 w-full" type="date" name="reserve_date" :value="old('reserve_date')" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required/>
+              <x-text-input id="reserve_date" class="block mt-1 w-full" type="date" name="reserve_date" :value="old('reserve_date')" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" max="{{ Carbon\Carbon::now()->addWeeks(2)->format('Y-m-d') }}" required/>
               <x-input-error :messages="$errors->get('reserve_date')" class="mt-2" />
           </div>
         </div>
