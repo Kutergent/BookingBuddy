@@ -372,6 +372,14 @@
                         document.getElementById('reservationModalDateOfBirth').textContent = data.dob;
                         document.getElementById('reservationModalDate').textContent = data.reserve_date;
                         document.getElementById('reservationModalTime').textContent = convertTo12HourFormat(data.reserve_time);
+
+                        if(data.status != 'pending'){
+                            confirmReservationButton.classList.add('hidden')
+                            cancelReservationButton.classList.add('hidden')
+                        }else{
+                            confirmReservationButton.classList.remove('hidden')
+                            cancelReservationButton.classList.remove('hidden')
+                        }
                         // ...
 
                         // Show the reservationModal
@@ -392,8 +400,6 @@
                         }
                     })
                     .then(function(data) {
-                        // Handle the response data
-                        // console.log(data.data);
                         if (data.data.length > 0) {
                             console.log(data.data);
                             const extraWrapper = document.createElement('div');
