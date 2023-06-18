@@ -57,8 +57,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
-
 });
+Route::get('/check-reservation', [APIController::class, 'checkReservation'])->name('check-reservation');
 
 //API For confirmation
 Route::get('/confirmation/{id}', [APIController::class, 'confirmStatus'])->name('ConfirmStatus');

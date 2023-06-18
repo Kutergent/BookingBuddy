@@ -49,8 +49,10 @@ class DashboardController extends Controller
 
     public function calendar(){
         $reservations = Reservations::all();
+        $field = Field::all();
+        $formExtra = FormExtra::where('enabled', 1)->get();
 
-        return view('calendar', compact('reservations'));
+        return view('calendar', compact('reservations', 'field', 'formExtra'));
     }
 
     public function edit(){
