@@ -57,13 +57,21 @@
                     </colgroup>
                     <thead class="bg-gray-200">
                         <tr class="text-left">
-                            <th class="p-3 font-medium text-base">Name</th>
+                            {{-- <th class="p-3 font-medium text-base">Name</th>
                             <th class="p-3 font-medium text-base">Email</th>
+                            
+                           
+                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
+                            
+                            <th class="p-3 font-medium text-base text-center">Status</th> --}}
+
+                            <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
+                            <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base">Date of Birth</th>
-                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
-                            <th class="p-3 font-medium text-base text-right">Duration</th>
-                            <th class="p-3 font-medium text-base text-center">Status</th>
+                            <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
+                            <th class="p-3 font-medium text-base text-right">Reserve Time</th>
+                            <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +94,7 @@
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
-                                    <p>{{ $r->reserve_duration }} Hour(s)</p>
+                                    <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
                                     @if ($r->status == 'confirmed')
@@ -109,7 +117,8 @@
                 </table>
             </div>
             <!-- pagination -->
-            {{ $report->links() }}
+            {{-- {{ $report->links() }} --}}
+            {!! $report->appends(Request::except('page'))->render() !!}
         </div>
     </div>
 

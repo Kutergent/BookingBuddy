@@ -19,7 +19,7 @@
   >
     <div class="max-w-xl text-left ltr:sm:text-left rtl:sm:text-right">
       <h1 class="text-3xl font-extrabold sm:text-5xl text-white">
-        <strong class="block font-extrabold text-gunmetal text-6xl">
+        <strong class="block font-extrabold text-gray-900 text-6xl">
           SoundQuake
         </strong>
         Experience the majestic sound of Music
