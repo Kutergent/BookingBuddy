@@ -18,16 +18,16 @@ use Illuminate\Validation\Rules;
 class DashboardController extends Controller
 {
     public function testarea(){
-        $arr = array();
-        $data = FormExtra::all();
+    //     $reservations = Reservations::where('status', 'pending')
+    // ->where('reserve_date', '<', now()->toDateString())
+    // ->orWhere(function ($query) {
+    //     $query->whereDate('reserve_date', now()->toDateString())
+    //           ->whereTime('reserve_time', '<', now()->toTimeString());
+    // })->update(['status' => 'canceled']);
 
-        foreach ($data as $d) {
-            array_push($arr, $d->name);
-        };
 
-        dd($arr);
 
-      return;
+      return redirect('/');
     }
 
     public function report(Request $r){
