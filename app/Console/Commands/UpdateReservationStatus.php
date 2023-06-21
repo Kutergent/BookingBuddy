@@ -12,14 +12,14 @@ class UpdateReservationStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'reservations:purge-past';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Updates the status of pending reservation to canceled if in the past automatically';
 
     /**
      * Execute the console command.
@@ -34,5 +34,7 @@ class UpdateReservationStatus extends Command
         $query->whereDate('reserve_date', now()->toDateString())
               ->whereTime('reserve_time', '<', now()->toTimeString());
     })->update(['status' => 'canceled']);
+
+    $this->info($reservations . ' reservations have been canceled.');
     }
 }
