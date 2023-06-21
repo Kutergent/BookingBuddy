@@ -101,7 +101,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <h2 id="reservationModalTitle" class="text-xl font-bold mb-4">Order Details</h2>
+            <h2 id="reservationModalTitle" class="text-xl font-bold mb-4">Reservation Details</h2>
             <div class="grid grid-cols-2 gap-4">
             <div class="mb-4">
                 <p class="font-semibold">Name:</p>
@@ -158,6 +158,18 @@
                 return twelveHourFormatHours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + meridiem;
             }
 
+            function convertDate(date){
+                var dateObj = new Date(date);
+                var options = { day: '2-digit', month: 'long', year: 'numeric' };
+                var formattedDate = dateObj.toLocaleDateString('en-GB', options);
+
+                return formattedDate;
+            }
+
+            function capitalizeFirstLetter(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+
             function fetchReservation(reservationId, type) {
                 fetch('http://localhost/BookingBuddy/public/reservation/' + reservationId)
                     .then(response => {
@@ -168,9 +180,7 @@
                     })
                     .then(data => {
                     confirmationModal.classList.remove('hidden');
-                    var date = new Date(data.reserve_date);
-                    var options = { day: '2-digit', month: 'long', year: 'numeric' };
-                    var reservationDate = date.toLocaleDateString('en-GB', options);
+                    var reservationDate = convertDate(data.reserve_date)
 
                     if (type == "cancel") {
                         modalTitle.textContent = 'Cancellation';
@@ -280,28 +290,6 @@
                 confirmationModal.classList.add('hidden')
                 })
 
-
-
-
-
-
-
-
-                // confirmButtons.forEach(function(button) {
-                //     button.addEventListener('click', function() {
-                //         var reservationId = button.getAttribute('data-reservation-id');
-                //         fetchReservation(reservationId, "confirm")
-                //     });
-                // });
-
-                // cancelButtons.forEach(function(button) {
-                //     button.addEventListener('click', function() {
-                //         var reservationId = button.getAttribute('data-reservation-id');
-                //         fetchReservation(reservationId, "cancel")
-
-                //     });
-                // });
-
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
                     themeSystem: 'bootstrap5',
@@ -364,13 +352,12 @@
                     })
                     .then(data => {
                         console.log(data)
-                        // Update the reservationModal with data
-                        document.getElementById('reservationModalTitle').textContent = "Reservation Details"
+                        document.getElementById('reservationModalTitle').textContent =  capitalizeFirstLetter(data.status) +" Reservation Details"
                         document.getElementById('reservationModalName').textContent = data.name;
                         document.getElementById('reservationModalEmail').textContent = data.email;
                         document.getElementById('reservationModalPhone').textContent = data.phone_number;
-                        document.getElementById('reservationModalDateOfBirth').textContent = data.dob;
-                        document.getElementById('reservationModalDate').textContent = data.reserve_date;
+                        document.getElementById('reservationModalDateOfBirth').textContent = convertDate(data.dob);
+                        document.getElementById('reservationModalDate').textContent = convertDate(data.reserve_date);
                         document.getElementById('reservationModalTime').textContent = convertTo12HourFormat(data.reserve_time);
 
                         if(data.status != 'pending'){
@@ -380,9 +367,7 @@
                             confirmReservationButton.classList.remove('hidden')
                             cancelReservationButton.classList.remove('hidden')
                         }
-                        // ...
 
-                        // Show the reservationModal
                         reservationModal.classList.remove('hidden');
                     })
                     .catch(error => {
