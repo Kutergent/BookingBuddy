@@ -17,13 +17,13 @@ class FormExtraSeeder extends Seeder
     {
         FormExtra::create([
             'forms_id' => 1,
-            'name' => 'Additional note 1',
+            'name' => 'Studio Type',
             'enabled' => true
         ]);
 
         FormExtra::create([
             'forms_id' => 1,
-            'name' => 'Additional note 2',
+            'name' => 'Number of People',
             'enabled' => false
         ]);
     }
