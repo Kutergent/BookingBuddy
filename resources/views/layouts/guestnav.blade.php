@@ -32,16 +32,24 @@
                 <!-- Reserve Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('reserve')" :active="request()->routeIs('reserve')">
-                        {{ __('Reserve') }}
+                        @guest
+                            {{ __('Reserve & Register') }}
+                        @endguest
+                        @auth
+                            {{ __('Reserve') }}
+                        @endauth
                     </x-nav-link>
                 </div>
 
                 <!-- My Reserve Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('myReservations')" :active="request()->routeIs('myReservations')">
-                        {{ __('My Reservations') }}
-                    </x-nav-link>
-                </div>
+                @auth
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('myReservations')" :active="request()->routeIs('myReservations')">
+                            {{ __('My Reservations') }}
+                        </x-nav-link>
+                    </div>
+                @endauth
+
 
             </div>
 

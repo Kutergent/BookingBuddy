@@ -1,12 +1,15 @@
 <x-guest-layout>
 
 
-<div class="flex items-center justify-center p-12" style="background-image: url('{{ asset('images/bgNav.jpg') }}'); background-size: cover; background-position: center center;">
+<div class="flex items-center justify-center p-12 bg-gray-900">
   <div class="p-4 rounded-lg mx-auto w-full max-w-[550px] shadow-xl" style="background-image: url('{{ asset('images/bgReserve2.jpg') }}'); background-size: cover; background-position: center center; box-shadow: rgba(0, 0, 0, 5) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
     <form action="{{ route('postReserve')  }}" method="POST">
       @csrf
 
       <div class="-mx-3 flex flex-wrap">
+
+@guest
+
 
 
         @if ($data->name == 1)
@@ -29,6 +32,14 @@
         </div>
         @endif
 
+        <div class="w-full px-3">
+          <div class="mt-4">
+              <x-input-label for="password" :value="__('Password')" />
+              <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" :value="old('password')" required autocomplete="password" />
+              <x-input-error :messages="$errors->get('password')" class="mt-2" />
+          </div>
+        </div>
+
         @if ($data->phone_number == 1)
         <div class="w-full px-3">
           <div class="mt-4">
@@ -49,6 +60,7 @@
         </div>
         @endif
 
+        @endguest
 
         <div class="w-full px-3">
           <div class="mt-4">

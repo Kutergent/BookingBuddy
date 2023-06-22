@@ -19,10 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->date('dob')->nullable();
             $table->date('reserve_date');
             $table->time('reserve_time');
             $table->integer('reserve_duration');

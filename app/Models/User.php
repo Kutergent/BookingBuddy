@@ -26,6 +26,8 @@ class User extends Authenticatable
         'dob',
     ];
 
+    public $sortable = ['name'];
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -182,6 +182,8 @@
                     confirmationModal.classList.remove('hidden');
                     var reservationDate = convertDate(data.reserve_date)
 
+                    console.log('Data:' + data);
+
                     if (type == "cancel") {
                         modalTitle.textContent = 'Cancellation';
                         modalMessage.textContent = 'Are you sure you want to cancel the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
@@ -264,6 +266,8 @@
                 var reservationModal = document.getElementById('reservationModal')
                 var closeReservationModal = document.getElementById('closeReservationModal');
 
+                var closeConfirmationModal = document.getElementById('closeconfirmationModal');
+
                 var cancelReservationButton = document.getElementById('cancelReservationButton')
                 var confirmReservationButton = document.getElementById('confirmReservationButton')
 
@@ -307,13 +311,13 @@
                             classNames: 'bg-red-800 border-red-800 text-white whitespace-normal',
                             @endif
                             extendedProps: {
-                                name: '{{ $reservation->name }}',
-                                email: '{{ $reservation->email }}',
-                                phone: '{{ $reservation->phone_number }}',
-                                dob: '{{ $reservation->dob }}',
-                                date: '{{ $reservation->reserve_date }}',
-                                time: '{{ $reservation->reserve_time }}',
-                                status: '{{ $reservation->status }}',
+                                // name: '{{ $reservation->name }}',
+                                // email: '{{ $reservation->email }}',
+                                // phone: '{{ $reservation->phone_number }}',
+                                // dob: '{{ $reservation->dob }}',
+                                // date: '{{ $reservation->reserve_date }}',
+                                // time: '{{ $reservation->reserve_time }}',
+                                // status: '{{ $reservation->status }}',
                                 id: '{{ $reservation->id }}'
 
                             },
@@ -331,7 +335,7 @@
                 calendar.render();
 
                 function epicModal(reservationId){
-
+                    console.log("Reserve ID is " + reservationId)
                     var modalTitle = document.getElementById('reservationModalTitle');
                     const nameField = document.getElementById('reservationModalName');
                     const emailField = document.getElementById('reservationModalEmail');
@@ -351,7 +355,7 @@
                         throw new Error('API request failed');
                     })
                     .then(data => {
-                        console.log(data)
+                        console.log(data.status)
                         document.getElementById('reservationModalTitle').textContent =  capitalizeFirstLetter(data.status) +" Reservation Details"
                         document.getElementById('reservationModalName').textContent = data.name;
                         document.getElementById('reservationModalEmail').textContent = data.email;
@@ -359,6 +363,8 @@
                         document.getElementById('reservationModalDateOfBirth').textContent = convertDate(data.dob);
                         document.getElementById('reservationModalDate').textContent = convertDate(data.reserve_date);
                         document.getElementById('reservationModalTime').textContent = convertTo12HourFormat(data.reserve_time);
+
+                        console.log('Status:' + data.status);
 
                         if(data.status != 'pending'){
                             confirmReservationButton.classList.add('hidden')
@@ -386,7 +392,7 @@
                     })
                     .then(function(data) {
                         if (data.data.length > 0) {
-                            console.log(data.data);
+                            // console.log(data.data);
                             const extraWrapper = document.createElement('div');
                             extraWrapper.classList.add('grid', 'grid-cols-2', 'gap-4', 'mb-4');
 

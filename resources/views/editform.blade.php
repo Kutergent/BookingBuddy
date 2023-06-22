@@ -2,9 +2,9 @@
 
     <!-- component -->
     <div class="min-h-screen p-6 flex items-center justify-center">
-      
+
       <div class="container max-w-screen-lg mx-auto">
-          
+
 
           <div class="bg-white rounded shadow-2xl p-4 px-4 md:p-8 mb-6"
           style="box-shadow: rgba(0, 0, 0, 0.45) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
@@ -17,7 +17,7 @@
 
               <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
 
-                  
+
 
                   <div class="lg:col-span-3">
                     <!-- Fixed Form -->
@@ -105,9 +105,9 @@
                         </label>
                       </div>
                     </div>
-                
+
                     <hr class="my-4">
-                    
+
                     <!-- Additional Form -->
                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-4 md:grid-cols-5">
 
@@ -121,7 +121,7 @@
                                     <label for="city"> {{$da->name}} </label>
                                 </div>
                         </div>
-                        
+
                         <div class="md:col-span-1">
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input name="{{ $da->id }}" type="hidden" value="0" class="sr-only peer">

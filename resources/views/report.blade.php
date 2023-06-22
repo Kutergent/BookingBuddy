@@ -59,18 +59,21 @@
                         <tr class="text-left">
                             {{-- <th class="p-3 font-medium text-base">Name</th>
                             <th class="p-3 font-medium text-base">Email</th>
-                            
-                           
+
+
                             <th class="p-3 font-medium text-base text-right">Reserve Date</th>
-                            
+
                             <th class="p-3 font-medium text-base text-center">Status</th> --}}
 
                             <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
                             <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
-                            <th class="p-3 font-medium text-base">Date of Birth</th>
                             <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
+                            @foreach ($formextra as $fe)
+                                <th class="p-3 font-medium text-base text-right">{{ $fe->name }}</th>
+                            @endforeach
+
                             <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
@@ -86,9 +89,6 @@
                                 <td class="p-3 font-medium text-sm">
                                     <p>{{ $r->phone_number }}</p>
                                 </td>
-                                <td class="p-3 font-medium text-sm">
-                                    <p>{{ \Carbon\Carbon::parse($r->dob)->format('d F Y')}}</p>
-                                </td>
                                 <td class="p-3 font-medium text-sm text-right">
                                     <p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
@@ -96,6 +96,35 @@
                                 <td class="p-3 font-medium text-sm text-right">
                                     <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
                                 </td>
+                                @foreach ($formextra as $fe)
+                                    @php
+                                        $hit = 'false';
+                                    @endphp
+                                    @foreach ($field as $fi)
+
+                                        @if ($r->id == $fi->reservations_id && $fe->id == $fi->formextra_id)
+                                            <td class="p-3 font-medium text-sm text-right">
+                                                <p>
+                                                        {{ $fi->textbox }}
+                                                </p>
+                                            </td>
+                                            @php
+                                                $hit = 'true'; // Set the flag to 'enabled'
+                                            @endphp
+                                            @break
+                                        @endif
+
+                                    @endforeach
+                                    @if ($hit == 'false')
+                                    <td class="p-3 font-medium text-sm text-center">
+                                        <p>
+                                                -
+                                        </p>
+                                    </td>
+
+                                    @endif
+                                @endforeach
+
                                 <td class="p-3 font-medium text-sm text-right">
                                     @if ($r->status == 'confirmed')
                                         <span class="px-3 py-1 font-semibold rounded-md bg-indigo-600 text-gray-100">

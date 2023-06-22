@@ -125,14 +125,6 @@ class UserSeeder extends Seeder
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
-        User::create([
-            'name' => 'Marxen',
-            'email' => 'marxen22@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
 
         User::create([
             'name' => 'Gladiia',

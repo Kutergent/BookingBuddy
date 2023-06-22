@@ -1,7 +1,7 @@
 <x-guest-layout>
 
     <div class="container mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
-        <h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Report</h2>
+        <h2 class="mb-4 text-2xl font-semibold leading-tight">My Reservations History</h2>
 
         <hr class="my-4">
         <!-- Datepicker -->
@@ -65,10 +65,11 @@
 
                             <th class="p-3 font-medium text-base text-center">Status</th> --}}
 
-                            <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
+                            {{-- <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
                             <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
-                            <th class="p-3 font-medium text-base">Date of Birth</th>
+                            <th class="p-3 font-medium text-base">Date of Birth</th> --}}
+
                             <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
                             <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
@@ -77,18 +78,16 @@
                     <tbody>
                         @foreach ($reservations as $r)
                             <tr class="border-b border-opacity-20 bg-white">
-                                <td class="p-3 font-medium text-sm">
+                                {{-- <td class="p-3 font-medium text-sm">
                                     <p>{{ $r->name }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm">
                                     <p>{{ $r->email }}</p>
-                                </td>
-                                <td class="p-3 font-medium text-sm">
+                                </td> --}}
+                                {{-- <td class="p-3 font-medium text-sm">
                                     <p>{{ $r->phone_number }}</p>
-                                </td>
-                                <td class="p-3 font-medium text-sm">
-                                    <p>{{ \Carbon\Carbon::parse($r->dob)->format('d F Y')}}</p>
-                                </td>
+                                </td> --}}
+
                                 <td class="p-3 font-medium text-sm text-right">
                                     <p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>

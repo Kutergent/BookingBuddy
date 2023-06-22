@@ -32,24 +32,30 @@ class DashboardController extends Controller
 
     public function report(Request $r){
 
+        $field = Field::select('fields.*', 'form_extras.enabled')->join('form_extras', 'form_extras.id', '=', 'fields.formextra_id')->where('form_extras.enabled', 1)->get();
+
+        $formextra = FormExtra::where('enabled', 1)->get();
+
         if ($r->start != null) {
             $fromDate = Carbon::parse($r->start);
             $toDate = Carbon::parse($r->end);
 
-            $data = Reservations::sortable()->whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
+            $report = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->sortable()->whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
 
 
-            return view('report', ['report' => $data]);
+            return view('report', compact('report','field','formextra'));
         }
 
-        $data = Reservations::sortable()->paginate(10);
+        $report = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->sortable()->paginate(10);
 
-        return view('report', ['report' => $data]);
-        // return view('report')->with('report', $data);
+        return view('report', compact('report','field','formextra'));
     }
 
     public function calendar(){
-        $reservations = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
+        $reservations = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+        ->join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
+
+
         $field = Field::all();
         $formExtra = FormExtra::where('enabled', 1)->get();
 
@@ -113,7 +119,7 @@ class DashboardController extends Controller
     }
 
     public function usermanage(){
-        $user = User::paginate(10);
+        $user = User::where('role', '!=', 'Customer')->paginate(10);
 
 
         return view('usermanage', [
