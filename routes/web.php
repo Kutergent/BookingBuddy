@@ -49,15 +49,15 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
 // Dashboard (calendar &stats)
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['isAdmin', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('isAdmin')->group(function () {
     Route::get('/usermanage', [DashboardController::class, 'usermanage'])->name('usermanage');
     Route::post('/addUser', [DashboardController::class, 'addUser'])->name('addUser');
     Route::get('/deleteUser/{id}', [DashboardController::class, 'deleteUser'])->name('deleteUser');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('isAdmin')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
 });
 Route::get('/check-reservation', [APIController::class, 'checkReservation'])->name('check-reservation');
@@ -68,12 +68,12 @@ Route::get('/cancelation/{id}', [APIController::class, 'cancelStatus'])->name('C
 Route::get('/reservation/{id}', [APIController::class, 'getReserveData'])->name('getReserveData');
 
 // Customer Report
-Route::middleware('auth')->group(function () {
+Route::middleware('isAdmin')->group(function () {
     Route::get('/report', [DashboardController::class, 'report'])->name('report');
 });
 
 // Registration Edit form
-Route::middleware('auth')->group(function () {
+Route::middleware('isAdmin')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
     Route::post('/editUpdate', [DashboardController::class, 'editUpdate'])->name('editUpdate');
     Route::post('/addField', [DashboardController::class, 'addField'])->name('addField');
@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function () {
 
 
 //Profile edit
-Route::middleware('auth')->group(function () {
+Route::middleware('isAdmin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
