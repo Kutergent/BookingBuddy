@@ -9,6 +9,7 @@ use App\Models\FormExtra;
 use App\Models\Reservations;
 use App\Models\User;
 use Carbon\Carbon;
+use Doctrine\Inflector\Rules\English\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class HomeController extends Controller
             $validation = Validator::make($r->all(), [
                 'name' => ['min:4', 'required'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-                'password' => ['required'],
+                'password' => ['required', 'confirmed'],
                 'phone_number' => ['digits_between:10,12'],
                 'dob' => ['date', 'before:-14 years'],
                 'reserve_date' => ['date', 'after:yesterday'],
