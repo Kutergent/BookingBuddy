@@ -30,7 +30,7 @@ class APIController extends Controller
 
     public function getReserveData($id){
 
-        $reservation = Reservations::find($id);
+        $reservation = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->find($id);
 
         return response()->json($reservation, 200);
     }

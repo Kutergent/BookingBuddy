@@ -7,6 +7,7 @@ use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
 use App\Models\Reservations;
+use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -93,6 +94,24 @@ class HomeController extends Controller
         $email = $r->session()->get('email');
 
         return view('reserveComplete' , compact('email'));
+    }
+
+    public function getList(Request $r){
+        $user = auth()->user();
+
+        if ($r->start != null) {
+            $fromDate = Carbon::parse($r->start);
+            $toDate = Carbon::parse($r->end);
+
+            $reservations = Reservations::where('users_id', $user->id)->sortable()->whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
+
+            return view ('myReservations', compact('reservations'));
+        }
+
+        $reservations = Reservations::where('users_id', $user->id)->sortable()->paginate(10);
+
+
+        return view ('myReservations', compact('reservations'));
     }
 
 }

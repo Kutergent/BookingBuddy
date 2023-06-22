@@ -11,7 +11,7 @@
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Canceled</h3>
                 <ul class="max-h-64 overflow-y-auto">
                     @foreach ($reservations as $res)
-                        @if ($res->status === 'canceled')
+                        @if ($res->status === 'canceled' && \Carbon\Carbon::parse($res->reserve_date)->gte(\Carbon\Carbon::now()->subMonth()))
                             <li>
                                 <div class="bg-gray-100 p-4 rounded shadow-md flex justify-between items-center my-2 mx-2">
                                     <span class="mb-2">{{$res->name}}</span>

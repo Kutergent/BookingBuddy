@@ -49,7 +49,7 @@ class DashboardController extends Controller
     }
 
     public function calendar(){
-        $reservations = Reservations::orderBy('created_at', 'desc')->get();
+        $reservations = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
         $field = Field::all();
         $formExtra = FormExtra::where('enabled', 1)->get();
 

@@ -12,7 +12,7 @@ class Reservations extends Model
     use HasFactory;
     use Sortable;
 
-    protected $fillable = ['name', 'email', 'phone_number', 'dob', 'reserve_date','reserve_time', 'reserve_duration', 'status'];
+    protected $fillable = ['users_id', 'name', 'email', 'phone_number', 'dob', 'reserve_date','reserve_time', 'reserve_duration', 'status'];
 
     public $sortable = ['name', 'email', 'reserve_date', 'reserve_duration', 'status'];
 }

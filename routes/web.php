@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 //TEST AREA
 Route::get('/testarea', [DashboardController::class, 'testarea']);
+
 //TEST AREA END
 
 //Home
@@ -35,6 +36,7 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
     Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
     Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
     Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
+    Route::get('/my-reservations', [HomeController::class, 'getList'])->name('myReservations');
 //List need for client customers / guest
 // Register / Reserve Page
 

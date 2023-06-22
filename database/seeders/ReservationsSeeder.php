@@ -18,6 +18,7 @@ class ReservationsSeeder extends Seeder
     public function run()
     {
         Reservations::create([
+            'users_id' => 12,
             'name' => "John Doe",
             'email' => 'johndoe@coolmail.com',
             'phone_number' => '081234567890',
@@ -30,6 +31,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 12,
             'name' => "Jane Smith",
             'email' => 'janesmith@example.com',
             'phone_number' => '082345678901',
@@ -42,6 +44,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 13,
             'name' => "David Johnson",
             'email' => 'davidjohnson@gmail.com',
             'phone_number' => '083456789012',
@@ -54,6 +57,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 13,
             'name' => "Sarah Davis",
             'email' => 'sarahdavis@hotmail.com',
             'phone_number' => '084567890123',
@@ -66,6 +70,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 14,
             'name' => "Michael Brown",
             'email' => 'mbrown@example.com',
             'phone_number' => '085678901234',
@@ -78,6 +83,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Emily Wilson",
             'email' => 'ewilson@gmail.com',
             'phone_number' => '086789012345',
@@ -90,6 +96,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Alexandra Lee",
             'email' => 'alexlee@example.com',
             'phone_number' => '087890123456',
@@ -102,6 +109,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Robert Johnson",
             'email' => 'robertjohnson@example.com',
             'phone_number' => '088901234567',
@@ -114,6 +122,7 @@ class ReservationsSeeder extends Seeder
 
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Emma Thompson",
             'email' => 'ethompson@gmail.com',
             'phone_number' => '089012345678',
@@ -125,6 +134,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Oliver Martinez",
             'email' => 'omartinez@example.com',
             'phone_number' => '090123456789',
@@ -136,6 +146,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Michael Ash",
             'email' => 'mash@example.com',
             'phone_number' => '091234567890',
@@ -147,6 +158,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Ember Wijaya",
             'email' => 'ewijaya@gmail.com',
             'phone_number' => '092345678901',
@@ -158,6 +170,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Excalibur Kurniawan",
             'email' => 'ekurniawan@example.com',
             'phone_number' => '093456789012',
@@ -169,6 +182,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Loki Santoso",
             'email' => 'lsantoso@gmail.com',
             'phone_number' => '094567890123',
@@ -180,6 +194,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Mag Purnomo",
             'email' => 'magpurnomo@example.com',
             'phone_number' => '095678901234',
@@ -191,6 +206,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Rhino Gunawan",
             'email' => 'rhinogunawan@example.com',
             'phone_number' => '096789012345',
@@ -202,6 +218,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Trinity Wulandari",
             'email' => 'twulandari@gmail.com',
             'phone_number' => '097890123456',
@@ -213,6 +230,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Volt Suryadi",
             'email' => 'voltsuryadi@example.com',
             'phone_number' => '098901234567',
@@ -224,6 +242,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Frost Wicaksana",
             'email' => 'frostwicaksana@gmail.com',
             'phone_number' => '099012345678',
@@ -235,6 +254,7 @@ class ReservationsSeeder extends Seeder
         ]);
 
         Reservations::create([
+            'users_id' => 11,
             'name' => "Nyx Kusuma",
             'email' => 'nyxkusuma@example.com',
             'phone_number' => '090123456789',
