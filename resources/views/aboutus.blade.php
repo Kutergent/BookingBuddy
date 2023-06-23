@@ -5,8 +5,7 @@
             style="min-height: 75vh;"
         >
             <div
-            class="absolute top-0 w-full h-full bg-center bg-cover"
-            style='background-image: url("https://images.unsplash.com/photo-1518972559570-7cc1309f3229?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80");'
+            class="absolute top-0 w-full h-full bg-center bg-cover bg-gray-950"
             >
             <span
                 id="blackOverlay"
@@ -21,7 +20,7 @@
                     Your story starts with us
                     </h1>
                     <p class="mt-8 text-md text-gray-300 text-center">
-                    <b class="text-lg">SoundQuake</b>, the ultimate destination for all your music production needs. We are dedicated to providing a state-of-the-art music studio experience that ignites your creativity and transforms your musical vision into reality. Our cutting-edge facility is equipped with the latest technology and top-notch equipment, ensuring pristine audio quality and exceptional production value. Whether you're an aspiring artist, a seasoned musician, or a passionate producer, our team of experienced professionals is here to assist you at every step of your musical journey. From recording and mixing to mastering and post-production, we offer a comprehensive range of services tailored to suit your unique requirements. Discover the perfect harmony of artistry and technology at SoundQuake, where your musical dreams come to life.
+                    <b class="text-lg">BookingBuddy</b> is a web-based reservation application designed to help businesses manage reservations and bookings efficiently. With BookingBuddy, customers can easily search for available reservations and make bookings online, while businesses can manage bookings, set custom rules and restrictions, and track performance using the platform's analytics and reporting tools.
                     </p>
                 </div>
                 </div>
@@ -61,9 +60,9 @@
                     >
                         <i class="fas fa-award"></i>
                     </div>
-                    <h6 class="text-xl font-semibold">Cutting-edge Technology</h6>
+                    <h6 class="text-xl font-semibold">Seamless Reservation Management</h6>
                     <p class="mt-2 mb-4 text-gray-600">
-                        Our cutting-edge technology empowers artists to explore new sonic horizons and unleash their creative potential with precision and innovation.
+                        Managing your reservations has never been easier. Our intuitive interface allows you to effortlessly book and manage your reservations all in one place.
                     </p>
                     </div>
                 </div>
@@ -79,9 +78,9 @@
                     >
                         <i class="fas fa-retweet"></i>
                     </div>
-                    <h6 class="text-xl font-semibold">Expert Team of Professionals</h6>
+                    <h6 class="text-xl font-semibold">Customizable Fields and Booking Options</h6>
                     <p class="mt-2 mb-4 text-gray-600">
-                        With a team of seasoned professionals by your side, SoundQuake ensures that your music is in the hands of experts who are dedicated to realizing your artistic vision.
+                        Flexible administration features, administrators have full control over the reservation system.
                     </p>
                     </div>
                 </div>
@@ -97,9 +96,9 @@
                     >
                         <i class="fas fa-fingerprint"></i>
                     </div>
-                    <h6 class="text-xl font-semibold">Tailored Services and Customization</h6>
+                    <h6 class="text-xl font-semibold">User Management and Administration</h6>
                     <p class="mt-2 mb-4 text-gray-600">
-                        At SoundQuake, we believe in the power of customization, offering personalized services that cater to your unique musical style and preferences.
+                        Provides robust user management capabilities, allowing administrators to oversee user accounts, permissions, and access levels.
                     </p>
                     </div>
                 </div>
@@ -108,19 +107,14 @@
             <div class="flex flex-wrap items-center mt-32">
                 <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <h3 class="text-3xl mb-2 font-semibold leading-normal">
-                    SoundQuake Provides   
+                    BookingBuddy Provides   
                 </h3>
                 <ul  class="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
-                    <li>Fender Stratocaster & Gibson Guitars</li>
-                    <li>Neumann U87 Base Microphone</li>
-                    <li>SSL Console</li>
-                    <li>Pro Tools HD System</li>
-                    <li>Universal Audio Apollo Interface</li>
-                    <li>Yamaha C7 Grand Piano</li>
-                    <li>Moog Voyager Synthesizer</li>
-                    <li>DW Drum Kit</li>
-                    <li>Eventide H8000FW</li>
-                    <li>Avalon VT-737sp</li>
+                    <li>-User registration and authentication</li>
+                    <li>-Real-time availability updates</li>
+                    <li>-Customizable booking rules and restrictions</li>
+                    <li>-Reporting and analytics to track usage and performance</li>
+                    <li>-Integration with calendar apps</li>
                 </ul>
 
                 <a
@@ -137,7 +131,7 @@
                 >
                     <img
                     alt="..."
-                    src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                    src="https://images.unsplash.com/photo-1649635838761-6d9397403ec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
                     class="w-full align-middle rounded-t-lg"
                     />
                     <blockquote class="relative p-8 mb-4">
@@ -154,10 +148,10 @@
                         ></polygon>
                     </svg>
                     <h4 class="text-xl font-bold text-white">
-                        Top Notch Studio
+                        Top Notch Reservation App
                     </h4>
                     <p class="text-md font-light mt-2 text-white">
-                        Embark on an unforgettable musical journey where creativity thrives, sonic landscapes come alive, and dreams are transformed into reality at SoundQuake's awe-inspiring music studio.
+                        User-friendly reservation app that simplifies the process of booking and managing various services and accommodations. Whether it's flights, hotels, car rentals, or activities, BookingBuddy offers a seamless experience for customers, allowing them to effortlessly browse, select, and confirm their reservations.
                     </p>
                     </blockquote>
                 </div>
@@ -191,8 +185,8 @@
                 <div class="w-full lg:w-6/12 px-4">
                 <h2 class="text-4xl font-semibold text-white">Support</h2>
                 <p class="text-lg leading-relaxed mt-4 mb-4 text-gray-400">
-                    If you have any questions or issues with SoundQuake, please contact our support team at 
-                    <b class="text-white">support@soundquake.com</b>
+                    If you have any questions or issues with BookingBuddy, please contact our support team at 
+                    <b class="text-white">support@bookingbuddy.com</b>
                 </p>
                 </div>
             </div>
@@ -207,7 +201,7 @@
                     Excelent services
                 </h6>
                 <p class="mt-2 mb-4 text-gray-400">
-                    Experience unparalleled excellence with SoundQuake's exceptional services, tailored to exceed your every expectation in the realm of music production.
+                    Experience unparalleled excellence with BookingBuddy's exceptional services, tailored to exceed your every expectation in the realm of reservation systems.
                 </p>
                 </div>
                 <div class="w-full lg:w-3/12 px-4 text-center">
@@ -220,7 +214,7 @@
                     Grow your passion
                 </h5>
                 <p class="mt-2 mb-4 text-gray-400">
-                    Ignite your passion and watch it flourish as SoundQuake provides the perfect environment to nurture your creative spirit and elevate your musical journey to new heights.
+                    Ignite your passion and watch it flourish as BookingBuddy provides the perfect environment to nurture your creative spirit and elevate your management to new heights.
                 </p>
                 </div>
                 <div class="w-full lg:w-3/12 px-4 text-center">
@@ -231,7 +225,7 @@
                 </div>
                 <h5 class="text-xl mt-5 font-semibold text-white">Unveil your skills</h5>
                 <p class="mt-2 mb-4 text-gray-400">
-                    Unleash your hidden talents and witness them unfold under the guidance of SoundQuake's expert team, unlocking a world of possibilities for your unique skills to shine.
+                    Unleash your hidden talents and witness them unfold under the guidance of BookingBuddy's expert team, unlocking a world of possibilities for your unique skills to shine.
                 </p>
                 </div>
             </div>
@@ -325,7 +319,7 @@
             >
             <div class="w-full md:w-4/12 px-4 mx-auto text-center">
                 <div class="text-sm text-gray-600 font-semibold py-1">
-                Copyright © 2023 SoundQuake by
+                Copyright © 2023 by
                 <a
                     href="https://www.creative-tim.com"
                     class="text-gray-600 hover:text-gray-900"

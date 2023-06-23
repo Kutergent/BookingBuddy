@@ -7,7 +7,7 @@
 -->
 
 <section
-  class="relative bg-[url(https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)] bg-cover bg-center bg-no-repeat"
+  class="relative bg-[url(https://images.unsplash.com/photo-1600181982553-ce7d36051c01?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80)] bg-cover bg-center bg-no-repeat"
   style="background-size: cover; background-position: center center;"
 >
   <div
@@ -19,10 +19,10 @@
   >
     <div class="max-w-xl text-left ltr:sm:text-left rtl:sm:text-right">
       <h1 class="text-3xl font-extrabold sm:text-5xl text-white">
-        <strong class="block font-extrabold text-gray-900 text-6xl">
-          SoundQuake
+        <strong class="block font-extrabold text-gray-400 text-8xl">
+          BookingBuddy
         </strong>
-        Experience the majestic sound of Music
+        Your Ultimate Flexible Companion
       </h1>
 
       <p class="mt-4 max-w-lg sm:text-xl/relaxed">

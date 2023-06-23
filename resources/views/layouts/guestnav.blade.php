@@ -7,10 +7,8 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('welcome') }}">
                         <!-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> -->
-                        <svg class="h-9 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 18V5l12-2v13"></path>
-                            <circle cx="6" cy="18" r="3"></circle>
-                            <circle cx="18" cy="16" r="3"></circle>
+                        <svg class="h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bb-svg">
+                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16">BB</text>
                         </svg>
                     </a>
                 </div>

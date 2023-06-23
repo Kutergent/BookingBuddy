@@ -1,6 +1,7 @@
 <x-guest-layout>
 
-    <div class="container mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
+    <div class="min-h-screen flex items-center justify-center bg-gray-950">
+    <div class="container mx-auto sm:p-4 text-gray-900 bg-gray-200 rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
         <h2 class="mb-4 text-2xl font-semibold leading-tight">My Reservations History</h2>
 
         <hr class="my-4">
@@ -17,7 +18,7 @@
                         </svg>
                     </div>
                     <input name="start" type="text"
-                        class="bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                        class="bg-gray-50 border border-gray-50 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                         placeholder="Select date start">
                 </div>
                 <span class="mx-4 text-gray-700">to</span>
@@ -31,7 +32,7 @@
                         </svg>
                     </div>
                     <input name="end" type="text"
-                        class="bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+                        class="bg-gray-50 border border-gray-50 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                         placeholder="Select date end">
                 </div>
 
@@ -55,7 +56,7 @@
                         <col>
                         <col class="w-24">
                     </colgroup>
-                    <thead class="bg-gray-200">
+                    <thead class="bg-gray-400">
                         <tr class="text-left">
                             {{-- <th class="p-3 font-medium text-base">Name</th>
                             <th class="p-3 font-medium text-base">Email</th>
@@ -63,16 +64,17 @@
 
                             <th class="p-3 font-medium text-base text-right">Reserve Date</th>
 
-                            <th class="p-3 font-medium text-base text-center">Status</th> --}}
+                            <th class="p-3 font-medium text-base text-right">Status</th> --}}
 
                             {{-- <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
                             <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base">Date of Birth</th> --}}
-
+                            
+                            <th class="p-3 font-medium text-base text-right">Reservation ID</th>
                             <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
-                            <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
+                            <th class="p-3 font-medium text-base text-right">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,6 +90,9 @@
                                     <p>{{ $r->phone_number }}</p>
                                 </td> --}}
 
+                                <td class="p-3 font-medium text-sm text-right">
+                                    <p>{{ $r->id }}</p>
+                                </td>
                                 <td class="p-3 font-medium text-sm text-right">
                                     <p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
@@ -120,5 +125,7 @@
             {!! $reservations->appends(Request::except('page'))->render() !!}
         </div>
     </div>
+    </div>
+    
 
 </x-guest-layout>
