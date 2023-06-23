@@ -171,7 +171,7 @@
             }
 
             function fetchReservation(reservationId, type) {
-                fetch('http://localhost/BookingBuddy/public/reservation/' + reservationId)
+                fetch('{{ route('getReserveData') }}?id=' + reservationId)
                     .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -212,7 +212,7 @@
 
             function fetchConfirmation(reservationId, calendarRoute) {
 
-                fetch('http://localhost/BookingBuddy/public/confirmation/' + reservationId, {
+                fetch('{{ route('ConfirmStatus') }}?id=' + reservationId, {
                     method: 'GET',
                 })
                     .then(response => {
@@ -231,7 +231,7 @@
             }
 
             function fetchCancellation(reservationId, calendarRoute) {
-                fetch('http://localhost/BookingBuddy/public/cancelation/' + reservationId, {
+                fetch('{{ route('CancelStatus') }}?id=' + reservationId, {
                     method: 'GET',
                 })
                     .then(response => {
@@ -347,7 +347,7 @@
 
 
 
-                    fetch('http://localhost/BookingBuddy/public/reservation/' + reservationId)
+                    fetch('{{ route('getReserveData') }}?id=' + reservationId)
                     .then(response => {
                         if (response.ok) {
                             return response.json();

@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class APIController extends Controller
 {
-    public function confirmStatus($id){
+    public function confirmStatus(Request $request)
+    {
+        $id = $request->query('id');
 
         $reservation = Reservations::find($id);
         $reservation->status = 'confirmed';
@@ -19,7 +21,9 @@ class APIController extends Controller
         return response()->json(['message' => 'Reservation confirmed'], 200);
     }
 
-    public function cancelStatus($id){
+    public function cancelStatus(Request $request)
+    {
+        $id = $request->query('id');
 
         $reservation = Reservations::find($id);
         $reservation->status = 'canceled';
@@ -28,28 +32,29 @@ class APIController extends Controller
         return response()->json(['message' => 'Reservation canceled'], 200);
     }
 
-    public function getReserveData($id){
+    public function getReserveData(Request $request)
+    {
+        $id = $request->query('id');
 
         $reservation = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
-    ->join('users', 'users.id', '=', 'reservations.users_id')
-    ->where('reservations.id', $id)
-    ->first();
-
-
+            ->join('users', 'users.id', '=', 'reservations.users_id')
+            ->where('reservations.id', $id)
+            ->first();
 
         return response()->json($reservation, 200);
     }
 
-    public function checkReservation(Request $request){
+    public function checkReservation(Request $request)
+    {
         $fieldReservationId = $request->query('fieldReservationId');
 
         $field = Field::all();
         $formExtra = FormExtra::where('enabled', 1)->get();
-        $data =[];
+        $data = [];
 
-        foreach ($formExtra as $fe){
-            foreach ($field as $f){
-                if ($fieldReservationId == $f->reservations_id && $fe->id == $f->formextra_id){
+        foreach ($formExtra as $fe) {
+            foreach ($field as $f) {
+                if ($fieldReservationId == $f->reservations_id && $fe->id == $f->formextra_id) {
                     $data[] = [
                         'name' => $fe->name,
                         'textbox' => $f->textbox
@@ -58,8 +63,6 @@ class APIController extends Controller
             }
         }
 
-            return response()->json(['data' => $data]);
-
+        return response()->json(['data' => $data]);
     }
-
 }

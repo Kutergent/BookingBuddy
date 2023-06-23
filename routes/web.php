@@ -63,9 +63,10 @@ Route::middleware('isAdmin')->group(function () {
 Route::get('/check-reservation', [APIController::class, 'checkReservation'])->name('check-reservation');
 
 //API For confirmation
-Route::get('/confirmation/{id}', [APIController::class, 'confirmStatus'])->name('ConfirmStatus');
-Route::get('/cancelation/{id}', [APIController::class, 'cancelStatus'])->name('CancelStatus');
-Route::get('/reservation/{id}', [APIController::class, 'getReserveData'])->name('getReserveData');
+Route::get('/confirmation', [APIController::class, 'confirmStatus'])->name('ConfirmStatus');
+Route::get('/cancelation', [APIController::class, 'cancelStatus'])->name('CancelStatus');
+Route::get('/reservation', [APIController::class, 'getReserveData'])->name('getReserveData');
+
 
 // Customer Report
 Route::middleware('isAdmin')->group(function () {
@@ -82,7 +83,7 @@ Route::middleware('isAdmin')->group(function () {
 
 
 //Profile edit
-Route::middleware('isAdmin')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
