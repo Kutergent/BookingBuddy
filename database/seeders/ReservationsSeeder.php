@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Field;
 use App\Models\Reservations;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class ReservationsSeeder extends Seeder
 {
@@ -17,173 +19,68 @@ class ReservationsSeeder extends Seeder
      */
     public function run()
     {
-        Reservations::create([
-            'users_id' => 12,
-            'reserve_date' => Carbon::parse('2023-06-06'),
-            'reserve_time' => '12:00:00',
-            'reserve_duration' => 3,
-            'status' => 'pending'
-        ]);
+        $faker = Faker::create('id_ID');
+        $users = User::where('role', 'Customer')->get();
+
+        foreach ($users as $user) {
+            $userId = $user->id;
+            $reserveDate = $faker->dateTimeBetween('2023-05-01', '2023-08-31')->format('Y-m-d');
+            $reserveTime = $faker->dateTimeBetween('09:00:00', '18:00:00')->format('H:i:s');
+            $reserveTime = Carbon::parse($reserveTime)->ceil('30 minutes')->format('H:i:s');
+            $reserveDuration = $faker->numberBetween(1, 3);
+            $status = $faker->randomElement(['pending', 'canceled', 'confirmed']);
+
+            $reservation = Reservations::create([
+                'users_id' => $userId,
+                'reserve_date' => $reserveDate,
+                'reserve_time' => $reserveTime,
+                'reserve_duration' => $reserveDuration,
+                'status' => $status
+            ]);
+
+            Field::create([
+                'reservations_id' => $reservation->id,
+                'formextra_id' => 1,
+                'textbox' => $faker->words($faker->numberBetween(1, 4), true)
+            ]);
+
+            Field::create([
+                'reservations_id' => $reservation->id,
+                'formextra_id' => 2,
+                'textbox' => $faker->words($faker->numberBetween(1, 4), true)
+            ]);
 
 
-        Reservations::create([
-            'users_id' => 12,
-            'reserve_date' => Carbon::parse('2023-06-08'),
-            'reserve_time' => '09:00:00',
-            'reserve_duration' => 2,
-            'status' => 'pending'
-        ]);
 
 
-        Reservations::create([
-            'users_id' => 13,
-            'reserve_date' => Carbon::parse('2023-06-12'),
-            'reserve_time' => '13:00:00',
-            'reserve_duration' => 4,
-            'status' => 'pending'
-        ]);
+    // Randomly trigger a second reservation entry with a 25% chance
+            if ($faker->boolean(25)) {
+                $reserveDate = $faker->dateTimeBetween('2023-05-01', '2023-08-31')->format('Y-m-d');
+                $reserveTime = $faker->dateTimeBetween('09:00:00', '18:00:00')->format('H:i:s');
+                $reserveTime = Carbon::parse($reserveTime)->ceil('30 minutes')->format('H:i:s');
+                $status = $faker->randomElement(['pending', 'canceled', 'confirmed']);
 
 
-        Reservations::create([
-            'users_id' => 13,
-            'reserve_date' => Carbon::parse('2023-06-15'),
-            'reserve_time' => '18:00:00',
-            'reserve_duration' => 1,
-            'status' => 'pending'
-        ]);
+                $reservation1 = Reservations::create([
+                    'users_id' => $userId,
+                    'reserve_date' => $reserveDate,
+                    'reserve_time' => $reserveTime,
+                    'reserve_duration' => $faker->numberBetween(1, 3),
+                    'status' => $faker->randomElement(['pending', 'canceled', 'confirmed'])
+                ]);
 
+                Field::create([
+                    'reservations_id' => $reservation1->id,
+                    'formextra_id' => 1,
+                    'textbox' => 'Note ' . $faker->numberBetween(1, 15)
+                ]);
 
-        Reservations::create([
-            'users_id' => 14,
-            'reserve_date' => Carbon::parse('2023-06-18'),
-            'reserve_time' => '10:00:00',
-            'reserve_duration' => 2,
-            'status' => 'pending'
-        ]);
-
-
-        Reservations::create([
-            'users_id' => 15,
-            'reserve_date' => Carbon::parse('2023-06-20'),
-            'reserve_time' => '09:00:00',
-            'reserve_duration' => 3,
-            'status' => 'canceled'
-        ]);
-
-
-        Reservations::create([
-            'users_id' => 15,
-            'reserve_date' => Carbon::parse('2023-06-25'),
-            'reserve_time' => '15:00:00',
-            'reserve_duration' => 1,
-            'status' => 'confirmed'
-        ]);
-
-
-        Reservations::create([
-            'users_id' => 15,
-            'reserve_date' => Carbon::parse('2023-06-28'),
-            'reserve_time' => '14:00:00',
-            'reserve_duration' => 2,
-            'status' => 'confirmed'
-        ]);
-
-
-        Reservations::create([
-            'users_id' => 11,
-            'reserve_date' => Carbon::parse('2023-07-01'),
-            'reserve_time' => '10:00:00',
-            'reserve_duration' => 3,
-            'status' => 'confirmed'
-        ]);
-
-        Reservations::create([
-            'users_id' => 11,
-            'reserve_date' => Carbon::parse('2023-07-05'),
-            'reserve_time' => '12:00:00',
-            'reserve_duration' => 1,
-            'status' => 'canceled'
-        ]);
-
-        Reservations::create([
-            'users_id' => 16,
-            'reserve_date' => Carbon::parse('2023-05-12'),
-            'reserve_time' => '10:00:00',
-            'reserve_duration' => 2,
-            'status' => 'pending'
-        ]);
-
-        Reservations::create([
-            'users_id' => 16,
-            'reserve_date' => Carbon::parse('2023-06-20'),
-            'reserve_time' => '09:00:00',
-            'reserve_duration' => 3,
-            'status' => 'canceled'
-        ]);
-
-        Reservations::create([
-            'users_id' => 17,
-            'reserve_date' => Carbon::parse('2023-07-10'),
-            'reserve_time' => '14:00:00',
-            'reserve_duration' => 1,
-            'status' => 'pending'
-        ]);
-
-        Reservations::create([
-            'users_id' => 17,
-            'reserve_date' => Carbon::parse('2023-05-30'),
-            'reserve_time' => '15:30:00',
-            'reserve_duration' => 2,
-            'status' => 'confirmed'
-        ]);
-
-        Reservations::create([
-            'users_id' => 18,
-            'reserve_date' => Carbon::parse('2023-07-15'),
-            'reserve_time' => '11:00:00',
-            'reserve_duration' => 1,
-            'status' => 'pending'
-        ]);
-
-        Reservations::create([
-            'users_id' => 18,
-            'reserve_date' => Carbon::parse('2023-05-28'),
-            'reserve_time' => '16:00:00',
-            'reserve_duration' => 2,
-            'status' => 'confirmed'
-        ]);
-
-        Reservations::create([
-            'users_id' => 19,
-            'reserve_date' => Carbon::parse('2023-06-12'),
-            'reserve_time' => '13:00:00',
-            'reserve_duration' => 1,
-            'status' => 'pending'
-        ]);
-
-        Reservations::create([
-            'users_id' => 19,
-            'reserve_date' => Carbon::parse('2023-07-05'),
-            'reserve_time' => '18:30:00',
-            'reserve_duration' => 3,
-            'status' => 'canceled'
-        ]);
-
-        Reservations::create([
-            'users_id' => 20,
-            'reserve_date' => Carbon::parse('2023-05-15'),
-            'reserve_time' => '20:00:00',
-            'reserve_duration' => 2,
-            'status' => 'confirmed'
-        ]);
-
-        Reservations::create([
-            'users_id' => 20,
-            'reserve_date' => Carbon::parse('2023-06-25'),
-            'reserve_time' => '17:30:00',
-            'reserve_duration' => 1,
-            'status' => 'pending'
-        ]);
-
+                Field::create([
+                    'reservations_id' => $reservation1->id,
+                    'formextra_id' => 2,
+                    'textbox' => 'Note ' . $faker->numberBetween(16, 30)
+                ]);
+            }
+        }
     }
 }

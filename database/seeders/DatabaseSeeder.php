@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             FormSeeder::class,
+            FormExtraSeeder::class,
             UserSeeder::class,
             ReservationsSeeder::class,
-            FormExtraSeeder::class,
-            FieldSeeder::class
+            // FieldSeeder::class
         ]);
 
 

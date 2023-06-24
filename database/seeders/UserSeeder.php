@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class UserSeeder extends Seeder
 {
@@ -17,13 +18,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create('id_ID');
+        $provider = ['852', '853', '811', '812', '813', '821', '822', '851', '857', '856', '896', '895', '897', '898', '899', '817', '818', '819', '859', '877', '878', '832', '833', '838', '881', '882', '883', '884', '885', '886', '887', '888', '889'];
+
         User::create([
             'name' => 'Zanuka Abidin',
             'email' => 'zanukaabidin1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'User Manager',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
+
         ]);
 
         User::create([
@@ -31,7 +36,7 @@ class UserSeeder extends Seeder
             'email' => 'ahmadbaruuk1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'User Manager',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -40,7 +45,7 @@ class UserSeeder extends Seeder
             'email' => 'sitigara1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -49,7 +54,7 @@ class UserSeeder extends Seeder
             'email' => 'ivararahmawati1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -58,7 +63,7 @@ class UserSeeder extends Seeder
             'email' => 'voltpranata1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -67,7 +72,7 @@ class UserSeeder extends Seeder
             'email' => 'frostnugroho1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -76,7 +81,7 @@ class UserSeeder extends Seeder
             'email' => 'magwidjaja1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'User Manager',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -85,7 +90,7 @@ class UserSeeder extends Seeder
             'email' => 'emberwibowo1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -94,7 +99,7 @@ class UserSeeder extends Seeder
             'email' => 'excalibursuryadi1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -103,16 +108,7 @@ class UserSeeder extends Seeder
             'email' => 'wukonglim1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Admin',
-            'phone_number' => '081211113333',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Aurandi Emran Astrawinata',
-            'email' => 'randiemran1337@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211113333',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
@@ -121,82 +117,25 @@ class UserSeeder extends Seeder
             'email' => 'lianto1337@gmail.com',
             'password' => Hash::make('123456'),
             'role' => 'Customer',
-            'phone_number' => '081211112222',
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
             'dob' => Carbon::parse('2001-09-03'),
         ]);
 
 
+        for ($i = 0; $i < 50; $i++) {
+            $name = $faker->firstName . ' ' . $faker->lastName;
+            $email = strtolower(str_replace(' ', '.', $name)) . '@gmail.co.id';
         User::create([
-            'name' => 'Gladiia',
-            'email' => 'gladiia@gmail.com',
+            'name' => $name,
+            'email' => $email,
             'password' => Hash::make('123456'),
             'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
+            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
+            'dob' => $faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
         ]);
+        }
 
-        User::create([
-            'name' => 'Skadi',
-            'email' => 'skadi@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
 
-        User::create([
-            'name' => 'Specter',
-            'email' => 'specter@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Kroos',
-            'email' => 'kroos@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Melantha',
-            'email' => 'melantha@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Yato',
-            'email' => 'yato@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Steerner',
-            'email' => 'steerner@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
-
-        User::create([
-            'name' => 'Yonta',
-            'email' => 'yonta@gmail.com',
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '081211112222',
-            'dob' => Carbon::parse('2001-09-03'),
-        ]);
 
     }
 }
