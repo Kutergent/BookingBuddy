@@ -10,7 +10,7 @@
             <div class="w-1/3 bg-gray-200 mr-4 rounded text-center">
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Canceled</h3>
                 <ul class="max-h-64 overflow-y-auto">
-                    @foreach ($reservations as $res)
+                    @foreach ($canceled as $res)
                         @if ($res->status === 'canceled' && \Carbon\Carbon::parse($res->reserve_date)->gte(\Carbon\Carbon::now()->subMonth()))
                             <li>
                                 <div class="bg-gray-100 p-4 rounded shadow-md flex justify-between items-center my-2 mx-2">
@@ -53,7 +53,7 @@
             <div class="w-1/3 bg-gray-400 ml-4 rounded text-center">
                 <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Upcoming</h3>
                 <ul class="max-h-64 overflow-y-auto">
-                    @foreach ($reservations as $res)
+                    @foreach ($upcoming as $res)
                         @if ($res->status === 'confirmed' && \Carbon\Carbon::parse($res->reserve_date)->isFuture())
                             <li>
                                 <div class="bg-gray-300 p-4 rounded shadow-md flex justify-between items-center my-2 mx-2">

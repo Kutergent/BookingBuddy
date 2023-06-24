@@ -55,11 +55,22 @@ class DashboardController extends Controller
         $reservations = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
         ->join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
 
+        $canceled = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+        ->join('users', 'users.id', '=', 'reservations.users_id')
+        ->orderBy('reservations.reserve_date', 'desc')
+        ->get();
+
+        $upcoming = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+        ->join('users', 'users.id', '=', 'reservations.users_id')
+        ->where('reservations.reserve_date', '>', now())
+        ->orderBy('reservations.reserve_date')
+        ->get();
+
 
         $field = Field::all();
         $formExtra = FormExtra::where('enabled', 1)->get();
 
-        return view('calendar', compact('reservations', 'field', 'formExtra'));
+        return view('calendar', compact('reservations', 'field', 'formExtra', 'canceled', 'upcoming'));
     }
 
     public function edit(){
