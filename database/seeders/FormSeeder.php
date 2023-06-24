@@ -17,7 +17,7 @@ class FormSeeder extends Seeder
     {
         Form::create([
             'name' => true,
-            'email' => true,
+            'range' => 365,
             'phone_number' => true,
             'dob' => true
         ]);

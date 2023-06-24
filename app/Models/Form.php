@@ -9,5 +9,5 @@ class Form extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone_number', 'dob'];
+    protected $fillable = ['name', 'range', 'phone_number', 'dob'];
 }

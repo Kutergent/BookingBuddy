@@ -26,7 +26,7 @@ class User extends Authenticatable
         'dob',
     ];
 
-    public $sortable = ['name'];
+    public $sortable = ['name', 'role', 'id'];
 
     /**
      * The attributes that should be hidden for serialization.

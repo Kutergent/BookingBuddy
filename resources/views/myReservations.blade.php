@@ -6,7 +6,7 @@
 
         <hr class="my-4">
         <!-- Datepicker -->
-        <form action="{{ route('report') }}" method="GET">
+        <form action="{{ route('myReservations') }}" method="GET">
             <div date-rangepicker class="flex items-center mb-2 item">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -38,7 +38,7 @@
 
                 <span class="mx-4 text-gray-700">
                     <x-primary-button class="ml-2">
-                        {{ __('Save') }}
+                        {{ __('Filter') }}
                     </x-primary-button>
                 </span>
 
@@ -48,59 +48,29 @@
         <div class="overflow-x-auto">
             <div class="table-container">
                 <table class="min-w-full text-xs">
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col class="w-24">
                     </colgroup>
                     <thead class="bg-gray-400">
                         <tr class="text-left">
-                            {{-- <th class="p-3 font-medium text-base">Name</th>
-                            <th class="p-3 font-medium text-base">Email</th>
-
-
-                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
-
-                            <th class="p-3 font-medium text-base text-right">Status</th> --}}
-
-                            {{-- <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
-                            <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
-                            <th class="p-3 font-medium text-base">Phone</th>
-                            <th class="p-3 font-medium text-base">Date of Birth</th> --}}
-                            
-                            <th class="p-3 font-medium text-base text-right">Reservation ID</th>
-                            <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
-                            <th class="p-3 font-medium text-base text-right">Reserve Time</th>
-                            <th class="p-3 font-medium text-base text-right">@sortablelink('status', 'Status')</th>
+                            <th class="p-3 font-medium text-base text-left">Reservation ID</th>
+                            <th class="p-3 font-medium text-base text-left">@sortablelink('reserve_date', 'Reserve Date')</th>
+                            <th class="p-3 font-medium text-base text-left">Reserve Time</th>
+                            <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($reservations as $r)
                             <tr class="border-b border-opacity-20 bg-white">
-                                {{-- <td class="p-3 font-medium text-sm">
-                                    <p>{{ $r->name }}</p>
-                                </td>
-                                <td class="p-3 font-medium text-sm">
-                                    <p>{{ $r->email }}</p>
-                                </td> --}}
-                                {{-- <td class="p-3 font-medium text-sm">
-                                    <p>{{ $r->phone_number }}</p>
-                                </td> --}}
-
-                                <td class="p-3 font-medium text-sm text-right">
+                                <td class="p-3 font-medium text-sm text-left">
                                     <p>{{ $r->id }}</p>
                                 </td>
-                                <td class="p-3 font-medium text-sm text-right">
+                                <td class="p-3 font-medium text-sm text-left">
                                     <p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
                                     <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
                                 </td>
-                                <td class="p-3 font-medium text-sm text-right">
+                                <td class="p-3 font-medium text-sm text-left">
                                     <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
                                 </td>
-                                <td class="p-3 font-medium text-sm text-right">
+                                <td class="p-3 font-medium text-sm text-center">
                                     @if ($r->status == 'confirmed')
                                         <span class="px-3 py-1 font-semibold rounded-md bg-indigo-600 text-gray-100">
                                             <span>{{ ucfirst($r->status)  }}</span>
@@ -126,6 +96,6 @@
         </div>
     </div>
     </div>
-    
+
 
 </x-guest-layout>

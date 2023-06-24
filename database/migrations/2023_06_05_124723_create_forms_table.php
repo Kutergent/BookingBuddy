@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->boolean('name');
-            $table->boolean('email');
+            $table->integer('range');
             $table->boolean('phone_number');
             $table->boolean('dob');
             $table->timestamps();

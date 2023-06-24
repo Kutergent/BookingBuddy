@@ -28,13 +28,15 @@ class HomeController extends Controller
     }
 
     public function reserve(){
-        $data = Form::first();
-        $dataAdd = FormExtra::all();
+        $form = Form::first();
+        $formextra = FormExtra::all();
 
-        return view('reserve', [
-            'data' => $data,
-            'dataAdd' => $dataAdd
-        ]);
+        return view('reserve', compact('form', 'formextra'));
+
+        // return view('reserve', [
+        //     'data' => $data,
+        //     'dataAdd' => $dataAdd
+        // ]);
     }
 
     public function postReserve(Request $r){
@@ -127,10 +129,9 @@ class HomeController extends Controller
         return redirect()->route('reserveComplete')->with('email', Auth::user()->email);
     }
 
-    public function reserveComplete(Request $r){
-        $email = $r->session()->get('email');
+    public function reserveComplete(){
 
-        return view('reserveComplete' , compact('email'));
+        return view('reservecomplete');
     }
 
     public function getList(Request $r){

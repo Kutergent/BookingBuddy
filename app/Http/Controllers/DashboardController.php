@@ -63,22 +63,23 @@ class DashboardController extends Controller
     }
 
     public function edit(){
-        $data = Form::first();
-        $dataAdd = FormExtra::all();
+        $form = Form::first();
+        $formextra = FormExtra::all();
 
 
         // dd($data);
-        return view('editform', [
-            'data' => $data,
-            'dataAdd' => $dataAdd
-        ]);
+        return view('editform', compact('form', 'formextra'));
+        // return view('editform', [
+        //     'data' => $data,
+        //     'dataAdd' => $dataAdd
+        // ]);
     }
 
     public function editUpdate(Request $r){
         $data = Form::first();
 
-        $data->name = $r->name;
-        $data->email = $r->email;
+        $data->name = '1';
+        $data->range = $r->range;
         $data->phone_number = $r->phone_number;
         $data->dob = $r->dob;
 
@@ -119,12 +120,11 @@ class DashboardController extends Controller
     }
 
     public function usermanage(){
-        $user = User::where('role', '!=', 'Customer')->paginate(10);
+
+        $usermanage = User::where('role', '!=', 'Customer')->paginate(10);
 
 
-        return view('usermanage', [
-            'usermanage' => $user
-        ]);
+        return view('usermanage', compact('usermanage'));
     }
 
     public function addUser(Request $r){

@@ -37,43 +37,25 @@
 
                 <span class="mx-4 text-gray-700">
                     <x-primary-button class="ml-2">
-                        {{ __('Save') }}
+                        {{ __('Filter') }}
                     </x-primary-button>
                 </span>
-
             </div>
         </form>
 
         <div class="overflow-x-auto">
             <div class="table-container">
                 <table class="min-w-full text-xs">
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col class="w-24">
-                    </colgroup>
                     <thead class="bg-gray-200">
                         <tr class="text-left">
-                            {{-- <th class="p-3 font-medium text-base">Name</th>
+                            <th class="p-3 font-medium text-base">Name</th>
                             <th class="p-3 font-medium text-base">Email</th>
-
-
-                            <th class="p-3 font-medium text-base text-right">Reserve Date</th>
-
-                            <th class="p-3 font-medium text-base text-center">Status</th> --}}
-
-                            <th class="p-3 font-medium text-base">@sortablelink('name', 'Name')</th>
-                            <th class="p-3 font-medium text-base">@sortablelink('email', 'Email')</th>
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
                             @foreach ($formextra as $fe)
                                 <th class="p-3 font-medium text-base text-right">{{ $fe->name }}</th>
                             @endforeach
-
                             <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
@@ -90,49 +72,41 @@
                                     <p>{{ $r->phone_number }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
-                                    <p>{{\Carbon\Carbon::parse($r->reserve_date)->format('d F Y')}}</p>
-                                    <p class="text-gray-400">{{\Carbon\Carbon::parse($r->reserve_date)->format('l')}}</p>
+                                    <p>{{ \Carbon\Carbon::parse($r->reserve_date)->format('d F Y') }}</p>
+                                    <p class="text-gray-400">{{ \Carbon\Carbon::parse($r->reserve_date)->format('l') }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
-                                    <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
+                                    <p>{{ Carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A') }}</p>
                                 </td>
                                 @foreach ($formextra as $fe)
                                     @php
                                         $hit = 'false';
                                     @endphp
                                     @foreach ($field as $fi)
-
                                         @if ($r->id == $fi->reservations_id && $fe->id == $fi->formextra_id)
                                             <td class="p-3 font-medium text-sm text-right">
-                                                <p>
-                                                        {{ $fi->textbox }}
-                                                </p>
+                                                <p>{{ $fi->textbox }}</p>
                                             </td>
                                             @php
                                                 $hit = 'true'; // Set the flag to 'enabled'
                                             @endphp
                                             @break
                                         @endif
-
                                     @endforeach
                                     @if ($hit == 'false')
-                                    <td class="p-3 font-medium text-sm text-center">
-                                        <p>
-                                                -
-                                        </p>
-                                    </td>
-
+                                        <td class="p-3 font-medium text-sm text-center">
+                                            <p>-</p>
+                                        </td>
                                     @endif
                                 @endforeach
-
                                 <td class="p-3 font-medium text-sm text-right">
                                     @if ($r->status == 'confirmed')
                                         <span class="px-3 py-1 font-semibold rounded-md bg-indigo-600 text-gray-100">
-                                            <span>{{ ucfirst($r->status)  }}</span>
+                                            <span>{{ ucfirst($r->status) }}</span>
                                         </span>
                                     @elseif ($r->status == 'pending')
                                         <span class="px-3 py-1 font-semibold rounded-md bg-yellow-600 text-gray-100">
-                                            <span>{{ ucfirst($r->status)  }}</span>
+                                            <span>{{ ucfirst($r->status) }}</span>
                                         </span>
                                     @else
                                         <span class="px-3 py-1 font-semibold rounded-md bg-red-800 text-gray-100">

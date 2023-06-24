@@ -21,17 +21,9 @@
 
     <div class="overflow-x-auto">
       <table class="min-w-full text-xs">
-        <colgroup>
-          <col>
-          <col>
-          <col>
-          <col>
-          <col>
-          <col class="w-26">
-        </colgroup>
         <thead class="bg-gray-200 ">
           <tr class="text-left">
-            <th class="p-3 font-medium text-base">ID No</th>
+            <th class="p-3 font-medium text-base">ID</th>
             <th class="p-3 font-medium text-base">Name</th>
             <th class="p-3 font-medium text-base">Email</th>
             <th class="p-3 font-medium text-base text-center">Role</th>
@@ -139,7 +131,3 @@
 
 
 </x-app-layout>
-
-
-
-
