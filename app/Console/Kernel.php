@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('reservations:purge-past')->hourly();
+        $schedule->command('migrate:fresh --seed')->daily();
     }
 
     /**
