@@ -41,13 +41,13 @@ class ReservationsSeeder extends Seeder
             Field::create([
                 'reservations_id' => $reservation->id,
                 'formextra_id' => 1,
-                'textbox' => $faker->words($faker->numberBetween(1, 4), true)
+                'textbox' => 'Note ' . $faker->numberBetween(1, 15)
             ]);
 
             Field::create([
                 'reservations_id' => $reservation->id,
                 'formextra_id' => 2,
-                'textbox' => $faker->words($faker->numberBetween(1, 4), true)
+                'textbox' => 'Note ' . $faker->numberBetween(16, 30)
             ]);
 
 
