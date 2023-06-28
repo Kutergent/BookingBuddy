@@ -4,11 +4,10 @@
 <div class="min-h-screen flex items-center justify-center p-12 bg-gray-950">
     <div class="p-4 rounded-lg mx-auto w-full max-w-[550px] shadow-xl bg-gray-200" style="background-size: cover; background-position: center center; box-shadow: rgba(0, 0, 0, 0.4) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
         <form action="{{ route('postReserve')  }}" method="POST">
-        @csrf
+         @csrf
 
             <div class="-mx-3 flex flex-wrap">
                 @guest
-                    @if ($form->name == 1)
                         <div class="w-full px-3">
                         <div class="mt-4">
                             <x-input-label for="name" :value="__('Name')" />
@@ -16,7 +15,6 @@
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         </div>
-                    @endif
 
                         <div class="w-full px-3">
                         <div class="mt-4">
@@ -75,19 +73,33 @@
                 <div class="w-full px-3">
                     <div class="mt-4">
                         <x-input-label for="reserve_time" :value="__('Reservation Time')" />
-                        <x-text-input id="reserve_time" class="block mt-1 w-full" type="time" step="1800" name="reserve_time" :value="old('reserve_time')" min="10:00" max="18:00" required/>
+                        <select id="reserve_time" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="reserve_time" required>
+                            @php
+                                $currentTime = Carbon\Carbon::parse($form->open);
+                                $closingTime = Carbon\Carbon::parse($form->close);
+                                $selectedTime = old('reserve_time', $currentTime->format('H:i'));
+                            @endphp
+                            @while ($currentTime->lte($closingTime))
+                                <option value="{{ $currentTime->format('H:i') }}" @if ($selectedTime === $currentTime->format('H:i')) selected @endif>
+                                    {{ $currentTime->format('h:i A') }}
+                                </option>
+                                @php
+                                    $currentTime->addMinutes($form->interval);
+                                @endphp
+                            @endwhile
+                        </select>
                         <x-input-error :messages="$errors->get('reserve_time')" class="mt-2" />
                     </div>
                 </div>
 
 
-                <div class="w-full px-3">
+                {{-- <div class="w-full px-3">
                     <div class="mt-4">
                         <x-input-label for="reserve_duration" :value="__('Reservation Duration')" />
                         <x-text-input id="reserve_duration" class="block mt-1 w-full" type="text" name="reserve_duration" :value="old('reserve_duration')" required />
                         <x-input-error :messages="$errors->get('reserve_duration')" class="mt-2" />
                     </div>
-                </div>
+                </div> --}}
 
 
                 @foreach ($formextra as $da)

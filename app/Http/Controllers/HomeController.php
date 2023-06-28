@@ -42,23 +42,53 @@ class HomeController extends Controller
     public function postReserve(Request $r){
 
         $data = new Reservations();
+        $form = Form::first();
 
         if (Auth::check()) {
             $validation = Validator::make($r->all(), [
                 'reserve_date' => ['date', 'after:yesterday'],
-                'reserve_time' => ['required', 'date_format:H:i', 'regex:/^(?:0[0-9]|1[0-9]|2[0-3]):[03]0$/',
-                            ValidationRule::unique('reservations')->where(function ($query) use ($r) {
-                                return $query->where('reserve_date', $r->reserve_date)
-                                             ->where('reserve_time', $r->reserve_time);
-                            })],
-                'reserve_duration' => ['numeric', 'max:8']
+                'reserve_time' => [
+                    'required',
+                    'date_format:H:i',
+                    'regex:/^(?:0[0-9]|1[0-9]|2[0-3]):(?:00|10|20|30|40|50)$/', // Interval of 10 minutes
+                    function ($attribute, $value, $fail) use ($form, $r) {
+                        $reserveDate = $r->reserve_date;
+                        $reserveTime = $value;
+                        $readDate = Carbon::parse($reserveDate)->format('d, M Y');
+
+
+                        // Combine the reserve date and time into a single datetime object
+                        $vreserveTime = Carbon::parse("$reserveTime");
+
+                        // Check if the reserve time is within the store's opening and closing time
+                        $openTime = Carbon::parse($form->open);
+                        $closeTime = Carbon::parse($form->close);
+
+                        if ($vreserveTime->lessThan($openTime) || $vreserveTime->greaterThan($closeTime)) {
+                            $fail("$vreserveTime The reservation time must be between $openTime and $closeTime.");
+                        }
+
+                        // Check if the reservation time exceeds the limit
+                        $reservationsCount = Reservations::where('reserve_date', $reserveDate)
+                            ->where('reserve_time', $reserveTime)
+                            ->where('status', '!=', 'canceled')
+                            ->count();
+
+                        if ($reservationsCount >= $form->limit) {
+                            $fail("The reservation for $readDate at $reserveTime is fully booked.");
+                        }
+                    },
+
+                ],
             ]);
 
             $validation->validate();
 
+
+
             $data->reserve_date = $r->reserve_date;
             $data->reserve_time = $r->reserve_time;
-            $data->reserve_duration = $r->reserve_duration;
+            $data->reserve_duration = 1;
             $data->status = 'pending';
 
             $data->users_id = Auth::user()->id;
@@ -73,15 +103,41 @@ class HomeController extends Controller
                 'phone_number' => ['digits_between:10,12'],
                 'dob' => ['date', 'before:-14 years'],
                 'reserve_date' => ['date', 'after:yesterday'],
-                'reserve_time' => ['required', 'date_format:H:i', 'regex:/^(?:0[0-9]|1[0-9]|2[0-3]):[03]0$/',
-                            ValidationRule::unique('reservations')->where(function ($query) use ($r) {
-                                return $query->where('reserve_date', $r->reserve_date)
-                                             ->where('reserve_time', $r->reserve_time);
-                            })],
-                'reserve_duration' => ['numeric', 'max:8']
+                'reserve_time' => [
+                    'required',
+                    'date_format:H:i',
+                    'regex:/^(?:0[0-9]|1[0-9]|2[0-3]):(?:00|10|20|30|40|50)$/', // Interval of 10 minutes
+                    function ($attribute, $value, $fail) use ($form, $r) {
+                        $reserveDate = $r->reserve_date;
+                        $reserveTime = $value;
+                        $readDate = Carbon::parse($reserveDate)->format('d, M Y');
+
+                        // Combine the reserve date and time into a single datetime object
+                        $vreserveTime = Carbon::parse("$reserveTime");
+
+                        // Check if the reserve time is within the store's opening and closing time
+                        $openTime = Carbon::parse($form->open);
+                        $closeTime = Carbon::parse($form->close);
+
+                        if ($vreserveTime->lessThan($openTime) || $vreserveTime->greaterThan($closeTime)) {
+                            $fail("$vreserveTime The reservation time must be between $openTime and $closeTime.");
+                        }
+
+                        // Check if the reservation time exceeds the limit
+                        $reservationsCount = Reservations::where('reserve_date', $reserveDate)
+                            ->where('reserve_time', $reserveTime)
+                            ->where('status', '!=', 'canceled')
+                            ->count();
+
+                        if ($reservationsCount >= $form->limit) {
+                            $fail("The reservation for $readDate at $reserveTime is fully booked.");
+                        }
+                    },
+                ],
             ]);
 
             $validation->validate();
+
 
             $user = new User();
 
@@ -99,7 +155,7 @@ class HomeController extends Controller
 
             $data->reserve_date = $r->reserve_date;
             $data->reserve_time = $r->reserve_time;
-            $data->reserve_duration = $r->reserve_duration;
+            $data->reserve_duration = 1;
             $data->status = 'pending';
 
             $data->save();

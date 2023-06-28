@@ -16,10 +16,13 @@ class FormSeeder extends Seeder
     public function run()
     {
         Form::create([
-            'name' => true,
+            'limit' => 2,
             'range' => 365,
             'phone_number' => true,
-            'dob' => true
+            'dob' => true,
+            'interval' => 30,
+            'open' => '09:00:00',
+            'close' => '18:00:00'
         ]);
     }
 }

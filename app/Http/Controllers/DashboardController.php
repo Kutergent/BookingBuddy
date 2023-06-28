@@ -88,11 +88,31 @@ class DashboardController extends Controller
 
     public function editUpdate(Request $r){
         $data = Form::first();
+        $validator = Validator::make($r->all(), [
+            'open' => [
+                'required',
+                function ($attribute, $value, $fail) use ($r) {
+                    $close = $r->input('close');
+                    if ($close !== null && $value >= $close) {
+                        $fail('The opening time must be earlier than the closing time.');
+                    }
+                },
+            ],
+            'close' => 'required',
+        ]);
 
-        $data->name = '1';
+        $validator->validate();
+
+
+
+        $data->limit = $r->limit;
         $data->range = $r->range;
         $data->phone_number = $r->phone_number;
         $data->dob = $r->dob;
+        $data->interval = $r->interval;
+        $data->open = $r->open;
+        $data->close = $r->close;
+
 
         $data->save();
 
@@ -100,7 +120,6 @@ class DashboardController extends Controller
 
         foreach ($dataAdd as $da) {
             $da->enabled = $r->input($da->id);
-            // $da->name = $r->input($da->id.'_in');
             $da->save();
         }
 
