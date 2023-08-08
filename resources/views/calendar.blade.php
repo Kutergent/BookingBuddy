@@ -8,7 +8,7 @@
     <div class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div class="flex">
             <div class="w-1/3 bg-gray-200 mr-4 rounded text-center">
-                <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Canceled</h3>
+                <h3 class="mb-4 mt-4 text-2xl font-semibold leading-tight">Rejected</h3>
                 <ul class="max-h-64 overflow-y-auto">
                     @foreach ($canceled as $res)
                         @if ($res->status === 'canceled' && \Carbon\Carbon::parse($res->reserve_date)->gte(\Carbon\Carbon::now()->subMonth()))
@@ -356,7 +356,13 @@
                     })
                     .then(data => {
                         console.log(data.status)
-                        document.getElementById('reservationModalTitle').textContent =  capitalizeFirstLetter(data.status) +" Reservation Details"
+                        if(data.status == 'canceled'){
+                            document.getElementById('reservationModalTitle').textContent =  "Rejected Reservation Details"
+
+                        }else{
+                            document.getElementById('reservationModalTitle').textContent =  capitalizeFirstLetter(data.status) +" Reservation Details"
+
+                        }
                         document.getElementById('reservationModalName').textContent = data.name;
                         document.getElementById('reservationModalEmail').textContent = data.email;
                         document.getElementById('reservationModalPhone').textContent = data.phone_number;
