@@ -24,7 +24,7 @@ class ReservationsSeeder extends Seeder
 
         foreach ($users as $user) {
             $userId = $user->id;
-            $reserveDate = $faker->dateTimeBetween('2023-05-01', '2023-08-31')->format('Y-m-d');
+            $reserveDate = $faker->dateTimeBetween('2023-01-01', '2024-12-31')->format('Y-m-d');
             $reserveTime = $faker->dateTimeBetween('09:00:00', '18:00:00')->format('H:i:s');
             $reserveTime = Carbon::parse($reserveTime)->ceil('30 minutes')->format('H:i:s');
             $reserveDuration = $faker->numberBetween(1, 3);

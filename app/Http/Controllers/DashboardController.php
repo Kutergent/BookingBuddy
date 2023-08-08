@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
+use \Khill\Lavacharts;
 
 class DashboardController extends Controller
 {
@@ -25,9 +26,19 @@ class DashboardController extends Controller
     //           ->whereTime('reserve_time', '<', now()->toTimeString());
     // })->update(['status' => 'canceled']);
 
+        $reserveCount = Reservations::selectRaw('YEAR(reserve_date) as Year, MONTH(reserve_date) as Month, COUNT(*) as reservation_count')
+        ->groupBy(DB::raw('YEAR(reserve_date), MONTH(reserve_date)'))
+        ->orderBy(DB::raw('YEAR(reserve_date)', 'asc'))
+        ->orderBy(DB::raw('MONTH(reserve_date)', 'asc'))
+        ->get();
 
 
-      return redirect('/');
+
+
+        // dd($reserveCount);
+        return view('test', compact('reserveCount'));
+    //   return redirect('/');
+
     }
 
     public function report(Request $r){

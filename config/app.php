@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         \Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        \Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -195,6 +196,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
     ])->toArray(),
 
 ];
