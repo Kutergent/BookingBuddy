@@ -19,23 +19,9 @@ use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
-    public function testarea(){
-    //     $reservations = Reservations::where('status', 'pending')
-    // ->where('reserve_date', '<', now()->toDateString())
-    // ->orWhere(function ($query) {
-    //     $query->whereDate('reserve_date', now()->toDateString())
-    //           ->whereTime('reserve_time', '<', now()->toTimeString());
-    // })->update(['status' => 'canceled']);
+    public function reportgraph(Request $r){
 
-
-
-        // $reserveCount = Reservations::selectRaw('YEAR(reserve_date) as Year, MONTH(reserve_date) as Month, COUNT(*) as reservation_count')
-        // ->groupBy(DB::raw('YEAR(reserve_date), MONTH(reserve_date)'))
-        // ->orderBy(DB::raw('YEAR(reserve_date)', 'asc'))
-        // ->orderBy(DB::raw('MONTH(reserve_date)', 'asc'))
-        // ->get();
-
-        $targetYear = 2023;
+        $targetYear = $r->query('year');
 
         $monthNames = [
             1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
@@ -63,10 +49,11 @@ class DashboardController extends Controller
         $mr = new MonthlyReservations;
         $mr->labels($rl);
         $mr->displayLegend(false);
-        $mr->title('Reservation Trend', 20, '#202828ff', true, "Helvetica");
+        $mr->title('Monthly Reservation Trendline', 20, '#202828ff', true, "Helvetica");
         $mr->dataset('Reservations', 'line', $rc)->lineTension(0.25)->backgroundColor('#5044e466');
 
         $statuscount = Reservations::select(DB::raw('COUNT(*) as count'))
+        ->whereYear('reserve_date', $targetYear)
         ->groupBy('status')
         ->orderBy('status')
         ->get();
@@ -81,13 +68,14 @@ class DashboardController extends Controller
         $rs->labels(['Rejected','Pending', 'Confirmed']);
         $rs->title('Reservation Status Breakdown', 20, '#202828ff', true, "Helvetica");
         $rs->displayAxes(false,false);
-        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838','#3ae374', '#7158e2']));
+        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838','rgba(217, 119, 6)', '#7158e2']));
 
 
 
 
         $dayCount = Reservations::selectRaw('COUNT(*) as reservation_count')
         ->selectRaw('DAYOFWEEK(reserve_date) as day_of_week')
+        ->whereYear('reserve_date', $targetYear)
         ->groupBy(DB::raw('DAYOFWEEK(reserve_date)'))
         ->orderBy(DB::raw('DAYOFWEEK(reserve_date)'))
         ->get();
@@ -98,7 +86,7 @@ class DashboardController extends Controller
 
         $dr = new MonthlyReservations;
         $dr->labels(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
-        $dr->title('Days of Reservations', 20, '#202828ff', true, "Helvetica");
+        $dr->title('Reservations by Day', 20, '#202828ff', true, "Helvetica");
         $dr->displayLegend(false);
         $dr->dataset('Reservations', 'bar', $dc)->backgroundColor(collect([
             'rgba(255, 99, 132, 0.8)',
@@ -120,6 +108,7 @@ class DashboardController extends Controller
                 DB::raw('COUNT(*) as total_count')
             )
             ->whereIn('status', [$confirmedStatus])
+            ->whereYear('reserve_date', $targetYear)
             ->groupBy(DB::raw('YEAR(reserve_date)'), DB::raw('MONTH(reserve_date)'))
             ->get();
 
@@ -144,7 +133,7 @@ class DashboardController extends Controller
         $cr->labels($mont);
         $cr->title('Conversion Rate Analysis', 20, '#202828ff', true, "Helvetica");
         $cr->displayLegend(false);
-        $cr->dataset('Conversion', 'line', $prc)->backgroundColor('rgba(255, 99, 132, 0.5)');
+        $cr->dataset('Conversion Rate', 'line', $prc)->backgroundColor('rgba(99, 255, 132, 0.5)');
 
 
         $timeCount = Reservations::selectRaw('HOUR(reserve_time) as hour, COUNT(*) as reservation_count')
@@ -153,7 +142,13 @@ class DashboardController extends Controller
         ->orderBy(DB::raw('HOUR(reserve_time)'), 'asc')
         ->get();
 
-        $allHours = range(0, 23);
+        $open = Carbon::createFromFormat('H:i:s', Form::first()->open);
+        $close = Carbon::createFromFormat('H:i:s', Form::first()->close);
+
+        $openHour = $open->hour;
+        $closeHour = $close->hour;
+
+        $allHours = range($openHour, $closeHour);
         $hourlyCounts = array_fill_keys($allHours, 0);
 
         foreach ($timeCount as $item) {
@@ -169,11 +164,12 @@ class DashboardController extends Controller
 
         $rf = new MonthlyReservations;
         $rf->labels($hl);
-        // $rf->title('Conversion Rate Analysis', 20, '#202828ff', true, "Helvetica");
+        $rf->title('Reservation Activity by Time', 20, '#202828ff', true, "Helvetica");
         $rf->displayLegend(false);
-        $rf->dataset('Conversion', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
+        $rf->dataset('Reservations', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
 
-        return view('test', compact('mr', 'rs','dr', 'cr', 'rf'));
+
+        return view('reportgraph', compact('mr', 'rs','dr', 'cr', 'hl', 'hc', 'rf'));
 
     }
 

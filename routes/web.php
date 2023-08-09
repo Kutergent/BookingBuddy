@@ -71,6 +71,7 @@ Route::get('/reservation', [APIController::class, 'getReserveData'])->name('getR
 // Customer Report
 Route::middleware('isAdmin')->group(function () {
     Route::get('/report', [DashboardController::class, 'report'])->name('report');
+    Route::get('/reportgraph', [DashboardController::class, 'reportgraph'])->name('reportgraph');
 });
 
 // Registration Edit form
