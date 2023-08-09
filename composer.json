@@ -6,9 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
+        "consoletvs/charts": "6.*",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
-        "khill/lavacharts": "^3.1",
         "kyslik/column-sortable": "^6.5",
         "laravel/breeze": "^1.19",
         "laravel/framework": "^9.0",

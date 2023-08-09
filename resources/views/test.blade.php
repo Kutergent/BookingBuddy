@@ -1,70 +1,36 @@
-<?php
-$stocksTable = Lava::DataTable();
-
-$stocksTable->addDateColumn('Month')
-            ->addNumberColumn('Reservations');
-
-
-foreach($reserveCount as $rc){
-    $stocksTable->addRow([
-        '0-'.$rc->Month.'-'.$rc->Year, $rc->reservation_count,
-    ]);
-}
+<x-app-layout>
 
 
 
 
+        <div class="flex flex-row h-3/6">
+            <div class="w-2/3 mr-2 bg-white rounded shadow-sm p-4 px-4">
+                {!! $mr->container() !!}
+            </div>
+            <div class="w-1/3 bg-white rounded shadow-sm p-4 px-4">
+                {!! $rs->container() !!}
+            </div>
+        </div>
+        <div class="w-full h-1/6 mt-2 bg-white rounded shadow-sm p-4 px-4">
+            {!! $rf->container() !!}
+        </div>
+        <div class="flex flex-row mt-2 h-3/6">
+            <div class="w-1/2 mr-2 bg-white rounded shadow-sm p-4 px-4">
+                {!! $dr->container() !!}
+            </div>
+            <div class="w-1/2 bg-white rounded shadow-sm p-4 px-4">
 
-
-$Barchart = Lava::BarChart('MyStocks', $stocksTable, [
-    'orientation' => 'horizontal'
-]);
-
-// echo Lava::render('BarChart', 'MyStocks', 'stocks-chart');
-// //  if using Laravel
-$filter  = Lava::DateRangeFilter(0, [
-    'minValue' => 1672531200000,
-    'maxValue' => 1735516799000,
-    'format'   => 'd-m-Y'
-]);
-// $filter  = Lava::NumberRangeFilter(1, [
-//     'ui' => [
-//         'labelStacking' => 'vertical'
-//     ]
-// ]);
-
-
-$control = Lava::ControlWrapper($filter, 'control');
-$chart   = Lava::ChartWrapper($Barchart, 'chart');
-
-$dasboard = Lava::Dashboard('MyDash', $stocksTable)->bind($control, $chart);
-
-echo Lava::render('Dashboard', 'MyDash', 'my-dash');
+                {!! $cr->container() !!}
+            </div>
+        </div>
 
 
 
 
+    {!! $mr->script() !!}
+    {!! $rs->script() !!}
+    {!! $dr->script() !!}
+    {!! $cr->script() !!}
+    {!! $rf->script() !!}
 
-
-?>
-
-
-<x-guest-layout>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<script>
-    window.google.charts.load('46', {packages: ['corechart']});
-</script>
-<div id="stocks-chart" class="w-3/4"></div>
-
-<div id="my-dash">
-    <div id="chart">
-    </div>
-    <div id="control">
-    </div>
-</div>
-
-
-
-
-
-</x-guest-layout>
+</x-app-layout>

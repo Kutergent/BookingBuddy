@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MonthlyReservations;
+use App\Charts\ReserveStatus;
 use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
@@ -14,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
-use \Khill\Lavacharts;
 
 class DashboardController extends Controller
 {
@@ -26,18 +27,153 @@ class DashboardController extends Controller
     //           ->whereTime('reserve_time', '<', now()->toTimeString());
     // })->update(['status' => 'canceled']);
 
-        $reserveCount = Reservations::selectRaw('YEAR(reserve_date) as Year, MONTH(reserve_date) as Month, COUNT(*) as reservation_count')
-        ->groupBy(DB::raw('YEAR(reserve_date), MONTH(reserve_date)'))
-        ->orderBy(DB::raw('YEAR(reserve_date)', 'asc'))
-        ->orderBy(DB::raw('MONTH(reserve_date)', 'asc'))
+
+
+        // $reserveCount = Reservations::selectRaw('YEAR(reserve_date) as Year, MONTH(reserve_date) as Month, COUNT(*) as reservation_count')
+        // ->groupBy(DB::raw('YEAR(reserve_date), MONTH(reserve_date)'))
+        // ->orderBy(DB::raw('YEAR(reserve_date)', 'asc'))
+        // ->orderBy(DB::raw('MONTH(reserve_date)', 'asc'))
+        // ->get();
+
+        $targetYear = 2023;
+
+        $monthNames = [
+            1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
+            5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
+            9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December',
+        ];
+
+        $reserveCount = Reservations::selectRaw('MONTH(reserve_date) as month, COUNT(*) as reservation_count')
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy(DB::raw('MONTH(reserve_date)'))
+        ->orderBy(DB::raw('MONTH(reserve_date)'), 'asc')
+        ->get();
+
+        $monthlyCounts = array_fill(1, 12, 0);
+
+        foreach ($reserveCount as $item) {
+            $monthlyCounts[$item->month] = $item->reservation_count;
+        }
+
+        foreach ($monthlyCounts as $month => $count) {
+            $rl[] = $monthNames[$month];
+            $rc[] = $count;
+        }
+
+        $mr = new MonthlyReservations;
+        $mr->labels($rl);
+        $mr->displayLegend(false);
+        $mr->title('Reservation Trend', 20, '#202828ff', true, "Helvetica");
+        $mr->dataset('Reservations', 'line', $rc)->lineTension(0.25)->backgroundColor('#5044e466');
+
+        $statuscount = Reservations::select(DB::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->orderBy('status')
         ->get();
 
 
 
+        $sc =  $statuscount->map(function ($item){
+            return $item->count;
+        });
 
-        // dd($reserveCount);
-        return view('test', compact('reserveCount'));
-    //   return redirect('/');
+        $rs = new ReserveStatus;
+        $rs->labels(['Rejected','Pending', 'Confirmed']);
+        $rs->title('Reservation Status Breakdown', 20, '#202828ff', true, "Helvetica");
+        $rs->displayAxes(false,false);
+        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838','#3ae374', '#7158e2']));
+
+
+
+
+        $dayCount = Reservations::selectRaw('COUNT(*) as reservation_count')
+        ->selectRaw('DAYOFWEEK(reserve_date) as day_of_week')
+        ->groupBy(DB::raw('DAYOFWEEK(reserve_date)'))
+        ->orderBy(DB::raw('DAYOFWEEK(reserve_date)'))
+        ->get();
+
+        $dc = $dayCount->map(function ($item){
+            return $item->reservation_count;
+        });
+
+        $dr = new MonthlyReservations;
+        $dr->labels(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+        $dr->title('Days of Reservations', 20, '#202828ff', true, "Helvetica");
+        $dr->displayLegend(false);
+        $dr->dataset('Reservations', 'bar', $dc)->backgroundColor(collect([
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(255, 205, 86, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(201, 203, 207, 0.8)'
+          ]));
+
+
+        $confirmedStatus = 'confirmed';
+        $otherStatuses = ['pending', 'canceled'];
+
+        $confirmedCounts = Reservations::select(
+                DB::raw('YEAR(reserve_date) as year'),
+                DB::raw('MONTH(reserve_date) as month'),
+                DB::raw('COUNT(*) as total_count')
+            )
+            ->whereIn('status', [$confirmedStatus])
+            ->groupBy(DB::raw('YEAR(reserve_date)'), DB::raw('MONTH(reserve_date)'))
+            ->get();
+
+
+        $confirmedMonthlyCounts = [];
+        foreach ($confirmedCounts as $item) {
+            $confirmedMonthlyCounts[$item->month] = $item->total_count;
+        }
+
+        $mont = [];
+        $prc = [];
+        foreach ($monthlyCounts as $month => $totalCount) {
+            $confirmedCount = isset($confirmedMonthlyCounts[$month]) ? $confirmedMonthlyCounts[$month] : 0;
+            $percentageConfirmed = ($totalCount > 0) ? ($confirmedCount / $totalCount) * 100 : 0;
+
+            $mont[] = $monthNames[$month];
+            $prc[] = $percentageConfirmed;
+        }
+
+
+        $cr = new MonthlyReservations;
+        $cr->labels($mont);
+        $cr->title('Conversion Rate Analysis', 20, '#202828ff', true, "Helvetica");
+        $cr->displayLegend(false);
+        $cr->dataset('Conversion', 'line', $prc)->backgroundColor('rgba(255, 99, 132, 0.5)');
+
+
+        $timeCount = Reservations::selectRaw('HOUR(reserve_time) as hour, COUNT(*) as reservation_count')
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy(DB::raw('HOUR(reserve_time)'))
+        ->orderBy(DB::raw('HOUR(reserve_time)'), 'asc')
+        ->get();
+
+        $allHours = range(0, 23);
+        $hourlyCounts = array_fill_keys($allHours, 0);
+
+        foreach ($timeCount as $item) {
+            $hour = $item->hour;
+            $hourlyCounts[$hour] = $item->reservation_count;
+        }
+
+        foreach ($allHours as $hour) {
+            $hourLabel = sprintf('%02d:00 %s', ($hour % 12 ?: 12), ($hour < 12 ? 'AM' : 'PM'));
+            $hl[] = $hourLabel;
+            $hc[] = $hourlyCounts[$hour];
+        }
+
+        $rf = new MonthlyReservations;
+        $rf->labels($hl);
+        // $rf->title('Conversion Rate Analysis', 20, '#202828ff', true, "Helvetica");
+        $rf->displayLegend(false);
+        $rf->dataset('Conversion', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
+
+        return view('test', compact('mr', 'rs','dr', 'cr', 'rf'));
 
     }
 

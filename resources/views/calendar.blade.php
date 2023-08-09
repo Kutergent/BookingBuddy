@@ -1,9 +1,9 @@
 <x-app-layout>
 
-@php
-    $calendarRoute = route('calendar');
-    $rid = "nol";
-@endphp
+    @php
+        $calendarRoute = route('calendar');
+        $rid = "nol";
+    @endphp
 
     <div class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div class="flex">
@@ -71,7 +71,8 @@
 
 
 
-    <div id="calendar" class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6"></div>
+    <div id="calendar" class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+    </div>
 
     {{-- Modal for Confirm/Cancel --}}
     <div id="confirmationModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -190,20 +191,14 @@
                         confirmButton.addEventListener('click', function() {
                             confirmationModal.classList.add('hidden');
                             fetchCancellation(reservationId, calendarRoute)
-                        })
-                    }else{
+                        })}
+                    else{
                         modalTitle.textContent = 'Confirmation';
                         modalMessage.textContent = 'Are you sure you want to confirm the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
                         confirmButton.addEventListener('click', function() {
                             fetchConfirmation(reservationId, calendarRoute)
                         })
                     }
-
-
-
-
-
-
                     })
                     .catch(error => {
                     console.error(error);
@@ -223,7 +218,6 @@
                     throw new Error('API request failed');
                     })
                     .then(data => {
-                    // Handle the response data or display an alert
                     })
                     .catch(error => {
                     console.error(error);
@@ -255,12 +249,8 @@
                 var confirmationModal = document.getElementById('confirmationModal');
                 var confirmButton = document.getElementById('confirmButton');
                 var cancelButton = document.getElementById('cancelButton');
-                // var confirmButtons = document.querySelectorAll('.confirm-button');
                 var cancelButtons = document.querySelectorAll('.cancel-button');
                 var pendingConfirmButtons = document.querySelectorAll('#pendingConfirmButton');
-
-
-
 
                 var extraContainer = document.getElementById('reservationModalExtra');
                 var reservationModal = document.getElementById('reservationModal')
@@ -270,11 +260,6 @@
 
                 var cancelReservationButton = document.getElementById('cancelReservationButton')
                 var confirmReservationButton = document.getElementById('confirmReservationButton')
-
-
-
-
-
 
                 closeconfirmationModal.addEventListener ('click', function() {
 
@@ -398,7 +383,6 @@
                     })
                     .then(function(data) {
                         if (data.data.length > 0) {
-                            // console.log(data.data);
                             const extraWrapper = document.createElement('div');
                             extraWrapper.classList.add('grid', 'grid-cols-2', 'gap-4', 'mb-4');
 
