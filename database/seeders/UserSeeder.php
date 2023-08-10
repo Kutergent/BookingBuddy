@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ChatMessage;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -125,14 +126,25 @@ class UserSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) {
             $name = $faker->firstName . ' ' . $faker->lastName;
             $email = strtolower(str_replace(' ', '.', $name)) . '@gmail.co.id';
-        User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make('123456'),
-            'role' => 'Customer',
-            'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
-            'dob' => $faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
-        ]);
+
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make('123456'),
+                'role' => 'Customer',
+                'phone_number' => '0' . $faker->randomElement($provider) . $faker->randomNumber(8),
+                'dob' => $faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+            ]);
+
+            if ($faker->boolean(40)) {
+                for ($j = 0; $j < $faker->numberBetween(1, 2); $j++) {
+                    ChatMessage::create([
+                        'users_id' => $user->id,
+                        'role' => 'Customer',
+                        'message' => $faker->word,
+                    ]);
+                }
+            }
         }
 
 

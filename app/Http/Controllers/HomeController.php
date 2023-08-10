@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReservedMail;
+use App\Models\ChatMessage;
 use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
@@ -20,8 +21,59 @@ use Illuminate\Validation\Rule as ValidationRule;
 
 class HomeController extends Controller
 {
+    public function getChat(){
+        $userId = auth()->id();
+
+        // $messages = ChatMessage::where('users_id', $userId)
+        //                     ->orderBy('created_at')
+        //                     ->get();
+
+                            //TEMPORARY SHOW ALL
+                            $messages = ChatMessage::orderBy('created_at')
+                            ->get();
+
+        return $messages;
+
+    }
+
+    public function chatcStore(Request $request){
+
+        $user = auth()->user();
+        $message = new ChatMessage([
+            'users_id' => $user->id,
+            'role' => 'customer',
+            'message' => $request->input('message'),
+        ]);
+        $message->save();
+        session(['openChat' => true]);
+        return back();
+    }
+
+    public function getUserChat(Request $r){
+    $id = $r->query('id');
+    $user = User::findOrFail($id);
+    // $messages = $user->messages()->orderBy('created_at')->get();
+    // $messages = ChatMessage::where('users_id', $user->id)
+    // ->orderBy('created_at')->get();
+    $messages = ChatMessage::where('users_id', $id)
+                             ->orderBy('created_at')
+                             ->get();
+    // dd($messages);
+    return view('components.chat_messages', compact('messages'));
+
+    }
+
     public function welcome(){
-        return view('welcome');
+        $userId = auth()->id();
+
+        // $messages = ChatMessage::where('users_id', $userId)
+        //                     ->orderBy('created_at')
+        //                     ->get();
+
+                            //TEMPORARY SHOW ALL
+                            $messages = ChatMessage::orderBy('created_at')
+                            ->get();
+        return view('welcome', compact('messages'));
     }
     public function aboutus(){
         return view('aboutus');

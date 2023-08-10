@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Charts\MonthlyReservations;
 use App\Charts\ReserveStatus;
+use App\Models\ChatMessage;
 use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
@@ -329,6 +330,31 @@ class DashboardController extends Controller
 
         return redirect('usermanage');
     }
+
+    public function getChat(){
+        $userId = auth()->id();
+
+        $messages = ChatMessage::orderBy('created_at')->get();
+
+
+        $usersWithMessages = ChatMessage::distinct('users_id')->pluck('users_id');
+        $user = User::whereIn('id', $usersWithMessages)->get();
+
+        return view('chat', compact('messages', 'user'));
+
+    }
+
+    public function chatstore(Request $request){
+
+        $message = new ChatMessage([
+            'users_id' => $request->id,
+            'role' => 'Admin',
+            'message' => $request->input('message'),
+        ]);
+        $message->save();
+        return redirect()->route('getChat');
+    }
+
 
 
 
