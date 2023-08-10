@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MonthlyReservations;
+use App\Charts\ReserveStatus;
+use App\Models\ChatMessage;
 use App\Models\Field;
 use App\Models\Form;
 use App\Models\FormExtra;
@@ -14,30 +17,160 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
-use \Khill\Lavacharts;
 
 class DashboardController extends Controller
 {
-    public function testarea(){
-    //     $reservations = Reservations::where('status', 'pending')
-    // ->where('reserve_date', '<', now()->toDateString())
-    // ->orWhere(function ($query) {
-    //     $query->whereDate('reserve_date', now()->toDateString())
-    //           ->whereTime('reserve_time', '<', now()->toTimeString());
-    // })->update(['status' => 'canceled']);
+    public function reportgraph(Request $r){
 
-        $reserveCount = Reservations::selectRaw('YEAR(reserve_date) as Year, MONTH(reserve_date) as Month, COUNT(*) as reservation_count')
-        ->groupBy(DB::raw('YEAR(reserve_date), MONTH(reserve_date)'))
-        ->orderBy(DB::raw('YEAR(reserve_date)', 'asc'))
-        ->orderBy(DB::raw('MONTH(reserve_date)', 'asc'))
+        $targetYear = $r->query('year');
+
+        $monthNames = [
+            1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
+            5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
+            9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December',
+        ];
+
+        $reserveCount = Reservations::selectRaw('MONTH(reserve_date) as month, COUNT(*) as reservation_count')
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy(DB::raw('MONTH(reserve_date)'))
+        ->orderBy(DB::raw('MONTH(reserve_date)'), 'asc')
+        ->get();
+
+        $monthlyCounts = array_fill(1, 12, 0);
+
+        foreach ($reserveCount as $item) {
+            $monthlyCounts[$item->month] = $item->reservation_count;
+        }
+
+        foreach ($monthlyCounts as $month => $count) {
+            $rl[] = $monthNames[$month];
+            $rc[] = $count;
+        }
+
+        $mr = new MonthlyReservations;
+        $mr->labels($rl);
+        $mr->displayLegend(false);
+        $mr->title('Monthly Reservation Trendline', 20, '#202828ff', true, "Helvetica");
+        $mr->dataset('Reservations', 'line', $rc)->lineTension(0.25)->backgroundColor('#5044e466');
+
+        $statuscount = Reservations::select(DB::raw('COUNT(*) as count'))
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy('status')
+        ->orderBy('status')
         ->get();
 
 
 
+        $sc =  $statuscount->map(function ($item){
+            return $item->count;
+        });
 
-        // dd($reserveCount);
-        return view('test', compact('reserveCount'));
-    //   return redirect('/');
+        $rs = new ReserveStatus;
+        $rs->labels(['Rejected','Pending', 'Confirmed']);
+        $rs->title('Reservation Status Breakdown', 20, '#202828ff', true, "Helvetica");
+        $rs->displayAxes(false,false);
+        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838','rgba(217, 119, 6)', '#7158e2']));
+
+
+
+
+        $dayCount = Reservations::selectRaw('COUNT(*) as reservation_count')
+        ->selectRaw('DAYOFWEEK(reserve_date) as day_of_week')
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy(DB::raw('DAYOFWEEK(reserve_date)'))
+        ->orderBy(DB::raw('DAYOFWEEK(reserve_date)'))
+        ->get();
+
+        $dc = $dayCount->map(function ($item){
+            return $item->reservation_count;
+        });
+
+        $dr = new MonthlyReservations;
+        $dr->labels(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
+        $dr->title('Reservations by Day', 20, '#202828ff', true, "Helvetica");
+        $dr->displayLegend(false);
+        $dr->dataset('Reservations', 'bar', $dc)->backgroundColor(collect([
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+            'rgba(255, 205, 86, 0.8)',
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(201, 203, 207, 0.8)'
+          ]));
+
+
+        $confirmedStatus = 'confirmed';
+        $otherStatuses = ['pending', 'canceled'];
+
+        $confirmedCounts = Reservations::select(
+                DB::raw('YEAR(reserve_date) as year'),
+                DB::raw('MONTH(reserve_date) as month'),
+                DB::raw('COUNT(*) as total_count')
+            )
+            ->whereIn('status', [$confirmedStatus])
+            ->whereYear('reserve_date', $targetYear)
+            ->groupBy(DB::raw('YEAR(reserve_date)'), DB::raw('MONTH(reserve_date)'))
+            ->get();
+
+
+        $confirmedMonthlyCounts = [];
+        foreach ($confirmedCounts as $item) {
+            $confirmedMonthlyCounts[$item->month] = $item->total_count;
+        }
+
+        $mont = [];
+        $prc = [];
+        foreach ($monthlyCounts as $month => $totalCount) {
+            $confirmedCount = isset($confirmedMonthlyCounts[$month]) ? $confirmedMonthlyCounts[$month] : 0;
+            $percentageConfirmed = ($totalCount > 0) ? ($confirmedCount / $totalCount) * 100 : 0;
+
+            $mont[] = $monthNames[$month];
+            $prc[] = $percentageConfirmed;
+        }
+
+
+        $cr = new MonthlyReservations;
+        $cr->labels($mont);
+        $cr->title('Conversion Rate Analysis', 20, '#202828ff', true, "Helvetica");
+        $cr->displayLegend(false);
+        $cr->dataset('Conversion Rate', 'line', $prc)->backgroundColor('rgba(99, 255, 132, 0.5)');
+
+
+        $timeCount = Reservations::selectRaw('HOUR(reserve_time) as hour, COUNT(*) as reservation_count')
+        ->whereYear('reserve_date', $targetYear)
+        ->groupBy(DB::raw('HOUR(reserve_time)'))
+        ->orderBy(DB::raw('HOUR(reserve_time)'), 'asc')
+        ->get();
+
+        $open = Carbon::createFromFormat('H:i:s', Form::first()->open);
+        $close = Carbon::createFromFormat('H:i:s', Form::first()->close);
+
+        $openHour = $open->hour;
+        $closeHour = $close->hour;
+
+        $allHours = range($openHour, $closeHour);
+        $hourlyCounts = array_fill_keys($allHours, 0);
+
+        foreach ($timeCount as $item) {
+            $hour = $item->hour;
+            $hourlyCounts[$hour] = $item->reservation_count;
+        }
+
+        foreach ($allHours as $hour) {
+            $hourLabel = sprintf('%02d:00 %s', ($hour % 12 ?: 12), ($hour < 12 ? 'AM' : 'PM'));
+            $hl[] = $hourLabel;
+            $hc[] = $hourlyCounts[$hour];
+        }
+
+        $rf = new MonthlyReservations;
+        $rf->labels($hl);
+        $rf->title('Reservation Activity by Time', 20, '#202828ff', true, "Helvetica");
+        $rf->displayLegend(false);
+        $rf->dataset('Reservations', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
+
+
+        return view('reportgraph', compact('mr', 'rs','dr', 'cr', 'hl', 'hc', 'rf'));
 
     }
 
@@ -198,6 +331,31 @@ class DashboardController extends Controller
 
         return redirect('usermanage');
     }
+
+    public function getChat(){
+        $userId = auth()->id();
+
+        $messages = ChatMessage::orderBy('created_at')->get();
+
+
+        $usersWithMessages = ChatMessage::distinct('users_id')->pluck('users_id');
+        $user = User::whereIn('id', $usersWithMessages)->get();
+
+        return view('chat', compact('messages', 'user'));
+
+    }
+
+    public function chatstore(Request $request){
+
+        $message = new ChatMessage([
+            'users_id' => $request->id,
+            'role' => 'Admin',
+            'message' => $request->input('message'),
+        ]);
+        $message->save();
+        return redirect()->route('getChat');
+    }
+
 
 
 

@@ -73,6 +73,7 @@ Route::get('/reservation', [APIController::class, 'getReserveData'])->name('getR
 // Customer Report
 Route::middleware('isAdmin')->group(function () {
     Route::get('/report', [DashboardController::class, 'report'])->name('report');
+    Route::get('/reportgraph', [DashboardController::class, 'reportgraph'])->name('reportgraph');
 });
 
 // Registration Edit form
@@ -90,6 +91,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//Chat?
+Route::middleware('auth')->group(function () {
+    Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
+    Route::get('/admin/chat', [DashboardController::class, 'getChat'])->name('getChat');
+    Route::post('/admin/chat', [DashboardController::class, 'chatstore'])->name('chat.store');
+    Route::get('/user/chats', [HomeController::class, 'getChat'])->name('getcChat');
+    Route::post('/user/chat', [HomeController::class, 'chatcStore'])->name('chat.cstore');
+    Route::get('/user/chat/get', [HomeController::class, 'getUserChat'])->name('getUserChat');
+});
+
 
 
 
