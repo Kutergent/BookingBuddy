@@ -30,12 +30,22 @@ class ReservationsSeeder extends Seeder
             $reserveDuration = $faker->numberBetween(1, 3);
             $status = $faker->randomElement(['pending', 'canceled', 'confirmed']);
 
+            $generate_invoice = null;
+
+            for ($i = 0; $i < 9; $i++) {
+                $temp = strval(rand(0, 9));
+                $generate_invoice .= $temp;
+            }
+
+            $invoice = 'RES'.$generate_invoice.'DP';
+
             $reservation = Reservations::create([
                 'users_id' => $userId,
                 'reserve_date' => $reserveDate,
                 'reserve_time' => $reserveTime,
                 'reserve_duration' => $reserveDuration,
-                'status' => $status
+                'status' => $status,
+                'invoice' => $invoice
             ]);
 
             Field::create([
@@ -60,13 +70,23 @@ class ReservationsSeeder extends Seeder
                 $reserveTime = Carbon::parse($reserveTime)->ceil('30 minutes')->format('H:i:s');
                 $status = $faker->randomElement(['pending', 'canceled', 'confirmed']);
 
+                $generate_invoice = null;
+
+                for ($i = 0; $i < 9; $i++) {
+                    $temp = strval(rand(0, 9));
+                    $generate_invoice .= $temp;
+                }
+
+                $invoice = 'RES'.$generate_invoice.'DP';
+
 
                 $reservation1 = Reservations::create([
                     'users_id' => $userId,
                     'reserve_date' => $reserveDate,
                     'reserve_time' => $reserveTime,
                     'reserve_duration' => $faker->numberBetween(1, 3),
-                    'status' => $faker->randomElement(['pending', 'canceled', 'confirmed'])
+                    'status' => $faker->randomElement(['pending', 'canceled', 'confirmed']),
+                    'invoice' => $invoice
                 ]);
 
                 Field::create([

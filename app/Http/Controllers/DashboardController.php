@@ -123,7 +123,8 @@ class DashboardController extends Controller
         $data->interval = $r->interval;
         $data->open = $r->open;
         $data->close = $r->close;
-
+        $data->dp_amt = $r->dp_amt;
+        $data->tax_amt = $r->tax_amt;
 
         $data->save();
 

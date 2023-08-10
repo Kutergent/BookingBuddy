@@ -23,6 +23,7 @@ return new class extends Migration
             $table->time('reserve_time');
             $table->integer('reserve_duration');
             $table->string('status');
+            $table->string('invoice')->nullable();
 
             $table->timestamps();
         });

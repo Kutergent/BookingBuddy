@@ -54,6 +54,7 @@
                             <th class="p-3 font-medium text-base text-left">Reservation ID</th>
                             <th class="p-3 font-medium text-base text-left">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-left">Reserve Time</th>
+                            <th class="p-3 font-medium text-base text-left">Invoice</th>
                             <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
                         </tr>
                     </thead>
@@ -69,6 +70,9 @@
                                 </td>
                                 <td class="p-3 font-medium text-sm text-left">
                                     <p>{{ carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A')  }}</p>
+                                </td>
+                                <td class="p-3 font-medium text-sm text-left">
+                                    <p>{{ $r->invoice }}</p>
                                 </td>
                                 <td class="p-3 font-medium text-sm text-center">
                                     @if ($r->status == 'confirmed')

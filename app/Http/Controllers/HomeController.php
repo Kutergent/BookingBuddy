@@ -90,6 +90,7 @@ class HomeController extends Controller
             $data->reserve_time = $r->reserve_time;
             $data->reserve_duration = 1;
             $data->status = 'pending';
+            $data->invoice = '';
 
             $data->users_id = Auth::user()->id;
 
@@ -157,6 +158,7 @@ class HomeController extends Controller
             $data->reserve_time = $r->reserve_time;
             $data->reserve_duration = 1;
             $data->status = 'pending';
+            $data->invoice = '';
 
             $data->save();
         }
@@ -181,9 +183,38 @@ class HomeController extends Controller
 
         }
 
+
         // Mail::to($data->email)->send(new ReservedMail($data));
-        return redirect()->route('reserveComplete')->with('email', Auth::user()->email);
+        return redirect()->route('transaction')->with('email', Auth::user()->email);
     }
+
+
+    //Transaction DP
+    public function transaction(){
+        $data = Form::first();
+
+        $tax = $data->tax_amt;
+        $dp = $data->dp_amt;
+        $total = $dp + ($tax/100 * $dp);
+
+        return view('transaction', compact('total', 'dp', 'tax'));
+    }
+    public function postInvoice(){
+        $data = Reservations::latest('id')->first();
+
+        $generate_invoice = null;
+
+        for ($i = 0; $i < 9; $i++) {
+            $temp = strval(rand(0, 9));
+            $generate_invoice .= $temp;
+        }
+
+        $data->invoice = 'RES'.$generate_invoice.'DP';
+        $data->save();
+
+        return redirect()->route('reserveComplete');
+    }
+
 
     public function reserveComplete(){
 

@@ -9,5 +9,5 @@ class Form extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['limit', 'range', 'phone_number', 'dob', 'interval', 'open', 'close'];
+    protected $fillable = ['limit', 'range', 'phone_number', 'dob', 'interval', 'open', 'close', 'dp_amt', 'tax_amt'];
 }

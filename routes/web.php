@@ -35,6 +35,8 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
     Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
     Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
     Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
+    Route::get('/transaction', [HomeController::class, 'transaction'])->name('transaction');
+    Route::post('/postInvoice', [HomeController::class, 'postInvoice'])->name('postInvoice');
     Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
     Route::get('/my-reservations', [HomeController::class, 'getList'])->name('myReservations');
 //List need for client customers / guest

@@ -53,6 +53,7 @@
                             <th class="p-3 font-medium text-base">Phone</th>
                             <th class="p-3 font-medium text-base text-right">@sortablelink('reserve_date', 'Reserve Date')</th>
                             <th class="p-3 font-medium text-base text-right">Reserve Time</th>
+                            <th class="p-3 font-medium text-base">Invoice</th>
                             @foreach ($formextra as $fe)
                                 <th class="p-3 font-medium text-base text-right">{{ $fe->name }}</th>
                             @endforeach
@@ -77,6 +78,9 @@
                                 </td>
                                 <td class="p-3 font-medium text-sm text-right">
                                     <p>{{ Carbon\Carbon::createFromFormat('H:i:s', $r->reserve_time)->format('H:i A') }}</p>
+                                </td>
+                                <td class="p-3 font-medium text-sm">
+                                    <p>{{ $r->invoice }}</p>
                                 </td>
                                 @foreach ($formextra as $fe)
                                     @php

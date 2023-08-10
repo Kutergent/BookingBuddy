@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
+
             $table->integer('limit');
             $table->integer('range');
             $table->boolean('phone_number');
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->integer('interval');
             $table->time('open');
             $table->time('close');
+            $table->integer('dp_amt');
+            $table->integer('tax_amt');
+
             $table->timestamps();
         });
     }

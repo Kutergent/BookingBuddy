@@ -140,6 +140,24 @@
                                     </select>
 
                                 </div>
+
+
+                                <div class="md:col-span-2"></div>
+                                <div class="md:col-span-1">
+                                    <label for="reserve_limit">Down Payment Amount (Rp.)</label>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <input type="number" name="dp_amt" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" min="20000" max="1000000" step="500" value="{{ $form->dp_amt }}" />
+                                </div>
+
+                                <div class="md:col-span-2"></div>
+                                <div class="md:col-span-1">
+                                    <label for="reserve_limit">Tax Amount (%)</label>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <input type="number" name="tax_amt" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" min="0" max="100" step="1" value="{{ $form->tax_amt }}" />
+                                </div>
+
                                 <div class="md:col-span-2"></div>
                                 <div class="md:col-span-3">
                                     <x-input-error :messages="$errors->get('open')" class="mt-2" />

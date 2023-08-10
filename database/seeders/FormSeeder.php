@@ -22,7 +22,9 @@ class FormSeeder extends Seeder
             'dob' => true,
             'interval' => 30,
             'open' => '09:00:00',
-            'close' => '18:00:00'
+            'close' => '18:00:00',
+            'dp_amt' => 50000,
+            'tax_amt' => 10
         ]);
     }
 }
