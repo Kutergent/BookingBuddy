@@ -39,6 +39,9 @@ Route::get('/testarea', [DashboardController::class, 'testarea']);
     Route::post('/postInvoice', [HomeController::class, 'postInvoice'])->name('postInvoice');
     Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
     Route::get('/my-reservations', [HomeController::class, 'getList'])->name('myReservations');
+    Route::post('/cancelReservation/{id}', [HomeController::class, 'cancelReservation'])->name('cancelReservation');
+    Route::get('/reschedule/{id}', [HomeController::class, 'reschedule'])->name('reschedule');
+    Route::post('/rescheduleRes/{id}', [HomeController::class, 'rescheduleRes'])->name('rescheduleRes');
 //List need for client customers / guest
 // Register / Reserve Page
 
