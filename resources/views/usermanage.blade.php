@@ -109,6 +109,10 @@
             </form>
         </div>
     </div>
+    <x-chat-admin-popup>
+        @slot('messages', $messages)
+        @slot('user', $chat)
+    </x-chat-admin-popup>
 
   <x-slot name="scripts">
         <script>

@@ -20,6 +20,7 @@ use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
+
     public function reportgraph(Request $r){
 
         $targetYear = $r->query('year');
@@ -169,8 +170,19 @@ class DashboardController extends Controller
         $rf->displayLegend(false);
         $rf->dataset('Reservations', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
 
+        $messages = ChatMessage::where('users_id', 1)
+        ->orderBy('created_at')
+        ->get();
 
-        return view('reportgraph', compact('mr', 'rs','dr', 'cr', 'hl', 'hc', 'rf'));
+        $chat = User::whereIn('id', function ($query) {
+        $query->select('users_id')
+        ->from('chat_messages')
+        ->groupBy('users_id');
+        })
+        ->get();
+
+
+        return view('reportgraph', compact('mr', 'rs','dr', 'cr', 'hl', 'hc', 'rf', 'chat', 'messages'));
 
     }
 
@@ -192,7 +204,17 @@ class DashboardController extends Controller
 
         $report = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->sortable()->paginate(10);
 
-        return view('report', compact('report','field','formextra'));
+        $messages = ChatMessage::where('users_id', 1)
+        ->orderBy('created_at')
+        ->get();
+
+        $chat = User::whereIn('id', function ($query) {
+        $query->select('users_id')
+        ->from('chat_messages')
+        ->groupBy('users_id');
+        })
+        ->get();
+        return view('report', compact('report','field','formextra', 'chat', 'messages'));
     }
 
     public function calendar(){
@@ -214,20 +236,40 @@ class DashboardController extends Controller
         $field = Field::all();
         $formExtra = FormExtra::where('enabled', 1)->get();
 
-        return view('calendar', compact('reservations', 'field', 'formExtra', 'canceled', 'upcoming'));
+        $messages = ChatMessage::where('users_id', 1)
+                                 ->orderBy('created_at')
+                                 ->get();
+
+        $chat = User::whereIn('id', function ($query) {
+            $query->select('users_id')
+                ->from('chat_messages')
+                ->groupBy('users_id');
+        })
+        ->get();
+
+
+        return view('calendar', compact('reservations', 'field', 'formExtra', 'canceled', 'upcoming', 'messages', 'chat'));
     }
 
     public function edit(){
         $form = Form::first();
         $formextra = FormExtra::all();
 
+        $messages = ChatMessage::where('users_id', 1)
+        ->orderBy('created_at')
+        ->get();
 
-        // dd($data);
-        return view('editform', compact('form', 'formextra'));
-        // return view('editform', [
-        //     'data' => $data,
-        //     'dataAdd' => $dataAdd
-        // ]);
+        $chat = User::whereIn('id', function ($query) {
+        $query->select('users_id')
+        ->from('chat_messages')
+        ->groupBy('users_id');
+        })
+        ->get();
+
+
+
+        return view('editform', compact('form', 'formextra', 'chat', 'messages'));
+
     }
 
     public function editUpdate(Request $r){
@@ -297,9 +339,19 @@ class DashboardController extends Controller
     public function usermanage(){
 
         $usermanage = User::where('role', '!=', 'Customer')->paginate(10);
+        $messages = ChatMessage::where('users_id', 1)
+        ->orderBy('created_at')
+        ->get();
+
+        $chat = User::whereIn('id', function ($query) {
+        $query->select('users_id')
+        ->from('chat_messages')
+        ->groupBy('users_id');
+        })
+        ->get();
 
 
-        return view('usermanage', compact('usermanage'));
+        return view('usermanage', compact('usermanage', 'chat', 'messages'));
     }
 
     public function addUser(Request $r){
@@ -332,28 +384,36 @@ class DashboardController extends Controller
         return redirect('usermanage');
     }
 
-    public function getChat(){
-        $userId = auth()->id();
+    public function getChat(Request $r){
+        $id = $r->query('id');
+        $user = User::findOrFail($id);
+        $messages = ChatMessage::where('users_id', $id)
+                                 ->orderBy('created_at')
+                                 ->get();
 
-        $messages = ChatMessage::orderBy('created_at')->get();
+        return view('components.chat-messages', compact('messages'));
 
+    }
 
-        $usersWithMessages = ChatMessage::distinct('users_id')->pluck('users_id');
-        $user = User::whereIn('id', $usersWithMessages)->get();
+    public function getChatView(){
+        $user = User::all();
+        $messages = ChatMessage::where('users_id', 1)
+                                 ->orderBy('created_at')
+                                 ->get();
 
         return view('chat', compact('messages', 'user'));
-
     }
 
     public function chatstore(Request $request){
 
         $message = new ChatMessage([
-            'users_id' => $request->id,
+            'users_id' => $request->user_id,
             'role' => 'Admin',
             'message' => $request->input('message'),
         ]);
         $message->save();
-        return redirect()->route('getChat');
+
+        return back();
     }
 
 

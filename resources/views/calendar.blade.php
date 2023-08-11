@@ -71,8 +71,15 @@
 
 
 
+
+
     <div id="calendar" class="mx-auto w-auto mt-4 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
     </div>
+
+    <x-chat-admin-popup>
+        @slot('messages', $messages)
+        @slot('user', $chat)
+    </x-chat-admin-popup>
 
     {{-- Modal for Confirm/Cancel --}}
     <div id="confirmationModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

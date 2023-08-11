@@ -3,10 +3,10 @@
 
 
 
-    <div class="w-full h-10 mt-2 bg-white rounded shadow-sm p-4 px-4 relative">
+    <div class="w-full h-fit mt-2 bg-white rounded shadow-sm p-4 px-4 relative">
         <!-- Your content goes here -->
 
-        <h1 class="absolute top-0 left-0 mt-2 ml-4 text-xl">Untitled Graph Page</h1>
+        <h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Report</h2>
 
         <!-- Dropdown for selecting a year -->
         <div class="absolute top-0 right-0">
@@ -40,6 +40,11 @@
                 {!! $cr->container() !!}
             </div>
         </div>
+
+        <x-chat-admin-popup>
+            @slot('messages', $messages)
+            @slot('user', $chat)
+        </x-chat-admin-popup>
 
 
 

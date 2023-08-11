@@ -68,6 +68,7 @@ Route::get('/check-reservation', [APIController::class, 'checkReservation'])->na
 Route::get('/confirmation', [APIController::class, 'confirmStatus'])->name('ConfirmStatus');
 Route::get('/cancelation', [APIController::class, 'cancelStatus'])->name('CancelStatus');
 Route::get('/reservation', [APIController::class, 'getReserveData'])->name('getReserveData');
+Route::get('/get-user-data', [APIController::class, 'getUserData'])->name('getUserData');
 
 
 // Customer Report
@@ -95,9 +96,9 @@ Route::middleware('auth')->group(function () {
 //Chat?
 Route::middleware('auth')->group(function () {
     Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
-    Route::get('/admin/chat', [DashboardController::class, 'getChat'])->name('getChat');
+    Route::get('/chat', [DashboardController::class, 'getChatView'])->name('getChatView');
     Route::post('/admin/chat', [DashboardController::class, 'chatstore'])->name('chat.store');
-    Route::get('/user/chats', [HomeController::class, 'getChat'])->name('getcChat');
+    Route::get('/admin/chat', [DashboardController::class, 'getChat'])->name('getChat');
     Route::post('/user/chat', [HomeController::class, 'chatcStore'])->name('chat.cstore');
     Route::get('/user/chat/get', [HomeController::class, 'getUserChat'])->name('getUserChat');
 });

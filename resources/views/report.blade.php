@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="container mx-auto sm:p-4 text-gray-900 bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
-        <h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Report</h2>
+        <h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Data</h2>
 
         <hr class="my-4">
         <!-- Datepicker -->
@@ -128,5 +128,8 @@
             {!! $report->appends(Request::except('page'))->render() !!}
         </div>
     </div>
-
+    <x-chat-admin-popup>
+        @slot('messages', $messages)
+        @slot('user', $chat)
+    </x-chat-admin-popup>
 </x-app-layout>

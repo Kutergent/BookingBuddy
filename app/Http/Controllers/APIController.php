@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Field;
 use App\Models\FormExtra;
 use App\Models\Reservations;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -19,6 +20,15 @@ class APIController extends Controller
         $reservation->save();
 
         return response()->json(['message' => 'Reservation confirmed'], 200);
+    }
+
+    public function getUserData(Request $request){
+        $id = $request->query('id');
+        $user = User::find($id);
+
+        return response()->json([
+            'name' => $user->name,
+        ]);
     }
 
     public function cancelStatus(Request $request)

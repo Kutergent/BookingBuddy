@@ -21,21 +21,6 @@ use Illuminate\Validation\Rule as ValidationRule;
 
 class HomeController extends Controller
 {
-    public function getChat(){
-        $userId = auth()->id();
-
-        // $messages = ChatMessage::where('users_id', $userId)
-        //                     ->orderBy('created_at')
-        //                     ->get();
-
-                            //TEMPORARY SHOW ALL
-                            $messages = ChatMessage::orderBy('created_at')
-                            ->get();
-
-        return $messages;
-
-    }
-
     public function chatcStore(Request $request){
 
         $user = auth()->user();
@@ -52,38 +37,42 @@ class HomeController extends Controller
     public function getUserChat(Request $r){
     $id = $r->query('id');
     $user = User::findOrFail($id);
-    // $messages = $user->messages()->orderBy('created_at')->get();
-    // $messages = ChatMessage::where('users_id', $user->id)
-    // ->orderBy('created_at')->get();
     $messages = ChatMessage::where('users_id', $id)
                              ->orderBy('created_at')
                              ->get();
-    // dd($messages);
-    return view('components.chat_messages', compact('messages'));
+    return view('components.chat-messages-dark', compact('messages'));
 
     }
 
     public function welcome(){
         $userId = auth()->id();
 
-        // $messages = ChatMessage::where('users_id', $userId)
-        //                     ->orderBy('created_at')
-        //                     ->get();
-
-                            //TEMPORARY SHOW ALL
-                            $messages = ChatMessage::orderBy('created_at')
+        $messages = ChatMessage::where('users_id', $userId)
+                            ->orderBy('created_at')
                             ->get();
+
         return view('welcome', compact('messages'));
     }
     public function aboutus(){
-        return view('aboutus');
+        $userId = auth()->id();
+
+        $messages = ChatMessage::where('users_id', $userId)
+                            ->orderBy('created_at')
+                            ->get();
+        return view('aboutus', compact('messages'));
     }
 
     public function reserve(){
         $form = Form::first();
         $formextra = FormExtra::all();
 
-        return view('reserve', compact('form', 'formextra'));
+        $userId = auth()->id();
+
+        $messages = ChatMessage::where('users_id', $userId)
+                            ->orderBy('created_at')
+                            ->get();
+
+        return view('reserve', compact('form', 'formextra', 'messages'));
 
         // return view('reserve', [
         //     'data' => $data,
@@ -275,6 +264,11 @@ class HomeController extends Controller
 
     public function getList(Request $r){
         $user = auth()->user();
+        $userId = auth()->id();
+
+        $messages = ChatMessage::where('users_id', $userId)
+                            ->orderBy('created_at')
+                            ->get();
 
         if ($r->start != null) {
             $fromDate = Carbon::parse($r->start);
@@ -282,13 +276,13 @@ class HomeController extends Controller
 
             $reservations = Reservations::where('users_id', $user->id)->sortable()->whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
 
-            return view ('myReservations', compact('reservations'));
+            return view ('myReservations', compact('reservations', 'messages'));
         }
 
         $reservations = Reservations::where('users_id', $user->id)->sortable()->paginate(10);
 
 
-        return view ('myReservations', compact('reservations'));
+        return view ('myReservations', compact('reservations','messages'));
     }
 
 }

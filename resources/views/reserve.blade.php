@@ -122,6 +122,12 @@
         </form>
     </div>
 </div>
+
+@auth
+            <x-chat-popup>
+                @slot('messages', $messages)
+            </x-chat-popup>
+        @endauth
 </x-guest-layout>
 
 
