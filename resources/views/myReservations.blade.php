@@ -56,6 +56,8 @@
                             <th class="p-3 font-medium text-base text-left">Reserve Time</th>
                             <th class="p-3 font-medium text-base text-left">Invoice</th>
                             <th class="p-3 font-medium text-base text-center">@sortablelink('status', 'Status')</th>
+                            <th class="p-1 font-medium text-base text-right"></th>
+                            <th class="p-1 font-medium text-base text-left"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,6 +90,21 @@
                                             <span>{{ ucfirst($r->status) }}</span>
                                         </span>
                                     @endif
+                                </td>
+                                <td class="p-1 font-medium text-sm text-right">
+                                    <form action="{{ route('reschedule', ['id' => $r->id]) }}" method="GET">
+                                    @if ($r->status != 'canceled')
+                                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-emerald-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">RESCHEDULE</button>
+                                    @endif
+                                    </form>
+                                </td>
+                                <td class="p-1 font-medium text-sm text-left">
+                                    <form action="{{ route('cancelReservation', ['id' => $r->id]) }}" method="POST">
+                                    @csrf
+                                    @if ($r->status != 'canceled')
+                                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">CANCEL</button>
+                                    @endif
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -256,6 +256,76 @@ class HomeController extends Controller
         return redirect()->route('reserveComplete');
     }
 
+    //Cancel reservation
+    public function cancelReservation($id){
+        $res = Reservations::find($id);
+
+        $res->status = 'canceled';
+        $res->save();
+
+        return redirect('my-reservations');
+    }
+
+    //Reschedule reservation
+    public function reschedule($id){
+        $res = Reservations::find($id);
+        $form = Form::first();
+        $formextra = FormExtra::all();
+
+        return view('reschedule', compact('res', 'form', 'formextra'));
+    }
+    public function rescheduleRes($id, Request $r){
+        $res = Reservations::find($id);
+        $form = Form::first();
+
+        $validation = Validator::make($r->all(), [
+            'reserve_date' => ['date', 'after:yesterday'],
+            'reserve_time' => [
+                'required',
+                'date_format:H:i',
+                'regex:/^(?:0[0-9]|1[0-9]|2[0-3]):(?:00|10|20|30|40|50)$/', // Interval of 10 minutes
+                function ($attribute, $value, $fail) use ($form, $r) {
+                    $reserveDate = $r->reserve_date;
+                    $reserveTime = $value;
+                    $readDate = Carbon::parse($reserveDate)->format('d, M Y');
+
+
+                    // Combine the reserve date and time into a single datetime object
+                    $vreserveTime = Carbon::parse("$reserveTime");
+
+                    // Check if the reserve time is within the store's opening and closing time
+                    $openTime = Carbon::parse($form->open);
+                    $closeTime = Carbon::parse($form->close);
+
+                    if ($vreserveTime->lessThan($openTime) || $vreserveTime->greaterThan($closeTime)) {
+                        $fail("$vreserveTime The reservation time must be between $openTime and $closeTime.");
+                    }
+
+                    // Check if the reservation time exceeds the limit
+                    $reservationsCount = Reservations::where('reserve_date', $reserveDate)
+                        ->where('reserve_time', $reserveTime)
+                        ->where('status', '!=', 'canceled')
+                        ->count();
+
+                    if ($reservationsCount >= $form->limit) {
+                        $fail("The reservation for $readDate at $reserveTime is fully booked.");
+                    }
+                },
+
+            ],
+        ]);
+
+        $validation->validate();
+
+        $res->reserve_date = $r->reserve_date;
+        $res->reserve_time = $r->reserve_time;
+        $res->status = 'pending';
+        $res->save();
+
+
+        return redirect('my-reservations');
+    }
+
 
     public function reserveComplete(){
 
