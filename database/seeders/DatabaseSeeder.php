@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             FormExtraSeeder::class,
             UserSeeder::class,
             ReservationsSeeder::class,
-            // FieldSeeder::class
         ]);
 
 
