@@ -152,64 +152,63 @@
 
     <x-slot name="scripts">
         <script>
-            var calendarRoute = "{{ $calendarRoute }}";
-            //Convert thing
+            var calendarRoute = "{{ $calendarRoute }}"
             function convertTo12HourFormat(time) {
-                var parts = time.split(':');
-                var hours = parseInt(parts[0]);
-                var minutes = parseInt(parts[1]);
-                var seconds = parseInt(parts[2]);
+                var parts = time.split(':')
+                var hours = parseInt(parts[0])
+                var minutes = parseInt(parts[1])
+                var seconds = parseInt(parts[2])
 
-                var meridiem = hours >= 12 ? 'PM' : 'AM';
-                var twelveHourFormatHours = hours % 12 || 12;
+                var meridiem = hours >= 12 ? 'PM' : 'AM'
+                var twelveHourFormatHours = hours % 12 || 12
 
-                return twelveHourFormatHours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + meridiem;
+                return twelveHourFormatHours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + meridiem
             }
 
             function convertDate(date){
-                var dateObj = new Date(date);
-                var options = { day: '2-digit', month: 'long', year: 'numeric' };
-                var formattedDate = dateObj.toLocaleDateString('en-GB', options);
+                var dateObj = new Date(date)
+                var options = { day: '2-digit', month: 'long', year: 'numeric' }
+                var formattedDate = dateObj.toLocaleDateString('en-GB', options)
 
-                return formattedDate;
+                return formattedDate
             }
 
             function capitalizeFirstLetter(str) {
-                return str.charAt(0).toUpperCase() + str.slice(1);
+                return str.charAt(0).toUpperCase() + str.slice(1)
             }
 
             function fetchReservation(reservationId, type) {
                 fetch('{{ route('getReserveData') }}?id=' + reservationId)
                     .then(response => {
                     if (response.ok) {
-                        return response.json();
+                        return response.json()
                     }
-                    throw new Error('API request failed');
+                    throw new Error('API request failed')
                     })
                     .then(data => {
-                    confirmationModal.classList.remove('hidden');
+                    confirmationModal.classList.remove('hidden')
                     var reservationDate = convertDate(data.reserve_date)
 
-                    console.log('Data:' + data);
+                    console.log('Data:' + data)
 
                     if (type == "cancel") {
-                        modalTitle.textContent = 'Cancellation';
-                        modalMessage.textContent = 'Are you sure you want to cancel the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
+                        modalTitle.textContent = 'Cancellation'
+                        modalMessage.textContent = 'Are you sure you want to cancel the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?'
                         confirmButton.addEventListener('click', function() {
-                            confirmationModal.classList.add('hidden');
+                            confirmationModal.classList.add('hidden')
                             fetchCancellation(reservationId, calendarRoute)
                         })}
                     else{
-                        modalTitle.textContent = 'Confirmation';
-                        modalMessage.textContent = 'Are you sure you want to confirm the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?';
+                        modalTitle.textContent = 'Confirmation'
+                        modalMessage.textContent = 'Are you sure you want to confirm the reservation for ' + data.name + ' on ' + reservationDate + ' at ' + convertTo12HourFormat(data.reserve_time) + '?'
                         confirmButton.addEventListener('click', function() {
                             fetchConfirmation(reservationId, calendarRoute)
                         })
                     }
                     })
                     .catch(error => {
-                    console.error(error);
-                    });
+                    console.error(error)
+                    })
             }
 
             function fetchConfirmation(reservationId, calendarRoute) {
@@ -219,16 +218,16 @@
                 })
                     .then(response => {
                     if (response.ok) {
-                        window.location.href = calendarRoute;
-                        return response.json();
+                        window.location.href = calendarRoute
+                        return response.json()
                     }
-                    throw new Error('API request failed');
+                    throw new Error('API request failed')
                     })
                     .then(data => {
                     })
                     .catch(error => {
-                    console.error(error);
-                    });
+                    console.error(error)
+                    })
             }
 
             function fetchCancellation(reservationId, calendarRoute) {
@@ -237,56 +236,42 @@
                 })
                     .then(response => {
                     if (response.ok) {
-                        window.location.href = calendarRoute;
-                        return response.json();
+                        window.location.href = calendarRoute
+                        return response.json()
                     }
-                    throw new Error('API request failed');
+                    throw new Error('API request failed')
                     })
                     .then(data => {
-                    // make alert or something
                     })
                     .catch(error => {
-                    console.error(error);
-                    });
+                    console.error(error)
+                    })
             }
 
 
             document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                var confirmationModal = document.getElementById('confirmationModal');
-                var confirmButton = document.getElementById('confirmButton');
-                var cancelButton = document.getElementById('cancelButton');
-                var cancelButtons = document.querySelectorAll('.cancel-button');
-                var pendingConfirmButtons = document.querySelectorAll('#pendingConfirmButton');
+                const calendarEl = document.getElementById('calendar')
+                const confirmationModal = document.getElementById('confirmationModal')
+                const confirmButton = document.getElementById('confirmButton')
+                const cancelButton = document.getElementById('cancelButton')
+                const cancelButtons = document.querySelectorAll('.cancel-button')
+                const pendingConfirmButtons = document.querySelectorAll('#pendingConfirmButton')
 
-                var extraContainer = document.getElementById('reservationModalExtra');
-                var reservationModal = document.getElementById('reservationModal')
-                var closeReservationModal = document.getElementById('closeReservationModal');
+                const extraContainer = document.getElementById('reservationModalExtra')
+                const reservationModal = document.getElementById('reservationModal')
+                const closeConfirmationModal = document.getElementById('closeconfirmationModal')
 
-                var closeConfirmationModal = document.getElementById('closeconfirmationModal');
-
-                var cancelReservationButton = document.getElementById('cancelReservationButton')
-                var confirmReservationButton = document.getElementById('confirmReservationButton')
-
-                closeconfirmationModal.addEventListener ('click', function() {
-
+                closeConfirmationModal.addEventListener('click', function() {
                     reservationModal.classList.add('hidden')
                     confirmationModal.classList.add('hidden')
                 })
 
-                closeReservationModal.addEventListener ('click', function() {
-
+                cancelButton.addEventListener('click', function() {
                     reservationModal.classList.add('hidden')
                     confirmationModal.classList.add('hidden')
                 })
 
-                cancelButton.addEventListener ('click', function() {
-
-                reservationModal.classList.add('hidden')
-                confirmationModal.classList.add('hidden')
-                })
-
-                var calendar = new FullCalendar.Calendar(calendarEl, {
+                const calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
                     themeSystem: 'bootstrap5',
                     events: [
@@ -303,38 +288,28 @@
                             classNames: 'bg-red-800 border-red-800 text-white whitespace-normal',
                             @endif
                             extendedProps: {
-                                // name: '{{ $reservation->name }}',
-                                // email: '{{ $reservation->email }}',
-                                // phone: '{{ $reservation->phone_number }}',
-                                // dob: '{{ $reservation->dob }}',
-                                // date: '{{ $reservation->reserve_date }}',
-                                // time: '{{ $reservation->reserve_time }}',
-                                // status: '{{ $reservation->status }}',
                                 id: '{{ $reservation->id }}'
-
                             },
-
                         },
                         @endforeach
                     ],
                     eventClick: function(info) {
-                                console.log("Clicked the event");
-                                var reservation = info.event.extendedProps.id;
-                                epicModal(reservation);
-                            },
-                });
+                        console.log("Clicked the event")
+                        const reservation = info.event.extendedProps.id
+                        epicModal(reservation)
+                    },
+                })
 
-                calendar.render();
+                calendar.render()
 
                 function epicModal(reservationId){
-                    console.log("Reserve ID is " + reservationId)
-                    var modalTitle = document.getElementById('reservationModalTitle');
-                    const nameField = document.getElementById('reservationModalName');
-                    const emailField = document.getElementById('reservationModalEmail');
-                    const phoneField = document.getElementById('reservationModalPhone');
-                    const dateOfBirthField = document.getElementById('reservationModalDateOfBirth');
-                    const dateField = document.getElementById('reservationModalDate');
-                    const timeField = document.getElementById('reservationModalTime');
+                    var modalTitle = document.getElementById('reservationModalTitle')
+                    const nameField = document.getElementById('reservationModalName')
+                    const emailField = document.getElementById('reservationModalEmail')
+                    const phoneField = document.getElementById('reservationModalPhone')
+                    const dateOfBirthField = document.getElementById('reservationModalDateOfBirth')
+                    const dateField = document.getElementById('reservationModalDate')
+                    const timeField = document.getElementById('reservationModalTime')
                     var reservationModal = document.getElementById('reservationModal')
 
 
@@ -342,9 +317,9 @@
                     fetch('{{ route('getReserveData') }}?id=' + reservationId)
                     .then(response => {
                         if (response.ok) {
-                            return response.json();
+                            return response.json()
                         }
-                        throw new Error('API request failed');
+                        throw new Error('API request failed')
                     })
                     .then(data => {
                         console.log(data.status)
@@ -355,14 +330,14 @@
                             document.getElementById('reservationModalTitle').textContent =  capitalizeFirstLetter(data.status) +" Reservation Details"
 
                         }
-                        document.getElementById('reservationModalName').textContent = data.name;
-                        document.getElementById('reservationModalEmail').textContent = data.email;
-                        document.getElementById('reservationModalPhone').textContent = data.phone_number;
-                        document.getElementById('reservationModalDateOfBirth').textContent = convertDate(data.dob);
-                        document.getElementById('reservationModalDate').textContent = convertDate(data.reserve_date);
-                        document.getElementById('reservationModalTime').textContent = convertTo12HourFormat(data.reserve_time);
+                        document.getElementById('reservationModalName').textContent = data.name
+                        document.getElementById('reservationModalEmail').textContent = data.email
+                        document.getElementById('reservationModalPhone').textContent = data.phone_number
+                        document.getElementById('reservationModalDateOfBirth').textContent = convertDate(data.dob)
+                        document.getElementById('reservationModalDate').textContent = convertDate(data.reserve_date)
+                        document.getElementById('reservationModalTime').textContent = convertTo12HourFormat(data.reserve_time)
 
-                        console.log('Status:' + data.status);
+                        console.log('Status:' + data.status)
 
                         if(data.status != 'pending'){
                             confirmReservationButton.classList.add('hidden')
@@ -372,54 +347,54 @@
                             cancelReservationButton.classList.remove('hidden')
                         }
 
-                        reservationModal.classList.remove('hidden');
+                        reservationModal.classList.remove('hidden')
                     })
                     .catch(error => {
-                        console.error(error);
-                    });
+                        console.error(error)
+                    })
 
                     fetch('{{ route('check-reservation') }}?fieldReservationId=' + reservationId, {
                         method: 'GET'
                     })
                     .then(function(response) {
                         if (response.ok) {
-                            return response.json();
+                            return response.json()
                         } else {
-                            throw new Error('Request failed.');
+                            throw new Error('Request failed.')
                         }
                     })
                     .then(function(data) {
                         if (data.data.length > 0) {
-                            const extraWrapper = document.createElement('div');
-                            extraWrapper.classList.add('grid', 'grid-cols-2', 'gap-4', 'mb-4');
+                            const extraWrapper = document.createElement('div')
+                            extraWrapper.classList.add('grid', 'grid-cols-2', 'gap-4', 'mb-4')
 
                             Object.values(data.data).forEach((f) => {
-                                const extraTitleElement = document.createElement('p');
-                                extraTitleElement.classList.add('font-semibold');
-                                extraTitleElement.textContent = f.name;
+                                const extraTitleElement = document.createElement('p')
+                                extraTitleElement.classList.add('font-semibold')
+                                extraTitleElement.textContent = f.name
 
-                                const extraContentElement = document.createElement('p');
-                                extraContentElement.textContent = f.textbox;
+                                const extraContentElement = document.createElement('p')
+                                extraContentElement.textContent = f.textbox
 
-                                extraWrapper.appendChild(extraTitleElement);
-                                extraWrapper.appendChild(extraContentElement);
-                            });
+                                extraWrapper.appendChild(extraTitleElement)
+                                extraWrapper.appendChild(extraContentElement)
+                            })
 
-                            extraContainer.appendChild(extraWrapper);
+                            extraContainer.appendChild(extraWrapper)
 
 
-                            var closeReservationModal = document.getElementById('closeReservationModal');
+                            var closeReservationModal = document.getElementById('closeReservationModal')
 
                             closeReservationModal.addEventListener ('click', function() {
                                 if (extraContainer.contains(extraWrapper)) {
-                                    extraContainer.removeChild(extraWrapper);
+                                    extraContainer.removeChild(extraWrapper)
                                 }
                                 reservationModal.classList.add('hidden')
                                 confirmationModal.classList.add('hidden')
                             })
                             closeConfirmationModal.addEventListener ('click', function() {
                                 if (extraContainer.contains(extraWrapper)) {
-                                    extraContainer.removeChild(extraWrapper);
+                                    extraContainer.removeChild(extraWrapper)
                                 }
                                 reservationModal.classList.add('hidden')
                                 confirmationModal.classList.add('hidden')
@@ -427,8 +402,8 @@
                         }
                     })
                     .catch(function(error) {
-                        console.error(error);
-                    });
+                        console.error(error)
+                    })
 
                     confirmReservationButton.addEventListener ('click', function(){
                     reservationModal.classList.add('hidden')
@@ -447,11 +422,11 @@
 
                 pendingConfirmButtons.forEach(function(button) {
                     button.addEventListener('click', function() {
-                        var reservationId = button.getAttribute('data-reservation-id');
-                        epicModal(reservationId);
-                    });
-                });
-            });
+                        var reservationId = button.getAttribute('data-reservation-id')
+                        epicModal(reservationId)
+                    })
+                })
+            })
         </script>
 
     </x-slot>

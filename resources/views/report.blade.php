@@ -4,7 +4,6 @@
         <h2 class="mb-4 text-2xl font-semibold leading-tight">Customer Data</h2>
 
         <hr class="my-4">
-        <!-- Datepicker -->
         <form action="{{ route('report') }}" method="GET">
             <div date-rangepicker class="flex items-center mb-2 item">
                 <div class="relative">
@@ -92,7 +91,7 @@
                                                 <p>{{ $fi->textbox }}</p>
                                             </td>
                                             @php
-                                                $hit = 'true'; // Set the flag to 'enabled'
+                                                $hit = 'true';
                                             @endphp
                                             @break
                                         @endif
@@ -123,8 +122,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- pagination -->
-            {{-- {{ $report->links() }} --}}
             {!! $report->appends(Request::except('page'))->render() !!}
         </div>
     </div>

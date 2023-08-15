@@ -7,7 +7,6 @@ use App\Models\FormExtra;
 use App\Models\Reservations;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class APIController extends Controller
 {
@@ -22,7 +21,8 @@ class APIController extends Controller
         return response()->json(['message' => 'Reservation confirmed'], 200);
     }
 
-    public function getUserData(Request $request){
+    public function getUserData(Request $request)
+    {
         $id = $request->query('id');
         $user = User::find($id);
 

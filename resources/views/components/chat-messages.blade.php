@@ -1,5 +1,3 @@
-
-
 <div class="space-y-2 h-fit">
     @foreach ($messages as $message)
     <div class="flex @if ($message->role === 'Admin') justify-end @else justify-start @endif">

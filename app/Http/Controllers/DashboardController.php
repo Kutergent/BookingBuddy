@@ -12,16 +12,15 @@ use App\Models\Reservations;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
 
-    public function reportgraph(Request $r){
+    public function reportgraph(Request $r)
+    {
 
         $targetYear = $r->query('year');
 
@@ -32,10 +31,10 @@ class DashboardController extends Controller
         ];
 
         $reserveCount = Reservations::selectRaw('MONTH(reserve_date) as month, COUNT(*) as reservation_count')
-        ->whereYear('reserve_date', $targetYear)
-        ->groupBy(DB::raw('MONTH(reserve_date)'))
-        ->orderBy(DB::raw('MONTH(reserve_date)'), 'asc')
-        ->get();
+            ->whereYear('reserve_date', $targetYear)
+            ->groupBy(DB::raw('MONTH(reserve_date)'))
+            ->orderBy(DB::raw('MONTH(reserve_date)'), 'asc')
+            ->get();
 
         $monthlyCounts = array_fill(1, 12, 0);
 
@@ -55,34 +54,34 @@ class DashboardController extends Controller
         $mr->dataset('Reservations', 'line', $rc)->lineTension(0.25)->backgroundColor('#5044e466');
 
         $statuscount = Reservations::select(DB::raw('COUNT(*) as count'))
-        ->whereYear('reserve_date', $targetYear)
-        ->groupBy('status')
-        ->orderBy('status')
-        ->get();
+            ->whereYear('reserve_date', $targetYear)
+            ->groupBy('status')
+            ->orderBy('status')
+            ->get();
 
 
 
-        $sc =  $statuscount->map(function ($item){
+        $sc =  $statuscount->map(function ($item) {
             return $item->count;
         });
 
         $rs = new ReserveStatus;
-        $rs->labels(['Rejected','Pending', 'Confirmed']);
+        $rs->labels(['Rejected', 'Pending', 'Confirmed']);
         $rs->title('Reservation Status Breakdown', 20, '#202828ff', true, "Helvetica");
-        $rs->displayAxes(false,false);
-        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838','rgba(217, 119, 6)', '#7158e2']));
+        $rs->displayAxes(false, false);
+        $rs->dataset('Status', 'doughnut', $sc)->backgroundColor(collect(['#ff3838', 'rgba(217, 119, 6)', '#7158e2']));
 
 
 
 
         $dayCount = Reservations::selectRaw('COUNT(*) as reservation_count')
-        ->selectRaw('DAYOFWEEK(reserve_date) as day_of_week')
-        ->whereYear('reserve_date', $targetYear)
-        ->groupBy(DB::raw('DAYOFWEEK(reserve_date)'))
-        ->orderBy(DB::raw('DAYOFWEEK(reserve_date)'))
-        ->get();
+            ->selectRaw('DAYOFWEEK(reserve_date) as day_of_week')
+            ->whereYear('reserve_date', $targetYear)
+            ->groupBy(DB::raw('DAYOFWEEK(reserve_date)'))
+            ->orderBy(DB::raw('DAYOFWEEK(reserve_date)'))
+            ->get();
 
-        $dc = $dayCount->map(function ($item){
+        $dc = $dayCount->map(function ($item) {
             return $item->reservation_count;
         });
 
@@ -98,17 +97,17 @@ class DashboardController extends Controller
             'rgba(54, 162, 235, 0.8)',
             'rgba(153, 102, 255, 0.8)',
             'rgba(201, 203, 207, 0.8)'
-          ]));
+        ]));
 
 
         $confirmedStatus = 'confirmed';
         $otherStatuses = ['pending', 'canceled'];
 
         $confirmedCounts = Reservations::select(
-                DB::raw('YEAR(reserve_date) as year'),
-                DB::raw('MONTH(reserve_date) as month'),
-                DB::raw('COUNT(*) as total_count')
-            )
+            DB::raw('YEAR(reserve_date) as year'),
+            DB::raw('MONTH(reserve_date) as month'),
+            DB::raw('COUNT(*) as total_count')
+        )
             ->whereIn('status', [$confirmedStatus])
             ->whereYear('reserve_date', $targetYear)
             ->groupBy(DB::raw('YEAR(reserve_date)'), DB::raw('MONTH(reserve_date)'))
@@ -139,10 +138,10 @@ class DashboardController extends Controller
 
 
         $timeCount = Reservations::selectRaw('HOUR(reserve_time) as hour, COUNT(*) as reservation_count')
-        ->whereYear('reserve_date', $targetYear)
-        ->groupBy(DB::raw('HOUR(reserve_time)'))
-        ->orderBy(DB::raw('HOUR(reserve_time)'), 'asc')
-        ->get();
+            ->whereYear('reserve_date', $targetYear)
+            ->groupBy(DB::raw('HOUR(reserve_time)'))
+            ->orderBy(DB::raw('HOUR(reserve_time)'), 'asc')
+            ->get();
 
         $open = Carbon::createFromFormat('H:i:s', Form::first()->open);
         $close = Carbon::createFromFormat('H:i:s', Form::first()->close);
@@ -171,22 +170,22 @@ class DashboardController extends Controller
         $rf->dataset('Reservations', 'bar', $hc)->backgroundColor('rgba(255, 99, 132, 0.5)');
 
         $messages = ChatMessage::where('users_id', 1)
-        ->orderBy('created_at')
-        ->get();
+            ->orderBy('created_at')
+            ->get();
 
         $chat = User::whereIn('id', function ($query) {
-        $query->select('users_id')
-        ->from('chat_messages')
-        ->groupBy('users_id');
+            $query->select('users_id')
+                ->from('chat_messages')
+                ->groupBy('users_id');
         })
-        ->get();
+            ->get();
 
 
-        return view('reportgraph', compact('mr', 'rs','dr', 'cr', 'hl', 'hc', 'rf', 'chat', 'messages'));
-
+        return view('reportgraph', compact('mr', 'rs', 'dr', 'cr', 'hl', 'hc', 'rf', 'chat', 'messages'));
     }
 
-    public function report(Request $r){
+    public function report(Request $r)
+    {
 
         $field = Field::select('fields.*', 'form_extras.enabled')->join('form_extras', 'form_extras.id', '=', 'fields.formextra_id')->where('form_extras.enabled', 1)->get();
 
@@ -199,80 +198,79 @@ class DashboardController extends Controller
             $report = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->sortable()->whereBetween('reserve_date', [$fromDate, $toDate])->paginate(10);
 
 
-            return view('report', compact('report','field','formextra'));
+            return view('report', compact('report', 'field', 'formextra'));
         }
 
         $report = Reservations::join('users', 'users.id', '=', 'reservations.users_id')->sortable()->paginate(10);
 
         $messages = ChatMessage::where('users_id', 1)
-        ->orderBy('created_at')
-        ->get();
-
-        $chat = User::whereIn('id', function ($query) {
-        $query->select('users_id')
-        ->from('chat_messages')
-        ->groupBy('users_id');
-        })
-        ->get();
-        return view('report', compact('report','field','formextra', 'chat', 'messages'));
-    }
-
-    public function calendar(){
-        $reservations = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
-        ->join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
-
-        $canceled = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
-        ->join('users', 'users.id', '=', 'reservations.users_id')
-        ->orderBy('reservations.reserve_date', 'desc')
-        ->get();
-
-        $upcoming = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
-        ->join('users', 'users.id', '=', 'reservations.users_id')
-        ->where('reservations.reserve_date', '>', now())
-        ->orderBy('reservations.reserve_date')
-        ->get();
-
-
-        $field = Field::all();
-        $formExtra = FormExtra::where('enabled', 1)->get();
-
-        $messages = ChatMessage::where('users_id', 1)
-                                 ->orderBy('created_at')
-                                 ->get();
+            ->orderBy('created_at')
+            ->get();
 
         $chat = User::whereIn('id', function ($query) {
             $query->select('users_id')
                 ->from('chat_messages')
                 ->groupBy('users_id');
         })
-        ->get();
+            ->get();
+        return view('report', compact('report', 'field', 'formextra', 'chat', 'messages'));
+    }
+
+    public function calendar()
+    {
+        $reservations = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+            ->join('users', 'users.id', '=', 'reservations.users_id')->orderBy('reservations.created_at', 'desc')->get();
+
+        $canceled = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+            ->join('users', 'users.id', '=', 'reservations.users_id')
+            ->orderBy('reservations.reserve_date', 'desc')
+            ->get();
+
+        $upcoming = Reservations::select('reservations.*', 'users.name', 'users.email', 'users.phone_number', 'users.dob')
+            ->join('users', 'users.id', '=', 'reservations.users_id')
+            ->where('reservations.reserve_date', '>', now())
+            ->orderBy('reservations.reserve_date')
+            ->get();
+
+
+        $field = Field::all();
+        $formExtra = FormExtra::where('enabled', 1)->get();
+
+        $messages = ChatMessage::where('users_id', 1)
+            ->orderBy('created_at')
+            ->get();
+
+        $chat = User::whereIn('id', function ($query) {
+            $query->select('users_id')
+                ->from('chat_messages')
+                ->groupBy('users_id');
+        })
+            ->get();
 
 
         return view('calendar', compact('reservations', 'field', 'formExtra', 'canceled', 'upcoming', 'messages', 'chat'));
     }
 
-    public function edit(){
+    public function edit()
+    {
         $form = Form::first();
         $formextra = FormExtra::all();
 
         $messages = ChatMessage::where('users_id', 1)
-        ->orderBy('created_at')
-        ->get();
+            ->orderBy('created_at')
+            ->get();
 
         $chat = User::whereIn('id', function ($query) {
-        $query->select('users_id')
-        ->from('chat_messages')
-        ->groupBy('users_id');
+            $query->select('users_id')
+                ->from('chat_messages')
+                ->groupBy('users_id');
         })
-        ->get();
-
-
-
+            ->get();
         return view('editform', compact('form', 'formextra', 'chat', 'messages'));
-
     }
 
-    public function editUpdate(Request $r){
+    public function editUpdate(Request $r)
+    {
         $data = Form::first();
         $validator = Validator::make($r->all(), [
             'open' => [
@@ -288,8 +286,6 @@ class DashboardController extends Controller
         ]);
 
         $validator->validate();
-
-
 
         $data->limit = $r->limit;
         $data->range = $r->range;
@@ -309,13 +305,11 @@ class DashboardController extends Controller
             $da->enabled = $r->input($da->id);
             $da->save();
         }
-
-
         return redirect('edit');
-
     }
 
-    public function addField(Request $r){
+    public function addField(Request $r)
+    {
         $data = Form::first();
         $dataAdd = new FormExtra();
 
@@ -328,7 +322,8 @@ class DashboardController extends Controller
         return redirect('edit');
     }
 
-    public function deleteField($id){
+    public function deleteField($id)
+    {
         $dataAdd = FormExtra::find($id);
 
         $dataAdd->delete();
@@ -336,30 +331,32 @@ class DashboardController extends Controller
         return redirect('edit');
     }
 
-    public function usermanage(){
+    public function usermanage()
+    {
 
         $usermanage = User::where('role', '!=', 'Customer')->paginate(10);
         $messages = ChatMessage::where('users_id', 1)
-        ->orderBy('created_at')
-        ->get();
+            ->orderBy('created_at')
+            ->get();
 
         $chat = User::whereIn('id', function ($query) {
-        $query->select('users_id')
-        ->from('chat_messages')
-        ->groupBy('users_id');
+            $query->select('users_id')
+                ->from('chat_messages')
+                ->groupBy('users_id');
         })
-        ->get();
+            ->get();
 
 
         return view('usermanage', compact('usermanage', 'chat', 'messages'));
     }
 
-    public function addUser(Request $r){
-        $validation = Validator::make($r->all() ,[
+    public function addUser(Request $r)
+    {
+        $validation = Validator::make($r->all(), [
             'name' => ['required', 'string', 'max:60'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required'],
-            'role' => ['required','string']
+            'role' => ['required', 'string']
         ]);
 
         $validation->validate();
@@ -376,7 +373,8 @@ class DashboardController extends Controller
         return redirect('usermanage');
     }
 
-    public function deleteUser($id){
+    public function deleteUser($id)
+    {
         $deleteUser = User::find($id);
 
         $deleteUser->delete();
@@ -384,27 +382,19 @@ class DashboardController extends Controller
         return redirect('usermanage');
     }
 
-    public function getChat(Request $r){
+    public function getChat(Request $r)
+    {
         $id = $r->query('id');
         $user = User::findOrFail($id);
         $messages = ChatMessage::where('users_id', $id)
-                                 ->orderBy('created_at')
-                                 ->get();
+            ->orderBy('created_at')
+            ->get();
 
         return view('components.chat-messages', compact('messages'));
-
     }
 
-    public function getChatView(){
-        $user = User::all();
-        $messages = ChatMessage::where('users_id', 1)
-                                 ->orderBy('created_at')
-                                 ->get();
-
-        return view('chat', compact('messages', 'user'));
-    }
-
-    public function chatstore(Request $request){
+    public function chatstore(Request $request)
+    {
 
         $message = new ChatMessage([
             'users_id' => $request->user_id,
@@ -415,8 +405,4 @@ class DashboardController extends Controller
 
         return back();
     }
-
-
-
-
 }

@@ -6,65 +6,32 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-//archive
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/aboutus', function(){
-//     return view('aboutus');
-// })->middleware(['auth', 'verified'])->name('aboutus');
-
-//TEST AREA
-Route::get('/testarea', [DashboardController::class, 'testarea']);
-
-//TEST AREA END
-
 //Home
-    Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
-    Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
-    Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
-    Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
-    Route::get('/transaction', [HomeController::class, 'transaction'])->name('transaction');
-    Route::post('/postInvoice', [HomeController::class, 'postInvoice'])->name('postInvoice');
-    Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
-    Route::get('/my-reservations', [HomeController::class, 'getList'])->name('myReservations');
-    Route::post('/cancelReservation/{id}', [HomeController::class, 'cancelReservation'])->name('cancelReservation');
-    Route::get('/reschedule/{id}', [HomeController::class, 'reschedule'])->name('reschedule');
-    Route::post('/rescheduleRes/{id}', [HomeController::class, 'rescheduleRes'])->name('rescheduleRes');
-//List need for client customers / guest
-// Register / Reserve Page
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('/about-us', [HomeController::class, 'aboutus'])->name('aboutus');
+Route::get('/reserve', [HomeController::class, 'reserve'])->name('reserve');
+Route::post('/postReserve', [HomeController::class, 'postReserve'])->name('postReserve');
+Route::get('/transaction', [HomeController::class, 'transaction'])->name('transaction');
+Route::post('/postInvoice', [HomeController::class, 'postInvoice'])->name('postInvoice');
+Route::get('/reserve-complete', [HomeController::class, 'reserveComplete'])->name('reserveComplete');
+Route::get('/my-reservations', [HomeController::class, 'getList'])->name('myReservations');
+Route::post('/cancelReservation/{id}', [HomeController::class, 'cancelReservation'])->name('cancelReservation');
+Route::get('/reschedule/{id}', [HomeController::class, 'reschedule'])->name('reschedule');
+Route::post('/rescheduleRes/{id}', [HomeController::class, 'rescheduleRes'])->name('rescheduleRes');
 
-// About Us
-
-
-//
-
-// List need for client user:
-// Dashboard (calendar &stats)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['isAdmin', 'verified'])->name('dashboard');
-
+//User Management
 Route::middleware('isAdmin')->group(function () {
     Route::get('/usermanage', [DashboardController::class, 'usermanage'])->name('usermanage');
     Route::post('/addUser', [DashboardController::class, 'addUser'])->name('addUser');
     Route::get('/deleteUser/{id}', [DashboardController::class, 'deleteUser'])->name('deleteUser');
 });
 
+// Calendar
 Route::middleware('isAdmin')->group(function () {
     Route::get('/calendar', [DashboardController::class, 'calendar'])->name('calendar');
 });
+
+
 Route::get('/check-reservation', [APIController::class, 'checkReservation'])->name('check-reservation');
 
 //API For confirmation
@@ -96,17 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Chat?
+//Chat
 Route::middleware('auth')->group(function () {
-    Route::get('/edit', [DashboardController::class, 'edit'])->name('edit');
-    Route::get('/chat', [DashboardController::class, 'getChatView'])->name('getChatView');
     Route::post('/admin/chat', [DashboardController::class, 'chatstore'])->name('chat.store');
     Route::get('/admin/chat', [DashboardController::class, 'getChat'])->name('getChat');
     Route::post('/user/chat', [HomeController::class, 'chatcStore'])->name('chat.cstore');
-    Route::get('/user/chat/get', [HomeController::class, 'getUserChat'])->name('getUserChat');
+    Route::get('/user/chat', [HomeController::class, 'getUserChat'])->name('getUserChat');
 });
 
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

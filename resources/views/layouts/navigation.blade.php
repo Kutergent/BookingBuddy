@@ -1,6 +1,6 @@
 <div class="flex h-screen">
     <!-- Sidebar -->
-    <aside class="w-64 bg-gunmetal shadow-lg flex flex-col justify-between rounded-r-lg shadow-lg">
+    <aside class="min-w-64 max-w-64 bg-gunmetal shadow-lg flex flex-col justify-between rounded-r-lg shadow-lg">
         <div class="">
 
             {{-- Profileman --}}
@@ -94,26 +94,11 @@
                 <span class="text-gray-300">Booking Buddy</span>
             </div>
         </div>
-
-
-
     </aside>
-
-    <!-- Content -->
     <div class="flex-1 flex flex-col">
-        {{-- <header class="bg-white border-b border-gray-100 py-2 px-4">
-        <h1 class="text-2xl text-gray-800">BRUH MOMENT</h1>
-      </header> --}}
-
         <main class="flex-1 p-4 overflow-y-auto">
-            <!-- Page content goes here -->
             {{ $slot }}
         </main>
 
-        {{-- <footer class="bg-gainsboro">
-        <div class="p-4">
-          <h2 class="text-xl text-black">Footer</h2>
-        </div>
-      </footer> --}}
     </div>
 </div>

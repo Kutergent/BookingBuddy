@@ -6,7 +6,6 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('welcome') }}">
-                        <!-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> -->
                         <svg class="h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bb-svg">
                             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="16">BB</text>
                         </svg>
@@ -51,7 +50,6 @@
 
             </div>
 
-            <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -62,7 +60,6 @@
             </div>
 
             @auth
-            <!-- User Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -98,7 +95,6 @@
             @endauth
 
             @guest
-            <!-- Guest Login -->
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                     {{ __('Login') }}
@@ -108,18 +104,4 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                {{ __('Home') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('aboutus')" :active="request()->routeIs('aboutus')">
-                {{ __('About Us') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('reserve')" :active="request()->routeIs('reserve')">
-                {{ __('Reserve') }}
-            </x-responsive-nav-link>
-        </div>
-    </div>
 </nav>

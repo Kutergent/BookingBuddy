@@ -1,13 +1,9 @@
 <x-guest-layout>
-
-
     <div class="min-h-screen flex items-center justify-center p-12 bg-gray-950">
         <div class="p-4 rounded-lg mx-auto w-full max-w-[550px] shadow-xl bg-gray-200" style="background-size: cover; background-position: center center; box-shadow: rgba(0, 0, 0, 0.4) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
             <form action="{{ route('rescheduleRes', ['id' => $res->id]) }}" method="POST">
              @csrf
-
                 <div class="-mx-3 flex flex-wrap">
-
                     <div class="w-full px-3">
                         <div class="mt-4">
                             <x-input-label for="reserve_date" :value="__('Reservation Date')" />
@@ -37,20 +33,7 @@
                             <x-input-error :messages="$errors->get('reserve_time')" class="mt-2" />
                         </div>
                     </div>
-
-
-                    {{-- @foreach ($formextra as $da)
-                        @if ($da->enabled == 1)
-                            <div class="w-full px-3">
-                                <div class="mt-4">
-                                    <x-input-label for="{{ $da->id }}" :value="$da->name" />
-                                    <x-text-input id="{{ $da->id }}" class="block mt-1 w-full" type="text" name="{{ $da->id }}" :value="old('{{ $da->id }}')" required autofocus autocomplete="{{ $da->id }}" />
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach --}}
                 </div>
-
                 <div class="container flex flex-wrap">
                     <x-primary-button class="mt-4">
                         {{ __('Update Reservation!') }}
@@ -59,8 +42,6 @@
             </form>
         </div>
     </div>
-
-
-    </x-guest-layout>
+</x-guest-layout>
 
 

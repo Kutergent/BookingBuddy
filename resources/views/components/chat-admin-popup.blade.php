@@ -1,8 +1,6 @@
-{{-- Button thing --}}
+<!-- Button thing -->
 <div class="z-10 fixed bottom-4 right-4">
     <button class="p-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-500" onclick="toggleUsersPopup()">
-
-
         <svg fill="#FFFFFF" class="h-6 w-6" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" xml:space="preserve">
         <path d="M30,1.5c-16.542,0-30,12.112-30,27c0,5.205,1.647,10.246,4.768,14.604c-0.591,6.537-2.175,11.39-4.475,13.689
                     c-0.304,0.304-0.38,0.769-0.188,1.153C0.276,58.289,0.625,58.5,1,58.5c0.046,0,0.093-0.003,0.14-0.01
@@ -11,12 +9,9 @@
     </button>
 </div>
 
-
-
 <div class="flex h-fit">
     <!-- User List -->
     <div class="hidden z-40 bg-white rounded-lg shadow-lg mr-2 bottom-4 right-4 users-popup fixed max-h-96">
-        <!-- Header -->
         <div class="bg-gunmetal text-white p-4 rounded-t-lg">
             <div class="flex items-center justify-between">
                 <div class="cursor-pointer toggle-users-list">
@@ -25,8 +20,7 @@
                     </svg>
                 </div>
                 <div class="text-white">Chat</div>
-                <div>
-                </div>
+                <div></div>
             </div>
         </div>
 
@@ -59,9 +53,10 @@
                     <path fill-rule="evenodd" d="M3.646 9.646a.5.5 0 0 1 .708 0L10 14.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                 </svg>
             </div>
-            <div class="text-white">Chat with <span id="selected-user">User</span></div>
-            <div>
+            <div class="text-white">Chat with
+                <span id="selected-user">User</span>
             </div>
+            <div></div>
         </div>
         <div class="chat-container h-64 overflow-y-auto" id="chat-container">
             @include('components.chat-messages', ['messages' => $messages])
@@ -77,93 +72,81 @@
             </div>
         </form>
     </div>
-
-
 </div>
 
-
 <script>
+    const UsersPopup = document.querySelector('.users-popup')
+    const chatPopup = document.querySelector('.chat-popup')
+    const toggleUsers = document.querySelectorAll('.toggle-users-list')
+    const toggleChat = document.querySelectorAll('.toggle-chat')
+
+    toggleUsers.forEach(button => {
+        button.addEventListener('click', () => {
+            UsersPopup.classList.toggle('hidden')
+        })
+    })
+    toggleChat.forEach(button => {
+        button.addEventListener('click', () => {
+            chatPopup.classList.toggle('hidden')
+        })
+    })
+
     function toggleUsersPopup() {
                 const UsersPopup = document.querySelector('.users-popup')
-                UsersPopup.classList.toggle('hidden');
+                UsersPopup.classList.toggle('hidden')
             }
     function scrollToBottom() {
         var chatContainer = document.getElementById('chat-container')
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        chatContainer.scrollTop = chatContainer.scrollHeight
     }
-
     function refreshChat(){
         const userId = document.getElementById('user_id_input').value
-        const chatPopup = document.querySelector('.chat-popup');
+        const chatPopup = document.querySelector('.chat-popup')
 
         if (!chatPopup.classList.contains('hidden')) {
             openChat(userId)
         }
     }
+    function openChat(userId) {
+        const chatPopup = document.querySelector('.chat-popup')
+        chatPopup.classList.remove('hidden')
 
+        const userInputElement = document.getElementById('user_id_input')
+        userInputElement.value = userId
+
+        fetch('{{ route('getUserData') }}?id=' + userId)
+            .then(response => response.json())
+            .then(userData => {
+                const selectedUserElement = document.getElementById('selected-user')
+                selectedUserElement.textContent = userData.name
+            })
+
+        fetch('{{ route('getChat') }}?id=' + userId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('chat-container').innerHTML = data
+                scrollToBottom()
+            })
+    }
     window.onload = function() {
         scrollToBottom()
         setInterval(refreshChat, 10000)
-    };
+    }
 
     document.getElementById('chat-form').addEventListener('submit', function (e) {
-        e.preventDefault();
+        e.preventDefault()
         fetch('{{ route('chat.store') }}', {
             method: 'POST',
             body: new FormData(document.getElementById('chat-form'))
         }).then(response => {
-            document.querySelector('input[name="message"]').value = '';
+            document.querySelector('input[name="message"]').value = ''
             const userId = document.getElementById('user_id_input').value
             openChat(userId)
         }).catch(error => {
-        });
-    });
-
-
+        })
+    })
 
     document.addEventListener('DOMContentLoaded', function() {
-        scrollToBottom();
-    });
-
-    const UsersPopup = document.querySelector('.users-popup')
-    const chatPopup = document.querySelector('.chat-popup')
-    const toggleUsers = document.querySelectorAll('.toggle-users-list');
-    const toggleChat = document.querySelectorAll('.toggle-chat');
-
-
-        toggleUsers.forEach(button => {
-            button.addEventListener('click', () => {
-                UsersPopup.classList.toggle('hidden');
-            });
-        });
-        toggleChat.forEach(button => {
-            button.addEventListener('click', () => {
-                chatPopup.classList.toggle('hidden');
-            });
-        });
-
-    function openChat(userId) {
-    const chatPopup = document.querySelector('.chat-popup')
-    chatPopup.classList.remove('hidden');
-
-
-    const userInputElement = document.getElementById('user_id_input');
-    userInputElement.value = userId;
-
-    fetch('{{ route('getUserData') }}?id=' + userId)
-        .then(response => response.json())
-        .then(userData => {
-            // Update the selected user's name
-            const selectedUserElement = document.getElementById('selected-user');
-            selectedUserElement.textContent = userData.name;
-        });
-
-    // Fetch and update chat messages based on selected user
-    fetch('{{ route('getChat') }}?id=' + userId)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('chat-container').innerHTML = data;
-            scrollToBottom();
-        });
-}
+        scrollToBottom()
+    })
 </script>

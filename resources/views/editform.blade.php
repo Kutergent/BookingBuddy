@@ -1,5 +1,4 @@
 <x-app-layout>
-    {{-- MAIN CONTENT --}}
     <div class="min-h-fit p-6 flex justify-center">
         <div class="container max-w-screen-lg mx-auto">
 
@@ -362,31 +361,31 @@
     <x-slot name="scripts">
         <script>
           document.addEventListener('DOMContentLoaded', function() {
-            addFieldButton = document.getElementById('addField');
-            var createUserModal = document.getElementById('addFieldModal');
-            var cancelButton = document.getElementById('cancelButton');
+            addFieldButton = document.getElementById('addField')
+            var createUserModal = document.getElementById('addFieldModal')
+            var cancelButton = document.getElementById('cancelButton')
 
             addFieldButton.addEventListener('click', function() {
-                createUserModal.classList.remove('hidden');
-            });
+                createUserModal.classList.remove('hidden')
+            })
 
             cancelButton.addEventListener('click', function() {
-                createUserModal.classList.add('hidden');
-            });
+                createUserModal.classList.add('hidden')
+            })
 
-            const slider = document.getElementById('customRange1');
-            const numberInput = document.getElementById('numberInput');
+            const slider = document.getElementById('customRange1')
+            const numberInput = document.getElementById('numberInput')
 
 
             slider.addEventListener('input', function() {
-                numberInput.value = slider.value;
-            });
+                numberInput.value = slider.value
+            })
 
             numberInput.addEventListener('input', function() {
-                slider.value = numberInput.value;
-            });
+                slider.value = numberInput.value
+            })
 
-          });
+          })
 
         </script>
     </x-slot>

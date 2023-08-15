@@ -1,11 +1,9 @@
 <x-guest-layout>
-
     <div class="min-h-screen flex items-center justify-center bg-gray-950">
     <div class="container mx-auto sm:p-4 text-gray-900 bg-gray-200 rounded shadow-lg p-4 px-4 md:p-8 mb-6 mt-4">
         <h2 class="mb-4 text-2xl font-semibold leading-tight">My Reservations History</h2>
 
         <hr class="my-4">
-        <!-- Datepicker -->
         <form action="{{ route('myReservations') }}" method="GET">
             <div date-rangepicker class="flex items-center mb-2 item">
                 <div class="relative">
@@ -111,8 +109,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- pagination -->
-            {{-- {{ $reservations->links() }} --}}
             {!! $reservations->appends(Request::except('page'))->render() !!}
         </div>
     </div>
@@ -122,5 +118,4 @@
         @slot('messages', $messages)
     </x-chat-popup>
 @endauth
-
 </x-guest-layout>

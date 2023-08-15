@@ -1,5 +1,4 @@
 <x-guest-layout>
-
     <div class="relative pt-16 pb-32 flex content-center items-center justify-center" style="min-height: 75vh;">
         <div class="absolute top-0 w-full h-full bg-center bg-cover bg-gray-950">
             <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-gray-950">
@@ -255,8 +254,8 @@
         </div>
     </footer>
     @auth
-            <x-chat-popup>
-                @slot('messages', $messages)
-            </x-chat-popup>
-        @endauth
+        <x-chat-popup>
+            @slot('messages', $messages)
+        </x-chat-popup>
+    @endauth
 </x-guest-layout>
