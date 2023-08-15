@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function reportgraph(Request $r)
     {
 
-        $targetYear = $r->query('year');
+        $targetYear = $r->query('year')?? 2023;
 
         $monthNames = [
             1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',

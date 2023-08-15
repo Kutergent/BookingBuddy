@@ -123,7 +123,7 @@ class UserSeeder extends Seeder
         ]);
 
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 150; $i++) {
             $name = $faker->firstName . ' ' . $faker->lastName;
             $email = strtolower(str_replace(' ', '.', $name)) . '@gmail.co.id';
 
